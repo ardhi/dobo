@@ -1,6 +1,6 @@
 # dobo
 
-Plugin name: **bajoDb**, alias: **db**
+Plugin name: **dobo**, alias: **db**
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/ardhi/dobo) ![NPM Version](https://img.shields.io/npm/v/dobo)
 
