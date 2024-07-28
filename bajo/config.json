@@ -1,0 +1,27 @@
+{
+  "alias": "db",
+  "connections": [],
+  "dependencies": [],
+  "mergeProps": ["connections"],
+  "defaults": {
+    "property": {
+      "text": {
+        "kind": "text"
+      },
+      "string": {
+        "length": 50
+      }
+    },
+    "filter": {
+      "limit": 25,
+      "maxLimit": 200,
+      "sort": ["dt:-1", "updatedAt:-1", "updated_at:-1", "createdAt:-1", "createdAt:-1", "ts:-1", "username", "name"]
+    },
+    "idField": {
+      "type": "string",
+      "maxLength": 50,
+      "required": true,
+      "index": { "type": "primary" }
+    }
+  }
+}

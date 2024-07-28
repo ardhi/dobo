@@ -1,0 +1,31 @@
+{
+  "name": "dobo",
+  "version": "1.0.0",
+  "description": "Database ORM/ODM for Bajo Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ardhi/dobo.git"
+  },
+  "keywords": [
+    "database",
+    "db",
+    "orm",
+    "bajo",
+    "framework"
+  ],
+  "author": "Ardhi Lukianto <ardhi@lukianto.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ardhi/dobo/issues"
+  },
+  "homepage": "https://github.com/ardhi/dobo#readme",
+  "dependencies": {
+    "@tryghost/nql": "^0.12.3",
+    "joi": "^17.13.3"
+  }
+}
