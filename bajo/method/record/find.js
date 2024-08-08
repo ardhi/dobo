@@ -4,7 +4,7 @@ import multiRelRows from '../../../lib/multi-rel-rows.js'
 async function find (name, filter = {}, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { get, set } = this.cache ?? {}
-  const { cloneDeep } = this.app.bajo.lib._
+  const { cloneDeep, camelCase } = this.app.bajo.lib._
   const options = cloneDeep(opts)
   options.dataOnly = options.dataOnly ?? true
   const { fields, dataOnly, noHook, noCache, hidden } = options
@@ -15,8 +15,8 @@ async function find (name, filter = {}, opts = {}) {
   filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {
-    await runHook(`${this.name}:onBeforeRecordFind`, name, filter, options)
-    await runHook(`${this.name}.${name}:onBeforeRecordFind`, filter, options)
+    await runHook(`${this.name}:beforeRecordFind`, name, filter, options)
+    await runHook(`${this.name}.${camelCase(name)}:beforeRecordFind`, filter, options)
   }
   if (get && !noCache) {
     const cachedResult = await get({ model: name, filter, options })
@@ -27,8 +27,8 @@ async function find (name, filter = {}, opts = {}) {
   }
   const records = await handler.call(this.app[driver.ns], { schema, filter, options })
   if (!noHook) {
-    await runHook(`${this.name}.${name}:onAfterRecordFind`, filter, options, records)
-    await runHook(`${this.name}:onAfterRecordFind`, name, filter, options, records)
+    await runHook(`${this.name}.${camelCase(name)}:afterRecordFind`, filter, options, records)
+    await runHook(`${this.name}:afterRecordFind`, name, filter, options, records)
   }
   for (const idx in records.data) {
     records.data[idx] = await this.pickRecord({ record: records.data[idx], fields, schema, hidden })

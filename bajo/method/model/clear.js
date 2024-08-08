@@ -2,17 +2,19 @@ import resolveMethod from '../../../lib/resolve-method.js'
 
 async function clear (name, options = {}) {
   const { runHook } = this.app.bajo
+  const { camelCase } = this.app.bajo.lib._
+
   await this.modelExists(name, true)
   const { noHook } = options
   const { handler, schema } = await resolveMethod.call(this, name, 'model-clear')
   if (!noHook) {
-    await runHook(`${this.name}:onBeforeCollClear`, name, options)
-    await runHook(`${this.name}.${name}:onBeforeCollClear`, options)
+    await runHook(`${this.name}:beforeModelClear`, schema, options)
+    await runHook(`${this.name}.${camelCase(name)}:beforeModelClear`, options)
   }
   const resp = await handler.call(this, { schema, options })
   if (!noHook) {
-    await runHook(`${this.name}.${name}:onAfterCollClear`, options, resp)
-    await runHook(`${this.name}:onAfterCollClear`, name, options, resp)
+    await runHook(`${this.name}.${camelCase(name)}:afterModelClear`, options, resp)
+    await runHook(`${this.name}:afterModelClear`, schema, options, resp)
   }
   return resp
 }

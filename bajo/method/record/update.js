@@ -7,7 +7,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 async function update (name, id, input, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { clearColl } = this.cache ?? {}
-  const { get, forOwn, find, cloneDeep } = this.app.bajo.lib._
+  const { get, forOwn, find, cloneDeep, camelCase } = this.app.bajo.lib._
   const options = cloneDeep(opts)
   options.dataOnly = options.dataOnly ?? true
   input = cloneDeep(input)
@@ -20,8 +20,8 @@ async function update (name, id, input, opts = {}) {
   let body = noSanitize ? input : await this.sanitizeBody({ body: input, schema, partial, strict: true })
   delete body.id
   if (!noHook) {
-    await runHook(`${this.name}:onBeforeRecordUpdate`, name, id, body, options)
-    await runHook(`${this.name}.${name}:onBeforeRecordUpdate`, id, body, options)
+    await runHook(`${this.name}:beforeRecordUpdate`, name, id, body, options)
+    await runHook(`${this.name}.${camelCase(name)}:beforeRecordUpdate`, id, body, options)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeUpdate', { schema, body })
   if (!noValidation) body = await execValidation.call(this, { noHook, name, body, options, partial })
@@ -47,8 +47,8 @@ async function update (name, id, input, opts = {}) {
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterUpdate', { schema, body: nbody, record })
   if (!noHook) {
-    await runHook(`${this.name}.${name}:onAfterRecordUpdate`, id, nbody, options, record)
-    await runHook(`${this.name}:onAfterRecordUpdate`, name, id, nbody, options, record)
+    await runHook(`${this.name}.${camelCase(name)}:afterRecordUpdate`, id, nbody, options, record)
+    await runHook(`${this.name}:afterRecordUpdate`, name, id, nbody, options, record)
   }
   if (clearColl) await clearColl({ model: name, id, body: nbody, options, record })
   if (noResult) return

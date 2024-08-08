@@ -7,7 +7,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 async function create (name, input, opts = {}) {
   const { generateId, runHook, isSet } = this.app.bajo
   const { clearColl } = this.cache ?? {}
-  const { get, find, forOwn, cloneDeep } = this.app.bajo.lib._
+  const { get, find, forOwn, cloneDeep, camelCase } = this.app.bajo.lib._
   const options = cloneDeep(opts)
   options.dataOnly = options.dataOnly ?? true
   input = cloneDeep(input)
@@ -23,8 +23,8 @@ async function create (name, input, opts = {}) {
   }
   let body = noSanitize ? input : await this.sanitizeBody({ body: input, schema, strict: true })
   if (!noHook) {
-    await runHook(`${this.name}:onBeforeRecordCreate`, name, body, options)
-    await runHook(`${this.name}.${name}:onBeforeRecordCreate`, body, options)
+    await runHook(`${this.name}:beforeRecordCreate`, name, body, options)
+    await runHook(`${this.name}.${camelCase(name)}:beforeRecordCreate`, body, options)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeCreate', { schema, body })
   if (!noValidation) body = await execValidation.call(this, { noHook, name, body, options })
@@ -49,8 +49,8 @@ async function create (name, input, opts = {}) {
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterCreate', { schema, body, record })
   if (!noHook) {
-    await runHook(`${this.name}.${name}:onAfterRecordCreate`, body, options, record)
-    await runHook(`${this.name}:onAfterRecordCreate`, name, body, options, record)
+    await runHook(`${this.name}.${camelCase(name)}:afterRecordCreate`, body, options, record)
+    await runHook(`${this.name}:afterRecordCreate`, name, body, options, record)
   }
   if (clearColl) await clearColl({ model: name, body, options, record })
   if (noResult) return

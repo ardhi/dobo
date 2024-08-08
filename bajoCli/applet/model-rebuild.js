@@ -1,9 +1,9 @@
 import addFixtures from '../../lib/add-fixtures.js'
 
-async function modelRebuild ({ path, args }) {
-  const { importPkg, outmatch } = this.app.bajo
+async function modelRebuild (...args) {
+  const { importPkg } = this.app.bajo
+  const { outmatch } = this.app.bajo.lib
   const { isEmpty, map, trim } = this.app.bajo.lib._
-  const spinner = this.print.spinner
   const [input, confirm, boxen] = await importPkg('bajoCli:@inquirer/input',
     'bajoCli:@inquirer/confirm', 'bajoCli:boxen')
   const schemas = map(this.schemas, 'name')
@@ -25,26 +25,28 @@ async function modelRebuild ({ path, args }) {
     default: false
   })
   if (!answer) return this.print.fail('Aborted!', { exit: this.app.bajo.applet })
+  /*
   const conns = []
   for (const s of names) {
     const { connection } = this.getInfo(s)
     if (!conns.includes(connection.name)) conns.push(connection.name)
   }
-  await this.start(conns)
+  */
+  await this.start('all')
   const result = { succed: 0, failed: 0, skipped: 0 }
   for (const s of names) {
     const { schema, instance, connection } = this.getInfo(s)
-    const spin = spinner({ showCounter: true }).start('Rebuilding \'%s\'...', schema.name)
+    const spin = this.print.spinner({ showCounter: true }).start('Rebuilding \'%s\'...', schema.name)
     if (!instance) {
       spin.warn('Client instance not connected \'%s@%s\'. Skipped!', schema.connection, schema.name)
       result.skipped++
       continue
     }
-    const exists = await this.modelExists(schema, false, spinner)
+    const exists = await this.modelExists(schema.name, false, { spinner: spin })
     if (exists) {
       if (this.app.bajo.config.force) {
         try {
-          await this.modelDrop(schema, spinner)
+          await this.modelDrop(schema.name, { spinner: spin })
           spin.setText('Model \'%s\' successfully dropped', schema.name)
         } catch (err) {
           spin.fail('Error on dropping model \'%s\': %s', schema.name, err.message)
@@ -58,10 +60,10 @@ async function modelRebuild ({ path, args }) {
       }
     }
     try {
-      await this.modelCreate(schema, spinner)
+      await this.modelCreate(schema.name, { spinner: spin })
       if (connection.memory) spin.succeed('Model \'%s\' successfully created', schema.name)
       else {
-        const fixture = await addFixtures.call(this, schema, spin)
+        const fixture = await addFixtures.call(this, schema.name, { spinner: spin })
         spin.succeed('Model \'%s\' successfully created, with fixture: added %d, rejected: %s', schema.name, fixture.success, fixture.failed)
       }
       result.succed++
@@ -72,6 +74,7 @@ async function modelRebuild ({ path, args }) {
     }
   }
   this.print.info('Done! Succeded: %d, failed: %s, skipped: %d', result.succed, result.failed, result.skipped)
+  process.exit()
 }
 
 export default modelRebuild

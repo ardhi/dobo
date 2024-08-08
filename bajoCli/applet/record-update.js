@@ -1,6 +1,6 @@
 import postProcess from './lib/post-process.js'
 
-async function updateRecord ({ path, args, options }) {
+async function updateRecord (path, ...args) {
   const { importPkg } = this.app.bajo
   const { isEmpty, map, isPlainObject } = this.app.bajo.lib._
   const [input, select, boxen] = await importPkg('bajoCli:@inquirer/input',
@@ -41,7 +41,7 @@ async function updateRecord ({ path, args, options }) {
     return this.print.fail('Invalid payload syntax', { exit: this.app.bajo.applet })
   }
   console.log(boxen(JSON.stringify(payload, null, 2), { title: schema, padding: 0.5, borderStyle: 'round' }))
-  await postProcess.call(this, { handler: 'recordUpdate', params: [schema, id, payload], path, processMsg: 'Updating record', options })
+  await postProcess.call(this, { handler: 'recordUpdate', params: [schema, id, payload], path, processMsg: 'Updating record' })
 }
 
 export default updateRecord

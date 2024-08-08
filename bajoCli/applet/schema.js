@@ -1,4 +1,4 @@
-async function schema ({ path, args }) {
+async function schema (path, ...args) {
   const { importPkg } = this.app.bajo
   const { isEmpty, map, find } = this.app.bajo.lib._
   const { getOutputFormat, writeOutput } = this.app.bajoCli
