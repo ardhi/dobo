@@ -2,7 +2,7 @@ function getInfo (name) {
   const { breakNsPath } = this.app.bajo
   const { find, map } = this.app.bajo.lib._
   const schema = this.getSchema(name)
-  const conn = find(this.connections, { name: schema.connection })
+  const conn = this.getConnection(schema.connection)
   const [ns, type] = breakNsPath(conn.type)
   const driver = find(this.drivers, { type, ns, driver: conn.driver })
   const instance = find(this.app[driver.ns].instances, { name: schema.connection })
