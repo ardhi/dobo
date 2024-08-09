@@ -6,7 +6,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 
 async function create (name, input, opts = {}) {
   const { generateId, runHook, isSet } = this.app.bajo
-  const { clearColl } = this.cache ?? {}
+  const { clearModel } = this.cache ?? {}
   const { get, find, forOwn, cloneDeep, camelCase } = this.app.bajo.lib._
   const options = cloneDeep(opts)
   options.dataOnly = options.dataOnly ?? true
@@ -52,7 +52,7 @@ async function create (name, input, opts = {}) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordCreate`, body, options, record)
     await runHook(`${this.name}:afterRecordCreate`, name, body, options, record)
   }
-  if (clearColl) await clearColl({ model: name, body, options, record })
+  if (clearModel) await clearModel({ model: name, body, options, record })
   if (noResult) return
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden })
   return dataOnly ? record.data : record

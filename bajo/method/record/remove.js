@@ -3,7 +3,7 @@ import handleAttachmentUpload from '../../../lib/handle-attachment-upload.js'
 
 async function remove (name, id, opts = {}) {
   const { runHook } = this.app.bajo
-  const { clearColl } = this.cache ?? {}
+  const { clearModel } = this.cache ?? {}
   const { cloneDeep, camelCase } = this.app.bajo.lib._
   const options = cloneDeep(opts)
   options.dataOnly = options.dataOnly ?? true
@@ -25,7 +25,7 @@ async function remove (name, id, opts = {}) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordRemove`, id, options, record)
     await runHook(`${this.name}:afterRecordRemove`, name, id, options, record)
   }
-  if (clearColl) await clearColl({ model: name, id, options, record })
+  if (clearModel) await clearModel({ model: name, id, options, record })
   if (noResult) return
   record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden })
   return dataOnly ? record.oldData : record

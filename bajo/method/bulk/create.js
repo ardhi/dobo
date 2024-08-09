@@ -4,7 +4,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 
 async function create (name, inputs, options) {
   const { generateId, runHook, isSet } = this.app.bajo
-  const { clearColl } = this.cache ?? {}
+  const { clearModel } = this.cache ?? {}
   const { find } = this.app.bajo.lib._
   options.dataOnly = options.dataOnly ?? true
   options.truncateString = options.truncateString ?? true
@@ -39,7 +39,7 @@ async function create (name, inputs, options) {
     await runHook(`${this.name}.${name}:afterBulkCreate`, bodies, options)
     await runHook(`${this.name}:afterBulkCreate`, name, bodies, options)
   }
-  if (clearColl) await clearColl({ model: name })
+  if (clearModel) await clearModel({ model: name })
 }
 
 export default create

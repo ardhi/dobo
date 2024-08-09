@@ -6,7 +6,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 
 async function update (name, id, input, opts = {}) {
   const { runHook, isSet } = this.app.bajo
-  const { clearColl } = this.cache ?? {}
+  const { clearModel } = this.cache ?? {}
   const { get, forOwn, find, cloneDeep, camelCase } = this.app.bajo.lib._
   const options = cloneDeep(opts)
   options.dataOnly = options.dataOnly ?? true
@@ -50,7 +50,7 @@ async function update (name, id, input, opts = {}) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordUpdate`, id, nbody, options, record)
     await runHook(`${this.name}:afterRecordUpdate`, name, id, nbody, options, record)
   }
-  if (clearColl) await clearColl({ model: name, id, body: nbody, options, record })
+  if (clearModel) await clearModel({ model: name, id, body: nbody, options, record })
   if (noResult) return
   record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden })
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden })
