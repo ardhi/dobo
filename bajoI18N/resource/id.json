@@ -59,6 +59,8 @@
   "Unsupported aggregate '%s'": "Unsupported aggregate '%s'",
   "Unsupported %s '%s' for '%s@%s'. Allowed choices: %s": "Unsupported %s '%s' for '%s@%s'. Allowed choices: %s",
   "Method '%s@%s' is disabled": "Metode '%s@%s' dinonaktifkan",
+  "Invalid model for persistence: %s": "Model untuk penyimpanan tidak valid: %s",
+  "Can't load %s: %s": "Tidak bisa memuat %s: %s",
   "field": {
     "id": "ID",
     "name": "Nama",

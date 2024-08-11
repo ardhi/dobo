@@ -1,6 +1,6 @@
 function buildPageSkipLimit (filter) {
-  let limit = parseInt(filter.limit) || this.config.defaults.filter.limit
-  if (limit > this.config.defaults.filter.maxLimit) limit = this.config.defaults.filter.maxLimit
+  let limit = parseInt(filter.limit) || this.config.default.filter.limit
+  if (limit > this.config.default.filter.maxLimit) limit = this.config.default.filter.maxLimit
   if (limit < 1) limit = 1
   let page = parseInt(filter.page) || 1
   if (page < 1) page = 1
@@ -18,7 +18,7 @@ function buildSort (input, schema, allowSortUnindexed) {
   let sort
   if (schema && isEmpty(input)) {
     const columns = map(schema.properties, 'name')
-    each(this.config.defaults.filter.sort, s => {
+    each(this.config.default.filter.sort, s => {
       const [col] = s.split(':')
       if (columns.includes(col)) {
         input = s

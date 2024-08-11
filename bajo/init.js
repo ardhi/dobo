@@ -9,6 +9,12 @@ async function init () {
   const cfg = this.config
   fs.ensureDirSync(`${cfg.dir.data}/attachment`)
   await collectDrivers.call(this)
+  if (cfg.memDb.createDefConnAtStart) {
+    this.config.connections.push({
+      type: 'dobo:memory',
+      name: 'memory'
+    })
+  }
   this.connections = await buildCollections({ ns: this.name, handler: collectConnections, dupChecks: ['name'] })
   if (this.connections.length === 0) this.log.warn('No %s found!', this.print.write('connection'))
   await collectFeature.call(this)
