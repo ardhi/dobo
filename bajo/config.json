@@ -27,8 +27,7 @@
   "memDb": {
     "createDefConnAtStart": true,
     "persistence": {
-      "models": [],
-      "period": 1
+      "syncPeriod": 1
     }
   }
 }

@@ -1,5 +1,5 @@
-import mdStart from '../lib/mem-db/start.js'
-import instantiate from '../lib/mem-db/instantiate.js'
+import memDbStart from '../lib/mem-db/start.js'
+import memDbInstantiate from '../lib/mem-db/instantiate.js'
 
 async function start (conns = 'all', noRebuild = true) {
   const { importModule, breakNsPath } = this.app.bajo
@@ -10,11 +10,11 @@ async function start (conns = 'all', noRebuild = true) {
   for (const c of conns) {
     const [ns] = breakNsPath(c.type)
     const schemas = filter(this.schemas, { connection: c.name })
-    const mod = c.type === 'dobo:memory' ? instantiate : await importModule(`${ns}:/${this.name}/boot/instantiate.js`)
+    const mod = c.type === 'dobo:memory' ? memDbInstantiate : await importModule(`${ns}:/${this.name}/boot/instantiate.js`)
     await mod.call(this.app[ns], { connection: c, noRebuild, schemas })
     this.log.trace('- Driver \'%s:%s\' instantiated', c.driver, c.name)
   }
-  await mdStart.call(this)
+  await memDbStart.call(this)
 }
 
 export default start

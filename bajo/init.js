@@ -3,6 +3,12 @@ import collectDrivers from '../lib/collect-drivers.js'
 import collectFeature from '../lib/collect-feature.js'
 import collectSchemas from '../lib/collect-schemas.js'
 
+async function checkType (item, items) {
+  const { filter } = this.app.bajo.lib._
+  const existing = filter(items, { type: 'dobo:memory' })
+  if (existing.length > 1) this.fatal('There could only be one connection type \'%s\'', item.type)
+}
+
 async function init () {
   const { buildCollections } = this.app.bajo
   const { fs } = this.app.bajo.lib
@@ -15,7 +21,7 @@ async function init () {
       name: 'memory'
     })
   }
-  this.connections = await buildCollections({ ns: this.name, handler: collectConnections, dupChecks: ['name'] })
+  this.connections = await buildCollections({ ns: this.name, handler: collectConnections, dupChecks: ['name', checkType] })
   if (this.connections.length === 0) this.log.warn('No %s found!', this.print.write('connection'))
   await collectFeature.call(this)
   await collectSchemas.call(this)
