@@ -12,10 +12,9 @@ async function checkType (item, items) {
 async function init () {
   const { buildCollections } = this.app.bajo
   const { fs } = this.app.bajo.lib
-  const cfg = this.config
-  fs.ensureDirSync(`${cfg.dir.data}/attachment`)
+  fs.ensureDirSync(`${this.dir.data}/attachment`)
   await collectDrivers.call(this)
-  if (cfg.memDb.createDefConnAtStart) {
+  if (this.config.memDb.createDefConnAtStart) {
     this.config.connections.push({
       type: 'dobo:memory',
       name: 'memory'
