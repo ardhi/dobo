@@ -3,7 +3,7 @@ function getInfo (name) {
   const { find, map } = this.app.bajo.lib._
   const schema = this.getSchema(name)
   const conn = this.getConnection(schema.connection)
-  const [ns, type] = breakNsPath(conn.type)
+  const { ns, path: type } = breakNsPath(conn.type)
   const driver = find(this.drivers, { type, ns, driver: conn.driver })
   const instance = find(this.app[driver.ns].instances, { name: schema.connection })
   const opts = conn.type === 'mssql' ? { includeTriggerModifications: true } : undefined

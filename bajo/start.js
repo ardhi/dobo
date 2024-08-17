@@ -8,7 +8,7 @@ async function start (conns = 'all', noRebuild = true) {
   else if (isString(conns)) conns = filter(this.connections, { name: conns })
   else conns = map(conns, c => find(this.connections, { name: c }))
   for (const c of conns) {
-    const [ns] = breakNsPath(c.type)
+    const { ns } = breakNsPath(c.type)
     const schemas = filter(this.schemas, { connection: c.name })
     const mod = c.type === 'dobo:memory' ? memDbInstantiate : await importModule(`${ns}:/${this.name}/boot/instantiate.js`)
     await mod.call(this.app[ns], { connection: c, noRebuild, schemas })
