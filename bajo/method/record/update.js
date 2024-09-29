@@ -7,8 +7,9 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 async function update (name, id, input, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { get, forOwn, find, cloneDeep, camelCase } = this.app.bajo.lib._
-  const options = cloneDeep(opts)
+  const { forOwn, find, cloneDeep, camelCase, omit, get } = this.app.bajo.lib._
+  const options = cloneDeep(omit(opts, ['req']))
+  options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
   input = cloneDeep(input)
   const { fields, dataOnly, noHook, noValidation, noCheckUnique, noFeatureHook, noResult, noSanitize, partial = true, hidden } = options
@@ -17,33 +18,29 @@ async function update (name, id, input, opts = {}) {
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-update')
   id = this.sanitizeId(id, schema)
-  let body = noSanitize ? input : await this.sanitizeBody({ body: input, schema, partial, strict: true })
+  const extFields = get(options, 'validation.extFields', [])
+  let body = noSanitize ? input : await this.sanitizeBody({ body: input, schema, partial, strict: true, extFields })
   delete body.id
   if (!noHook) {
     await runHook(`${this.name}:beforeRecordUpdate`, name, id, body, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordUpdate`, id, body, options)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeUpdate', { schema, body })
-  if (!noValidation) body = await execValidation.call(this, { noHook, name, body, options, partial })
+  if (!noValidation) body = await execValidation.call(this, { name, body, options, partial })
   if (!noCheckUnique) await checkUnique.call(this, { schema, body, id })
-  let record
   const nbody = {}
   forOwn(body, (v, k) => {
     if (v === undefined) return undefined
     const prop = find(schema.properties, { name: k })
-    if (options.truncateString && isSet(v) && prop && ['string', 'text'].includes(prop.type)) v = v.slice(0, prop.maxLength)
+    if (!prop) return undefined
+    if (options.truncateString && isSet(v) && ['string', 'text'].includes(prop.type)) v = v.slice(0, prop.maxLength)
     nbody[k] = v
   })
   delete nbody.id
-  try {
-    record = await handler.call(this.app[driver.ns], { schema, id, body: nbody, options })
-    if (options.req) {
-      if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, body, options, action: 'update' })
-      if (options.req.flash) options.req.flash('dbsuccess', { message: this.print.write('Record successfully updated'), record })
-    }
-  } catch (err) {
-    if (get(options, 'req.flash')) options.req.flash('dberr', err)
-    throw err
+  const record = await handler.call(this.app[driver.ns], { schema, id, body: nbody, options })
+  if (options.req) {
+    if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, body, options, action: 'update' })
+    if (options.req.flash) options.req.flash('notify', options.req.t('Record successfully updated'))
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterUpdate', { schema, body: nbody, record })
   if (!noHook) {

@@ -4,8 +4,9 @@ import singleRelRows from '../../../lib/single-rel-rows.js'
 async function get (name, id, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { get, set } = this.cache ?? {}
-  const { cloneDeep, camelCase } = this.app.bajo.lib._
-  const options = cloneDeep(opts)
+  const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
+  const options = cloneDeep(omit(opts, ['req']))
+  options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
   const { fields, dataOnly, noHook, noCache, hidden = [] } = options
   await this.modelExists(name, true)

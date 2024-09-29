@@ -3,8 +3,9 @@ import resolveMethod from '../../../lib/resolve-method.js'
 async function clear (name, opts = {}) {
   const { runHook } = this.app.bajo
   await this.modelExists(name, true)
-  const { cloneDeep, camelCase } = this.app.bajo.lib._
-  const options = cloneDeep(opts)
+  const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
+  const options = cloneDeep(omit(opts, ['req']))
+  options.req = opts.req
   const { noHook } = options
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-clear')
   if (!noHook) {

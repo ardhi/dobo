@@ -15,25 +15,26 @@ const validator = {
   timestamp: ['timestamp']
 }
 
-function buildFromDbSchema (schema, { fields = [], rule = {}, extProperties = [] } = {}) {
+function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } = {}) {
   // if (schema.validation) return schema.validation
   const {
     isPlainObject, get, each, isEmpty, isString, forOwn, keys,
-    find, isArray, has, cloneDeep, concat
+    find, isArray, has, cloneDeep, concat, without
   } = this.app.bajo.lib._
   const obj = {}
   const me = this
+  const refs = []
 
-  function getRuleKv (rule) {
+  function getRuleKv (kvRule) {
     let key
     let value
     let columns
-    if (isPlainObject(rule)) {
-      key = rule.rule
-      value = rule.params
-      columns = rule.fields
-    } else if (isString(rule)) {
-      [key, value, columns] = rule.split(':')
+    if (isPlainObject(kvRule)) {
+      key = kvRule.rule
+      value = kvRule.params
+      columns = kvRule.fields
+    } else if (isString(kvRule)) {
+      [key, value, columns] = kvRule.split(':')
     }
     return { key, value, columns }
   }
@@ -42,30 +43,30 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extProperties = []
     const minMax = { min: false, max: false }
     const rules = get(rule, prop.name, prop.rules ?? [])
     if (!isArray(rules)) return rules
-    let isRef
     each(rules, r => {
       const types = validator[me.propType[prop.type].validator]
       const { key, value } = getRuleKv(r)
+      if (keys(minMax).includes(key)) minMax[key] = true
       if (key === 'ref') {
-        isRef = true
+        refs.push(prop.name)
         obj = joi.ref(value)
         return undefined
       }
       if (!key || !types.includes(key)) return undefined
-      if (keys(minMax).includes(key)) minMax[key] = true
       obj = obj[key](value)
     })
-    if (!isRef && ['string', 'text'].includes(prop.type)) {
+    if (refs.includes(prop.name)) return obj
+    if (['string', 'text'].includes(prop.type)) {
       forOwn(minMax, (v, k) => {
         if (v) return undefined
         if (has(prop, `${k}Length`)) obj = obj[k](prop[`${k}Length`])
       })
     }
-    if (!isRef && !['id'].includes(prop.name) && prop.required) obj = obj.required()
+    if (!['id'].includes(prop.name) && prop.required) obj = obj.required()
     return obj
   }
 
-  const props = concat(cloneDeep(schema.properties), extProperties)
+  const props = concat(cloneDeep(schema.properties), extFields)
 
   for (const p of props) {
     if (excludedTypes.includes(p.type) || excludedNames.includes(p.name)) continue
@@ -105,7 +106,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extProperties = []
   }
   if (isEmpty(obj)) return false
   each(get(schema, 'globalRules', []), r => {
-    each(keys(obj), k => {
+    each(without(keys(obj), ...refs), k => {
       const prop = find(props, { name: k })
       if (!prop) return undefined
       const types = validator[me.propType[prop.type].validator]
@@ -123,13 +124,14 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extProperties = []
   return result
 }
 
-async function validate (value, joiSchema, { ns, fields, extProperties, params } = {}) {
+async function validate (value, joiSchema, { ns, fields, extFields, params } = {}) {
   const { defaultsDeep, isSet } = this.app.bajo
   const { isString, forOwn, find } = this.app.bajo.lib._
 
   ns = ns ?? [this.name]
   params = defaultsDeep(params, { abortEarly: false, convert: false, rule: undefined, allowUnknown: true })
   const { rule } = params
+  delete params.rule
   if (isString(joiSchema)) {
     const { schema } = this.getInfo(joiSchema)
     forOwn(value, (v, k) => {
@@ -141,7 +143,7 @@ async function validate (value, joiSchema, { ns, fields, extProperties, params }
         if (p.type === type) value[k] = this.sanitizeDate(value[k], { input, output: 'native' })
       }
     })
-    joiSchema = buildFromDbSchema.call(this, schema, { fields, rule, extProperties })
+    joiSchema = buildFromDbSchema.call(this, schema, { fields, rule, extFields })
   }
   if (!joiSchema) return value
   try {

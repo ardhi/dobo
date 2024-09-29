@@ -4,8 +4,9 @@ import handleAttachmentUpload from '../../../lib/handle-attachment-upload.js'
 async function remove (name, id, opts = {}) {
   const { runHook } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { cloneDeep, camelCase } = this.app.bajo.lib._
-  const options = cloneDeep(opts)
+  const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
+  const options = cloneDeep(omit(opts, ['req']))
+  options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
   const { fields, dataOnly, noHook, noResult, hidden } = options
   options.dataOnly = false
@@ -19,7 +20,7 @@ async function remove (name, id, opts = {}) {
   const record = await handler.call(this.app[driver.ns], { schema, id, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, options, action: 'remove' })
-    if (options.req.flash) options.req.flash('dbsuccess', { message: this.print.write('Record successfully removed'), record })
+    if (options.req.flash) options.req.flash('notify', options.req.t('Record successfully removed'))
   }
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordRemove`, id, options, record)

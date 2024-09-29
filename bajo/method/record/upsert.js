@@ -1,8 +1,9 @@
 async function upsert (name, input, opts = {}) {
   const { generateId } = this.app.bajo
   const { find } = this.app.bajo.lib._
-  const { cloneDeep } = this.app.bajo.lib._
-  const options = cloneDeep(opts)
+  const { cloneDeep, omit } = this.app.bajo.lib._
+  const options = cloneDeep(omit(opts, ['req']))
+  options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
   await this.modelExists(name, true)
   const { schema } = this.getInfo(name)

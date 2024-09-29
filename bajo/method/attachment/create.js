@@ -20,7 +20,7 @@ async function create (name, id, options = {}) {
     file
   }
   await mergeAttachmentInfo.call(this, rec, dest, { mimeType, fullPath, stats })
-  if (req && req.flash) req.flash('dbsuccess', { message: req.i18n.t('File successfully uploaded') })
+  if (req && req.flash) req.flash('notify', req.t('Attachment successfully uploaded'))
   return rec
 }
 

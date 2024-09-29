@@ -5,7 +5,7 @@ async function remove (name, id, field, file, options = {}) {
   const path = await this.attachmentGetPath(name, id, field, file)
   const { req } = options
   await fs.remove(path)
-  if (req && req.flash) req.flash('dbsuccess', { message: req.i18n.t('File successfully removed') })
+  if (req && req.flash) req.flash('notify', req.t('Attachment successfully removed'))
 }
 
 export default remove

@@ -1,8 +1,8 @@
-async function sanitizeBody ({ body = {}, schema = {}, partial, strict }) {
+async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extFields = [] }) {
   const { isSet, dayjs } = this.app.bajo
-  const { has, get, isString, isNumber } = this.app.bajo.lib._
+  const { has, get, isString, isNumber, concat } = this.app.bajo.lib._
   const result = {}
-  for (const p of schema.properties) {
+  for (const p of concat(schema.properties, extFields)) {
     if (partial && !has(body, p.name)) continue
     if (['object', 'array'].includes(p.type)) {
       if (isString(body[p.name])) {
