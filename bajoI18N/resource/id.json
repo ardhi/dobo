@@ -111,11 +111,12 @@
     "siteId": "ID Situs",
     "theme": "Tema",
     "token": "Token",
-    "field": "Field"
+    "field": "Field",
+    "agree": "Persetujuan"
   },
   "Validation Error": "Kesalahan Validasi",
   "validation": {
-    "any.required": "Harus diisi",
+    "any.required": "Harus diisi/dipilih",
     "any.only": "Harus sesuai dengan {{ref}}",
     "string.alphanum": "Harus berupa alfa numerik karakter saja",
     "string.base": "Harus berupa string",
@@ -124,7 +125,7 @@
     "string.dataUri": "Harus berupa string dataUri yang valid",
     "string.domain": "Harus mengandung nama domain yang valid",
     "string.email": "Harus berupa surel yang valid",
-    "string.empty": "Tidak boleh dibiarkan kosong",
+    "string.empty": "Harus diisi/dipilih",
     "string.guid": "Harus berupa GUID yang valid",
     "string.hex": "Harus mengandung hexadesimal karakter yang valid saja",
     "string.hexAlign": "Representasi hex yang terdekode harus byte aligned",

@@ -43,7 +43,7 @@ async function create (name, input, opts = {}) {
   record = await handler.call(this.app[driver.ns], { schema, body: nbody, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id: body.id, body, options, action: 'create' })
-    if (options.req.flash) options.req.flash('notify', options.req.t('Record successfully created'))
+    if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('Record successfully created'))
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterCreate', { schema, body, record })
   if (!noHook) {

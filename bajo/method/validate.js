@@ -96,7 +96,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
         item = applyFieldRules(p, joi.number().integer())
         break
       case 'boolean':
-        item = applyFieldRules(p, joi.boolean())
+        item = applyFieldRules(p, joi.boolean().valid(true))
         break
     }
     if (item) {

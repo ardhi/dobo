@@ -49,7 +49,8 @@
     "siteId": "Site ID",
     "theme": "Theme",
     "token": "Token",
-    "field": "Field"
+    "field": "Field",
+    "agree": "Agreement"
   },
   "validation": {
     "any.required": "Required",
@@ -61,7 +62,7 @@
     "string.dataUri": "Must be a valid dataUri string",
     "string.domain": "Must contain a valid domain name",
     "string.email": "Must be a valid email",
-    "string.empty": "Not allowed to be empty",
+    "string.empty": "Required",
     "string.guid": "Must be a valid GUID",
     "string.hex": "Must only contain hexadecimal characters",
     "string.hexAlign": "Hex decoded representation must be byte aligned",
