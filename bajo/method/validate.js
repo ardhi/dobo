@@ -129,8 +129,8 @@ async function validate (value, joiSchema, { ns, fields, extFields, params } = {
   const { isString, forOwn, find } = this.app.bajo.lib._
 
   ns = ns ?? [this.name]
-  params = defaultsDeep(params, { abortEarly: false, convert: false, rule: undefined, allowUnknown: true })
-  const { rule } = params
+  params = defaultsDeep(params, this.config.validationParams)
+  const { rule = {} } = params
   delete params.rule
   if (isString(joiSchema)) {
     const { schema } = this.getInfo(joiSchema)

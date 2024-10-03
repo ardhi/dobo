@@ -3,6 +3,11 @@
   "connections": [],
   "dependencies": [],
   "mergeProps": ["connections"],
+  "validationParams": {
+    "abortEarly": false,
+    "convert": false,
+    "allowUnknown": true
+  },
   "default": {
     "property": {
       "text": {
