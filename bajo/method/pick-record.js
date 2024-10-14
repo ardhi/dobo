@@ -1,17 +1,19 @@
 async function transform ({ record, schema, hidden = [] } = {}) {
-  const { dayjs } = this.app.bajo
+  const { dayjs } = this.app.bajo.lib
   if (record._id) {
     record.id = record._id
     delete record._id
   }
+  const defHidden = [...schema.hidden, ...hidden]
   const result = {}
   for (const p of schema.properties) {
-    if (hidden.includes(p.name)) continue
+    if (defHidden.includes(p.name)) continue
     result[p.name] = record[p.name] ?? null
     if (record[p.name] === null) continue
     switch (p.type) {
       case 'time': result[p.name] = dayjs(record[p.name]).format('HH:mm:ss'); break
       case 'date': result[p.name] = dayjs(record[p.name]).format('YYYY-MM-DD'); break
+      case 'datetime': result[p.name] = dayjs(record[p.name]).toISOString(); break
     }
   }
   return await this.sanitizeBody({ body: result, schema, partial: true, ignoreNull: true })

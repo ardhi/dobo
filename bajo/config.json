@@ -1,5 +1,4 @@
 {
-  "alias": "db",
   "connections": [],
   "dependencies": [],
   "mergeProps": ["connections"],

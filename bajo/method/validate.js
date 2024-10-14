@@ -62,6 +62,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
         if (has(prop, `${k}Length`)) obj = obj[k](prop[`${k}Length`])
       })
     }
+    if (isArray(prop.values)) obj = obj.valid(...prop.values)
     if (!['id'].includes(prop.name) && prop.required) obj = obj.required()
     return obj
   }
