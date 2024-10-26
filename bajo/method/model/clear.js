@@ -6,7 +6,7 @@ async function clear (name, options = {}) {
 
   await this.modelExists(name, true)
   const { noHook } = options
-  const { handler, schema } = await resolveMethod.call(this, name, 'model-clear')
+  const { handler, schema } = await resolveMethod.call(this, name, 'model-clear', options)
   if (!noHook) {
     await runHook(`${this.name}:beforeModelClear`, schema, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeModelClear`, options)

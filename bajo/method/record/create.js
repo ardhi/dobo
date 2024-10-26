@@ -12,7 +12,7 @@ async function create (name, input, opts = {}) {
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
   input = cloneDeep(input)
-  const { fields, dataOnly, noHook, noValidation, noCheckUnique, noFeatureHook, noResult, noSanitize, hidden } = options
+  const { fields, dataOnly, noHook, noValidation, noCheckUnique, noFeatureHook, noResult, noSanitize, hidden, forceNoHidden } = options
   options.truncateString = options.truncateString ?? true
   options.dataOnly = false
   await this.modelExists(name, true)
@@ -52,7 +52,7 @@ async function create (name, input, opts = {}) {
   }
   if (clearModel) await clearModel({ model: name, body, options, record })
   if (noResult) return
-  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden })
+  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   return dataOnly ? record.data : record
 }
 

@@ -7,7 +7,7 @@ async function clear (name, opts = {}) {
   const options = cloneDeep(omit(opts, ['req']))
   options.req = opts.req
   const { noHook } = options
-  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-clear')
+  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-clear', options)
   if (!noHook) {
     await runHook(`${this.name}:beforeRecordClear`, name, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordClear`, options)

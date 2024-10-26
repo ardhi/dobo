@@ -8,10 +8,10 @@ async function remove (name, id, opts = {}) {
   const options = cloneDeep(omit(opts, ['req']))
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
-  const { fields, dataOnly, noHook, noResult, hidden } = options
+  const { fields, dataOnly, noHook, noResult, hidden, forceNoHidden } = options
   options.dataOnly = false
   await this.modelExists(name, true)
-  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-remove')
+  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-remove', options)
   id = this.sanitizeId(id, schema)
   if (!noHook) {
     await runHook(`${this.name}:beforeRecordRemove`, name, id, options)
@@ -28,7 +28,7 @@ async function remove (name, id, opts = {}) {
   }
   if (clearModel) await clearModel({ model: name, id, options, record })
   if (noResult) return
-  record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden })
+  record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden, forceNoHidden })
   return dataOnly ? record.oldData : record
 }
 

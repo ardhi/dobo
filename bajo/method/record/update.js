@@ -12,11 +12,11 @@ async function update (name, id, input, opts = {}) {
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
   input = cloneDeep(input)
-  const { fields, dataOnly, noHook, noValidation, noCheckUnique, noFeatureHook, noResult, noSanitize, partial = true, hidden } = options
+  const { fields, dataOnly, noHook, noValidation, noCheckUnique, noFeatureHook, noResult, noSanitize, partial = true, hidden, forceNoHidden } = options
   options.dataOnly = true
   options.truncateString = options.truncateString ?? true
   await this.modelExists(name, true)
-  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-update')
+  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-update', options)
   id = this.sanitizeId(id, schema)
   const extFields = get(options, 'validation.extFields', [])
   let body = noSanitize ? input : await this.sanitizeBody({ body: input, schema, partial, strict: true, extFields })
@@ -49,8 +49,8 @@ async function update (name, id, input, opts = {}) {
   }
   if (clearModel) await clearModel({ model: name, id, body: nbody, options, record })
   if (noResult) return
-  record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden })
-  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden })
+  record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden, forceNoHidden })
+  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   return dataOnly ? record.data : record
 }
 

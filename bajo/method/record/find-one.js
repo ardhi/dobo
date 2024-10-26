@@ -8,12 +8,12 @@ async function findOne (name, filter = {}, opts = {}) {
   const options = cloneDeep(omit(opts, ['req']))
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
-  const { fields, dataOnly, noHook, noCache, hidden } = options
+  const { fields, dataOnly, noHook, noCache, hidden, forceNoHidden } = options
   await this.modelExists(name, true)
   filter.limit = 1
   options.count = false
   options.dataOnly = false
-  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-find')
+  const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-find', options)
   if (!noHook) {
     await runHook(`${this.name}:beforeRecordFindOne`, name, filter, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordFindOne`, filter, options)
@@ -31,7 +31,7 @@ async function findOne (name, filter = {}, opts = {}) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordFindOne`, filter, options, record)
     await runHook(`${this.name}:afterRecordFindOne`, name, filter, options, record)
   }
-  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden })
+  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (set && !noCache) await set({ model: name, filter, options, record })
   return dataOnly ? record.data : record
