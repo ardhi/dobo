@@ -20,7 +20,7 @@ async function init () {
       name: 'memory'
     })
   }
-  this.connections = await buildCollections({ ns: this.name, handler: collectConnections, dupChecks: ['name', checkType] })
+  this.connections = await buildCollections({ ns: this.name, container: 'connections', handler: collectConnections, dupChecks: ['name', checkType] })
   if (this.connections.length === 0) this.log.warn('No %s found!', this.print.write('connection'))
   await collectFeature.call(this)
   await collectSchemas.call(this)

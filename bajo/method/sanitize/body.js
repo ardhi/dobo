@@ -18,7 +18,7 @@ async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extField
       }
     } else result[p.name] = body[p.name]
     if (isSet(body[p.name])) {
-      if (p.type === 'boolean') result[p.name] = result[p.name] === null ? null : (!!result[p.name])
+      if (p.type === 'boolean') result[p.name] = result[p.name] === null ? null : (['true', true].includes(result[p.name]))
       if (['float', 'double'].includes(p.type)) {
         if (isNumber(body[p.name])) result[p.name] = body[p.name]
         else if (strict) {
