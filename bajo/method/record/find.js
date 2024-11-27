@@ -14,6 +14,7 @@ async function find (name, filter = {}, opts = {}) {
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-find', options)
   filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
+  if (options.queryHandler) filter.query = await options.queryHandler.call(opts.req ? this.app[opts.req.ns] : this, filter.query, opts.req)
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {
     await runHook(`${this.name}:beforeRecordFind`, name, filter, options)
