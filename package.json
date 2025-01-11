@@ -1,6 +1,6 @@
 {
   "name": "dobo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Database ORM/ODM for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/ardhi/dobo#readme",
   "dependencies": {
-    "@tryghost/nql": "^0.12.3",
+    "@tryghost/nql": "^0.12.7",
     "joi": "^17.13.3",
-    "mingo": "^6.4.15"
+    "mingo": "^6.5.1"
   }
 }
