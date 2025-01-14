@@ -8,9 +8,10 @@ async function get (name, id, opts = {}) {
   const options = cloneDeep(omit(opts, ['req']))
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
-  const { fields, dataOnly, noHook, noCache, hidden = [], forceNoHidden } = options
+  let { fields, dataOnly, noHook, noCache, hidden = [], forceNoHidden } = options
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-get', options)
+  if (!schema.cacheable) noCache = true
   id = this.sanitizeId(id, schema)
   options.dataOnly = false
   if (!noHook) {

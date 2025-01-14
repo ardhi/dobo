@@ -8,11 +8,12 @@ async function find (name, filter = {}, opts = {}) {
   const options = cloneDeep(omit(opts, ['req']))
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
-  const { fields, dataOnly, noHook, noCache, hidden, forceNoHidden } = options
+  let { fields, dataOnly, noHook, noCache, hidden, forceNoHidden } = options
   options.count = options.count ?? false
   options.dataOnly = false
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-find', options)
+  if (!schema.cacheable) noCache = true
   filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
   if (options.queryHandler) filter.query = await options.queryHandler.call(opts.req ? this.app[opts.req.ns] : this, filter.query, opts.req)
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
