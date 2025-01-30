@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import resolveMethod from '../../../lib/resolve-method.js'
 import checkUnique from '../../../lib/check-unique.js'
 import handleAttachmentUpload from '../../../lib/handle-attachment-upload.js'
@@ -7,7 +8,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 async function create (name, input, opts = {}) {
   const { generateId, runHook, isSet } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { find, forOwn, cloneDeep, camelCase, omit, get } = this.app.bajo.lib._
+  const { find, forOwn, cloneDeep, camelCase, omit, get, pick } = this.app.bajo.lib._
   const options = cloneDeep(omit(opts, ['req']))
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
@@ -19,14 +20,20 @@ async function create (name, input, opts = {}) {
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-create', options)
   const idField = find(schema.properties, { name: 'id' })
   const extFields = get(options, 'validation.extFields', [])
-  if (!isSet(input.id)) {
-    if (idField.type === 'string') input.id = generateId()
-    else if (['integer', 'smallint'].includes(idField.type) && !idField.autoInc) input.id = generateId('int')
-  }
-  let body = noSanitize ? input : await this.sanitizeBody({ body: input, schema, extFields, strict: true })
+  let body = noSanitize ? cloneDeep(input) : await this.sanitizeBody({ body: input, schema, extFields, strict: true })
   if (!noHook) {
     await runHook(`${this.name}:beforeRecordCreate`, name, body, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordCreate`, body, options)
+  }
+  if (!isSet(body.id)) {
+    if (idField.type === 'string') {
+      if (!options.checksumId) body.id = generateId()
+      else {
+        if (options.checksumId === true) options.checksumId = Object.keys(body)
+        const checksum = pick(body, options.checksumId)
+        body.id = crypto.createHash('md5').update(JSON.stringify(checksum)).digest('hex')
+      }
+    } else if (['integer', 'smallint'].includes(idField.type) && !idField.autoInc) input.id = generateId('int')
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeCreate', { schema, body })
   if (!noValidation) body = await execValidation.call(this, { name, body, options })
