@@ -1,5 +1,6 @@
 function buildPageSkipLimit (filter) {
   let limit = parseInt(filter.limit) || this.config.default.filter.limit
+  if (limit === -1) limit = this.config.default.filter.maxLimit
   if (limit > this.config.default.filter.maxLimit) limit = this.config.default.filter.maxLimit
   if (limit < 1) limit = 1
   let page = parseInt(filter.page) || 1

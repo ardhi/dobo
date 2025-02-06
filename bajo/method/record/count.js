@@ -28,8 +28,8 @@ async function count (name, filter = {}, opts = {}) {
   }
   const count = await handler.call(this.app[driver.ns], { schema, filter, options })
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordFind`, filter, options, count)
-    await runHook(`${this.name}:afterRecordFind`, name, filter, options, count)
+    await runHook(`${this.name}.${camelCase(name)}:afterRecordCount`, filter, options, count)
+    await runHook(`${this.name}:afterRecordCount`, name, filter, options, count)
   }
   if (set && !noCache) await set({ model: name, filter, options, count })
   return dataOnly ? count.data : count
