@@ -9,12 +9,15 @@ async function findOne (name, filter = {}, opts = {}) {
   options.req = opts.req
   options.dataOnly = options.dataOnly ?? true
   let { fields, dataOnly, noHook, noCache, hidden, forceNoHidden } = options
-  await this.modelExists(name, true)
-  filter.limit = 1
   options.count = false
   options.dataOnly = false
+  await this.modelExists(name, true)
+  filter.limit = 1
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-find', options)
   if (!schema.cacheable) noCache = true
+  filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
+  if (options.queryHandler) filter.query = await options.queryHandler.call(opts.req ? this.app[opts.req.ns] : this, filter.query, opts.req)
+  filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {
     await runHook(`${this.name}:beforeRecordFindOne`, name, filter, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordFindOne`, filter, options)

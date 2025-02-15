@@ -1,6 +1,7 @@
 {
   "field": {
     "id": "ID",
+    "code": "Kode",
     "name": "Name",
     "dt": "Date/Time",
     "createdAt": "Created At",
@@ -50,7 +51,15 @@
     "theme": "Theme",
     "token": "Token",
     "field": "Field",
-    "agree": "Agreement"
+    "agree": "Agreement",
+    "method": "Metode",
+    "masterId": "Master ID",
+    "details": "Details",
+    "qty": "QTY",
+    "link": "Link",
+    "amount": "Amount",
+    "cycle": "Cycle",
+    "default": "Default"
   },
   "validation": {
     "any.required": "Required",

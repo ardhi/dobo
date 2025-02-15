@@ -74,6 +74,7 @@
   "Data Export": "Ekspor Data",
   "field": {
     "id": "ID",
+    "code": "Kode",
     "name": "Nama",
     "dt": "Tgl/Jam",
     "createdAt": "Dibuat Pada",
@@ -123,7 +124,15 @@
     "theme": "Tema",
     "token": "Token",
     "field": "Field",
-    "agree": "Persetujuan"
+    "agree": "Persetujuan",
+    "method": "Metode",
+    "masterId": "ID Master",
+    "details": "Detil",
+    "qty": "JML",
+    "link": "Tautan",
+    "amount": "Nilai",
+    "cycle": "Cycle",
+    "default": "Default"
   },
   "Validation Error": "Kesalahan Validasi",
   "validation": {
