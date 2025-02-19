@@ -5,11 +5,11 @@ async function copyUploaded (name, id, { req, setField, setFile, mimeType, stats
   name = this.attachmentPreCheck(name)
   if (!name) {
     if (silent) return
-    throw this.error('Name must be provided')
+    throw this.error('isMissing%s', this.print.write('field.name'))
   }
   if (!this.bajoWeb) {
     if (silent) return
-    throw this.error('Plugin \'%s\' is missing')
+    throw this.error('missingPlugin%s')
   }
   const { dir, files } = await this.bajoWeb.getUploadedFiles(req.id, false, true)
   const result = []

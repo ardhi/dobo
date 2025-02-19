@@ -5,7 +5,7 @@ async function create (name, id, options = {}) {
   name = this.attachmentPreCheck(name)
   if (!name) return
   const { source, field, file } = options
-  if (!source) throw this.error('Invalid source')
+  if (!source) throw this.error('isMissing%s', this.print.write('field.source'))
   const baseDir = await this.attachmentGetPath(name, id, field, file, { dirOnly: true })
   const { fullPath, stats, mimeType, req } = options
 
@@ -20,7 +20,7 @@ async function create (name, id, options = {}) {
     file
   }
   await mergeAttachmentInfo.call(this, rec, dest, { mimeType, fullPath, stats })
-  if (req && req.flash) req.flash('notify', req.t('Attachment successfully uploaded'))
+  if (req && req.flash) req.flash('notify', req.t('attachmentUploaded'))
   return rec
 }
 

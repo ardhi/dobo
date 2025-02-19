@@ -20,7 +20,7 @@ async function remove (name, id, opts = {}) {
   const record = await handler.call(this.app[driver.ns], { schema, id, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, options, action: 'remove' })
-    if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('Record successfully removed'))
+    if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordRemoved'))
   }
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordRemove`, id, options, record)

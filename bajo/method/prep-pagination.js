@@ -42,7 +42,7 @@ function buildSort (input, schema, allowSortUnindexed) {
     if (schema) {
       const items = keys(sort)
       each(items, i => {
-        if (!schema.sortables.includes(i) && !allowSortUnindexed) throw this.error('Sort on unindexed field: \'%s@%s\'', i, schema.name)
+        if (!schema.sortables.includes(i) && !allowSortUnindexed) throw this.error('sortOnUnindexedField%s%s', i, schema.name)
         // if (schema.fullText.fields.includes(i)) throw this.error('Can\'t sort on full-text index: \'%s@%s\'', i, schema.name)
       })
     }

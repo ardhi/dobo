@@ -4,18 +4,18 @@ async function connection (path, ...args) {
   const select = await importPkg('bajoCli:@inquirer/select')
   const { getOutputFormat, writeOutput } = this.app.bajoCli
   const format = getOutputFormat()
-  if (isEmpty(this.connections)) return this.print.fail('No connection found!', { exit: this.app.bajo.applet })
+  if (isEmpty(this.connections)) return this.print.fail('notFound%s', 'connection', { exit: this.app.bajo.applet })
   let name = args[0]
   if (isEmpty(name)) {
     const choices = map(this.connections, s => ({ value: s.name }))
     name = await select({
-      message: this.print.write('Please choose a connection:'),
+      message: this.print.write('chooseConn'),
       choices
     })
   }
   const result = find(this.connections, { name })
-  if (!result) return this.print.fail('Can\'t find %s named \'%s\'', this.print.write('connection'), name, { exit: this.app.bajo.applet })
-  this.print.info('Done!')
+  if (!result) return this.print.fail('cantFind%s%s', this.print.write('connection'), name, { exit: this.app.bajo.applet })
+  this.print.info('done')
   await writeOutput(result, path, format)
 }
 

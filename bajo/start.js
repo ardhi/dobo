@@ -12,7 +12,7 @@ async function start (conns = 'all', noRebuild = true) {
     const schemas = filter(this.schemas, { connection: c.name })
     const mod = c.type === 'dobo:memory' ? memDbInstantiate : await importModule(`${ns}:/${this.name}/boot/instantiate.js`)
     await mod.call(this.app[ns], { connection: c, noRebuild, schemas })
-    this.log.trace('- Driver \'%s:%s\' instantiated', c.driver, c.name)
+    this.log.trace('driverInstantiated%s%s', c.driver, c.name)
   }
   await memDbStart.call(this)
 }

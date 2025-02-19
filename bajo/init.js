@@ -6,7 +6,7 @@ import collectSchemas from '../lib/collect-schemas.js'
 async function checkType (item, items) {
   const { filter } = this.app.bajo.lib._
   const existing = filter(items, { type: 'dobo:memory' })
-  if (existing.length > 1) this.fatal('There could only be one connection type \'%s\'', item.type)
+  if (existing.length > 1) this.fatal('onlyOneConnType%s', item.type)
 }
 
 async function init () {
@@ -21,7 +21,7 @@ async function init () {
     })
   }
   this.connections = await buildCollections({ ns: this.name, container: 'connections', handler: collectConnections, dupChecks: ['name', checkType] })
-  if (this.connections.length === 0) this.log.warn('No %s found!', this.print.write('connection'))
+  if (this.connections.length === 0) this.log.warn('notFound%s', this.print.write('connection'))
   await collectFeature.call(this)
   await collectSchemas.call(this)
 }

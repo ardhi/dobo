@@ -5,30 +5,30 @@ async function updateRecord (path, ...args) {
   const { isEmpty, map, isPlainObject } = this.app.bajo.lib._
   const [input, select, boxen] = await importPkg('bajoCli:@inquirer/input',
     'bajoCli:@inquirer/select', 'bajoCli:boxen')
-  if (isEmpty(this.schemas)) return this.print.fail('No schema found!', { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.print.write('field.schema'), { exit: this.app.bajo.applet })
   let [schema, id, body] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.print.write('Please select a schema:'),
+      message: this.print.write('selectSchema'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(id)) {
     id = await input({
-      message: this.print.write('Enter record ID:'),
-      validate: text => isEmpty(text) ? this.print.write('ID is required') : true
+      message: this.print.write('enterRecordId'),
+      validate: text => isEmpty(text) ? this.print.write('idIsRequired') : true
     })
   }
   if (isEmpty(body)) {
     body = await input({
-      message: this.print.write('Enter JSON payload:'),
+      message: this.print.write('enterJsonPayload'),
       validate: text => {
-        if (isEmpty(text)) return this.print.write('Payload is required')
+        if (isEmpty(text)) return this.print.write('payloadRequired')
         try {
           const parsed = JSON.parse(text)
           if (!isPlainObject(parsed)) throw new Error()
         } catch (err) {
-          return this.print.write('Payload must be a valid JSON object')
+          return this.print.write('payloadMustBeJson')
         }
         return true
       }
@@ -38,7 +38,7 @@ async function updateRecord (path, ...args) {
   try {
     payload = JSON.parse(body)
   } catch (err) {
-    return this.print.fail('Invalid payload syntax', { exit: this.app.bajo.applet })
+    return this.print.fail('invalidPayloadSyntax', { exit: this.app.bajo.applet })
   }
   console.log(boxen(JSON.stringify(payload, null, 2), { title: schema, padding: 0.5, borderStyle: 'round' }))
   await postProcess.call(this, { handler: 'recordUpdate', params: [schema, id, payload], path, processMsg: 'Updating record' })

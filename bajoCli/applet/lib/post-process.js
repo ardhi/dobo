@@ -9,12 +9,12 @@ async function postProcess ({ handler, params, path, processMsg, noConfirmation 
   params.push({ fields: this.config.fields, dataOnly: !this.config.full })
 
   const schema = find(this.schemas, { name: params[0] })
-  if (!schema) return this.print.fatal('No schema found!')
+  if (!schema) return this.print.fatal('notFound%s', this.print.write('field.schema'))
   let cont = true
   if (!noConfirmation) {
-    const answer = await confirm({ message: this.print.write('Are you sure to continue?'), default: false })
+    const answer = await confirm({ message: this.print.write('sureContinue'), default: false })
     if (!answer) {
-      this.print.fail('Aborted!')
+      this.print.fail('aborted')
       cont = false
     }
   }
@@ -27,7 +27,7 @@ async function postProcess ({ handler, params, path, processMsg, noConfirmation 
   }
   try {
     const resp = await this[handler](...params)
-    spin.succeed('Done!')
+    spin.succeed('done')
     const result = this.config.pretty ? (await prettyPrint(resp)) : JSON.stringify(resp, null, 2)
     if (this.config.save) {
       const id = resp.id ?? get(resp, 'data.id') ?? get(resp, 'oldData.id')
@@ -39,7 +39,7 @@ async function postProcess ({ handler, params, path, processMsg, noConfirmation 
     if (this.config.log.applet) {
       spin.stop()
       console.error(err)
-    } else spin.fail('Error: %s', err.message)
+    } else spin.fail('error%s', err.message)
   }
   process.exit()
 }

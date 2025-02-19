@@ -3,7 +3,7 @@ function getSchema (input, cloned = true) {
   let name = isPlainObject(input) ? input.name : input
   name = this.app.bajo.pascalCase(name)
   const schema = find(this.schemas, { name })
-  if (!schema) throw this.error('Unknown model/schema \'%s\'', name)
+  if (!schema) throw this.error('unknownModelSchema%s', name)
   return cloned ? cloneDeep(schema) : schema
 }
 

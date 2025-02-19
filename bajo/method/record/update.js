@@ -40,7 +40,7 @@ async function update (name, id, input, opts = {}) {
   const record = await handler.call(this.app[driver.ns], { schema, id, body: nbody, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, body, options, action: 'update' })
-    if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('Record successfully updated'))
+    if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordUpdated'))
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterUpdate', { schema, body: nbody, record })
   if (!noHook) {

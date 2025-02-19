@@ -3,7 +3,7 @@ import postProcess from './lib/post-process.js'
 async function modelClear (...args) {
   const { print } = this.app.bajo
   const { isEmpty } = this.app.bajo.lib._
-  if (isEmpty(this.schemas)) return print.fail('No schema found!', { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return print.fail('notFound%s', 'schema', { exit: this.app.bajo.applet })
   const [schema] = args
   await postProcess.call(this, { handler: 'modelClear', params: [schema], path: 'modelClear', processMsg: 'Clear records' })
 }

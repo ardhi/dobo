@@ -5,7 +5,7 @@ function sanitizeDate (value, { input, output, silent = true } = {}) {
   const dt = dayjs(value, input)
   if (!dt.isValid()) {
     if (silent) return -1
-    throw this.error('Invalid date')
+    throw this.error('invalidDate')
   }
   if (output === 'native' || !output) return dt.toDate()
   return dt.format(output)

@@ -8,10 +8,10 @@ async function modelRebuild (...args) {
     'bajoCli:@inquirer/confirm', 'bajoCli:boxen')
   const schemas = map(this.schemas, 'name')
   let names = args.join(' ')
-  if (isEmpty(schemas)) return this.print.fail('No schema found!', { exit: this.app.bajo.applet })
+  if (isEmpty(schemas)) return this.print.fail('notFound%s', 'schema', { exit: this.app.bajo.applet })
   if (isEmpty(names)) {
     names = await input({
-      message: this.print.write('Enter schema name(s), separated by space:'),
+      message: this.print.write('enterSchemaName'),
       default: '*'
     })
   }
@@ -19,12 +19,12 @@ async function modelRebuild (...args) {
   names = schemas.filter(isMatch)
   if (names.length === 0) return this.print.fail('No schema matched', true, { exit: this.app.bajo.applet })
   names = names.sort()
-  console.log(boxen(names.join(' '), { title: this.print.write('Schema (%d)', names.length), padding: 0.5, borderStyle: 'round' }))
+  console.log(boxen(names.join(' '), { title: this.print.write('schema%d', names.length), padding: 0.5, borderStyle: 'round' }))
   const answer = await confirm({
-    message: this.print.write('The above mentioned schema(s) will be rebuilt as model. Continue?'),
+    message: this.print.write('schemasWillBeRebuiltContinue'),
     default: false
   })
-  if (!answer) return this.print.fail('Aborted!', { exit: this.app.bajo.applet })
+  if (!answer) return this.print.fail('aborted', { exit: this.app.bajo.applet })
   /*
   const conns = []
   for (const s of names) {
@@ -36,9 +36,9 @@ async function modelRebuild (...args) {
   const result = { succed: 0, failed: 0, skipped: 0 }
   for (const s of names) {
     const { schema, instance, connection } = this.getInfo(s)
-    const spin = this.print.spinner({ showCounter: true }).start('Rebuilding \'%s\'...', schema.name)
+    const spin = this.print.spinner({ showCounter: true }).start('rebuilding%s', schema.name)
     if (!instance) {
-      spin.warn('Client instance not connected \'%s@%s\'. Skipped!', schema.connection, schema.name)
+      spin.warn('clientInstanceNotConnected%s', schema.connection, schema.name)
       result.skipped++
       continue
     }
@@ -47,33 +47,33 @@ async function modelRebuild (...args) {
       if (this.app.bajo.config.force) {
         try {
           await this.modelDrop(schema.name, { spinner: spin })
-          spin.setText('Model \'%s\' successfully dropped', schema.name)
+          spin.setText('modelDropped%s', schema.name)
         } catch (err) {
-          spin.fail('Error on dropping model \'%s\': %s', schema.name, err.message)
+          spin.fail('errorDroppingModel%s%s', schema.name, err.message)
           result.failed++
           continue
         }
       } else {
-        spin.fail('Model \'%s\' exists. Won\'t rebuild without --force', schema.name)
+        spin.fail('modelExistsNeedForce%s', schema.name)
         result.failed++
         continue
       }
     }
     try {
       await this.modelCreate(schema.name, { spinner: spin })
-      if (connection.memory) spin.succeed('Model \'%s\' successfully created', schema.name)
+      if (connection.memory) spin.succeed('modelCreated%s', schema.name)
       else {
         const fixture = await addFixtures.call(this, schema.name, { spinner: spin })
-        spin.succeed('Model \'%s\' successfully created, with fixture: added %d, rejected: %s', schema.name, fixture.success, fixture.failed)
+        spin.succeed('modelCreatedWithFixture%s%s%s', schema.name, fixture.success, fixture.failed)
       }
       result.succed++
     } catch (err) {
       if (this.app.bajo.config.log.applet && this.app.bajo.config.log.level === 'trace') console.error(err)
-      spin.fail('Error on creating \'%s\': %s', schema.name, err.message)
+      spin.fail('errorCreatingModel%s%s', schema.name, err.message)
       result.failed++
     }
   }
-  this.print.info('Done! Succeded: %d, failed: %s, skipped: %d', result.succed, result.failed, result.skipped)
+  this.print.info('succeedFailSkip%d%d%d', result.succed, result.failed, result.skipped)
   process.exit()
 }
 

@@ -6,7 +6,7 @@ async function histogram (name, filter = {}, options = {}) {
   const { runHook, join } = this.app.bajo
   const { dataOnly = true, noHook, type } = options
   options.dataOnly = false
-  if (!types.includes(type)) throw this.error('Histogram type must be one of these: %s', join(types))
+  if (!types.includes(type)) throw this.error('histogramTypeMusBe%s', join(types))
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'stat-histogram', options)
   filter.query = await this.buildQuery({ filter, schema, options }) ?? {}

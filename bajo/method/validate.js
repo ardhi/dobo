@@ -150,7 +150,7 @@ async function validate (value, joiSchema, { ns, fields, extFields, params } = {
   try {
     return await joiSchema.validateAsync(value, params)
   } catch (err) {
-    throw this.error('Validation Error', { details: err.details, values: err.values, ns, statusCode: 422, code: 'DB_VALIDATION' })
+    throw this.error('validationError', { details: err.details, values: err.values, ns, statusCode: 422, code: 'DB_VALIDATION' })
   }
 }
 
