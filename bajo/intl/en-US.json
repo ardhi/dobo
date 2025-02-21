@@ -177,7 +177,9 @@
     "link": "Link",
     "amount": "Amount",
     "cycle": "Cycle",
-    "default": "Default"
+    "default": "Default",
+    "type": "Type",
+    "schema": "Schema"
   },
   "validationError": "Kesalahan Validasi",
   "validation": {

@@ -175,7 +175,9 @@
     "link": "Tautan",
     "amount": "Nilai",
     "cycle": "Cycle",
-    "default": "Default"
+    "default": "Default",
+    "type": "Tipe",
+    "schema": "Skema"
   },
   "validationError": "Kesalahan Validasi",
   "validation": {
