@@ -183,7 +183,7 @@
   "validation": {
     "any": {
       "required": "Harus diisi/dipilih",
-      "only": "Harus sesuai dengan {{ref}}"
+      "only": "Harus sesuai dengan %(ref)s"
     },
     "string": {
       "alphanum": "Harus berupa alfa numerik karakter saja",
@@ -198,14 +198,14 @@
       "hex": "Harus mengandung hexadesimal karakter yang valid saja",
       "hexAlign": "Representasi hex yang terdekode harus byte aligned",
       "hostname": "Harus berupa nama host yang valid",
-      "ip": "Harus berupa alamat ip yang valid dengan CIDR {{cidr}}",
-      "ipVersion": "Harus berupa alamat ip yang valid dengan versi {{version}} dan CIDR {{cidr}}",
+      "ip": "Harus berupa alamat ip yang valid dengan CIDR %(cidr)s",
+      "ipVersion": "Harus berupa alamat ip yang valid dengan versi %(version)s dan CIDR %(cidr)s",
       "isoDate": "Harus dalam format ISO",
       "isoDuration": "Harus berupa durasi ISO 8601 yang valid",
-      "length": "Panjang harus pas {{limit}} karakter",
+      "length": "Panjang harus pas %(limit)s karakter",
       "lowercase": "Hanya boleh mengandung huruf kecil saja",
-      "max": "Panjang karakter harus lebih kecil atau sama dengan {{limit}} karakter",
-      "min": "Panjang karakter harus setidaknya {{limit}} karakter",
+      "max": "Panjang karakter harus lebih kecil atau sama dengan %(limit)s karakter",
+      "min": "Panjang karakter harus setidaknya %(limit)s karakter",
       "token": "Hanya boleh terdiri atas karakter alfanumerik dan garis bawah saja",
       "trim": "Tidak boleh memiliki spasi didepan atau dibelakang",
       "uri": "Harus berupa URI yang valid",
@@ -213,17 +213,17 @@
     },
     "number": {
       "base": "Harus berupa angka",
-      "greater": "Harus lebih besar dari {{limit}}",
+      "greater": "Harus lebih besar dari %(limit)s",
       "infinity": "Tidak bisa tak terbatas",
       "integer": "Harus berupa integer",
-      "less": "Harus lebih kecil dari {{limit}}",
-      "max": "Harus lebih kecil atau sama dengan {{limit}}",
-      "min": "Harus lebih besar atau sama dengan {{limit}}",
-      "multiple": "Harus kelipatan dari {{multiple}}",
+      "less": "Harus lebih kecil dari %(limit)s",
+      "max": "Harus lebih kecil atau sama dengan %(limit)s",
+      "min": "Harus lebih besar atau sama dengan %(limit)s",
+      "multiple": "Harus kelipatan dari %(multiple)s",
       "negative": "Harus berupa angka negatif",
       "port": "Harus berupa nomor port yang valid",
       "positive": "Harus berupa angka positif",
-      "precision": "Harus memiliki tidak lebih dari {{limit}} tempat desimal",
+      "precision": "Harus memiliki tidak lebih dari %(limit)s tempat desimal",
       "unsafe": "Harus berupa nomor yang aman"
     }
   }

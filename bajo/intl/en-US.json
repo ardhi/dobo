@@ -185,7 +185,7 @@
   "validation": {
     "any": {
       "required": "Required",
-      "only": "Must match with {{ref}}"
+      "only": "Must match with %(ref)s"
     },
     "string": {
       "alphanum": "Must only contain alpha-numeric characters",
@@ -200,14 +200,14 @@
       "hex": "Must only contain hexadecimal characters",
       "hexAlign": "Hex decoded representation must be byte aligned",
       "hostname": "Must be a valid hostname",
-      "ip": "must be a valid ip address with a {{cidr}} CIDR",
-      "ipVersion": "Must be a valid ip address of one of the following versions {{version}} with a {{cidr}} CIDR",
+      "ip": "must be a valid ip address with a %(cidr)s CIDR",
+      "ipVersion": "Must be a valid ip address of one of the following versions %(version)s with a %(cidr)s CIDR",
       "isoDate": "Must be in iso format",
       "isoDuration": "Must be a valid ISO 8601 duration",
-      "length": "Length must be {{limit}} characters long",
+      "length": "Length must be %(limit)s characters long",
       "lowercase": "Must only contain lowercase characters",
-      "max": "Length must be less than or equal to {{limit}} characters long",
-      "min": "Length must be at least {{limit}} characters long",
+      "max": "Length must be less than or equal to %(limit)s characters long",
+      "min": "Length must be at least %(limit)s characters long",
       "token": "Must only contain alpha-numeric and underscore characters",
       "trim": "Must not have leading or trailing whitespace",
       "uri": "Must be a valid uri",
