@@ -5,8 +5,9 @@ async function findOne (name, filter = {}, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { get, set } = this.cache ?? {}
   const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
-  const options = cloneDeep(omit(opts, ['req']))
+  const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
+  options.reply = opts.reply
   options.dataOnly = options.dataOnly ?? true
   let { fields, dataOnly, noHook, noCache, hidden, forceNoHidden } = options
   options.count = false

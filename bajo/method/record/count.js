@@ -4,8 +4,9 @@ async function count (name, filter = {}, opts = {}) {
   const { runHook } = this.app.bajo
   const { get, set } = this.cache ?? {}
   const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
-  const options = cloneDeep(omit(opts, ['req']))
+  const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
+  options.reply = opts.reply
   options.dataOnly = options.dataOnly ?? true
   let { dataOnly, noHook, noCache } = options
   options.dataOnly = false

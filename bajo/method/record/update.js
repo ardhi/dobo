@@ -8,8 +8,9 @@ async function update (name, id, input, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { clearModel } = this.cache ?? {}
   const { forOwn, find, cloneDeep, camelCase, omit, get } = this.app.bajo.lib._
-  const options = cloneDeep(omit(opts, ['req']))
+  const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
+  options.reply = opts.reply
   options.dataOnly = options.dataOnly ?? true
   input = cloneDeep(input)
   const { fields, dataOnly, noHook, noValidation, noCheckUnique, noFeatureHook, noResult, noSanitize, partial = true, hidden, forceNoHidden } = options
