@@ -27,12 +27,12 @@ async function get (name, id, opts = {}) {
     }
   }
   const record = await handler.call(this.app[driver.ns], { schema, id, options })
+  if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordGet`, id, options, record)
     await runHook(`${this.name}:afterRecordGet`, name, id, options, record)
   }
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
-  if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
 
   if (set && !noCache) await set({ model: name, id, options, record })
   return dataOnly ? record.data : record

@@ -4,6 +4,7 @@ import checkUnique from '../../../lib/check-unique.js'
 import handleAttachmentUpload from '../../../lib/handle-attachment-upload.js'
 import execValidation from '../../../lib/exec-validation.js'
 import execFeatureHook from '../../../lib/exec-feature-hook.js'
+import singleRelRows from '../../../lib/single-rel-rows.js'
 
 async function create (name, input, opts = {}) {
   const { generateId, runHook, isSet } = this.app.bajo
@@ -49,6 +50,7 @@ async function create (name, input, opts = {}) {
     nbody[k] = v
   })
   record = await handler.call(this.app[driver.ns], { schema, body: nbody, options })
+  if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id: body.id, body, options, action: 'create' })
     if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordCreated'))

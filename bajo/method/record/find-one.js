@@ -32,12 +32,12 @@ async function findOne (name, filter = {}, opts = {}) {
   }
   const record = await handler.call(this.app[driver.ns], { schema, filter, options })
   record.data = record.data[0]
+  if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordFindOne`, filter, options, record)
     await runHook(`${this.name}:afterRecordFindOne`, name, filter, options, record)
   }
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
-  if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (set && !noCache) await set({ model: name, filter, options, record })
   return dataOnly ? record.data : record
 }

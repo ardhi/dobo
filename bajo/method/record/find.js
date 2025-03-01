@@ -30,6 +30,7 @@ async function find (name, filter = {}, opts = {}) {
     }
   }
   const records = await handler.call(this.app[driver.ns], { schema, filter, options })
+  if (isSet(options.rels)) await multiRelRows.call(this, { schema, records: records.data, options })
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordFind`, filter, options, records)
     await runHook(`${this.name}:afterRecordFind`, name, filter, options, records)
@@ -37,7 +38,6 @@ async function find (name, filter = {}, opts = {}) {
   for (const idx in records.data) {
     records.data[idx] = await this.pickRecord({ record: records.data[idx], fields, schema, hidden, forceNoHidden })
   }
-  if (isSet(options.rels)) await multiRelRows.call(this, { schema, records: records.data, options })
   if (set && !noCache) await set({ model: name, filter, options, records })
   return dataOnly ? records.data : records
 }

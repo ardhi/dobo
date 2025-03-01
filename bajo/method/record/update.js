@@ -3,6 +3,7 @@ import checkUnique from '../../../lib/check-unique.js'
 import handleAttachmentUpload from '../../../lib/handle-attachment-upload.js'
 import execValidation from '../../../lib/exec-validation.js'
 import execFeatureHook from '../../../lib/exec-feature-hook.js'
+import singleRelRows from '../../../lib/single-rel-rows.js'
 
 async function update (name, id, input, opts = {}) {
   const { runHook, isSet } = this.app.bajo
@@ -39,6 +40,7 @@ async function update (name, id, input, opts = {}) {
   })
   delete nbody.id
   const record = await handler.call(this.app[driver.ns], { schema, id, body: nbody, options })
+  if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, body, options, action: 'update' })
     if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordUpdated'))
