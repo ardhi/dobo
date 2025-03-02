@@ -2,7 +2,6 @@ import path from 'path'
 
 async function copyUploaded (name, id, options = {}) {
   const { fs } = this.app.bajo.lib
-  const { omit } = this.app.bajo.lib._
   const { req, setField, setFile, mimeType, stats, silent = true } = options
   name = this.attachmentPreCheck(name)
   if (!name) {
@@ -22,7 +21,6 @@ async function copyUploaded (name, id, options = {}) {
     field = setField ?? field
     const file = setFile ?? parts.join('@')
     const opts = { source: f, field, file, mimeType, stats, req }
-    console.log(setField, setFile, omit(opts, ['req']))
     const rec = await this.attachmentCreate(name, id, opts)
     delete rec.dir
     result.push(rec)
