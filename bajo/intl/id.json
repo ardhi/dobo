@@ -103,7 +103,7 @@
   "featureNotAsync%s": "Feature '%s' should be an async function",
   "unsupportedIndexType%s%s%s%s": "Unsupported index type %s for '%s@%s'. Allowed choices: %s",
   "unknownFeature%s%s": "'Unknown feature '%s@%s'",
-  "onlyAccepFields%s%s": "Only accept array of field names or single string of field name '%s@%s'",
+  "onlyAcceptFields%s%s": "Only accept array of field names or single string of field name '%s@%s'",
   "invalidFieldName%s%s": "Invalid field name '%s@%s'",
   "error%s": "Error: %s",
   "succeedFailSkip%d%d%d": "Done! Succeded: %d, failed: %s, skipped: %d",
