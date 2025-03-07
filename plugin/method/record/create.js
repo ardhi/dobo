@@ -10,6 +10,7 @@ async function create (name, input, opts = {}) {
   const { generateId, runHook, isSet } = this.app.bajo
   const { clearModel } = this.cache ?? {}
   const { find, forOwn, cloneDeep, camelCase, omit, get, pick } = this.app.bajo.lib._
+  delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
   options.reply = opts.reply
@@ -37,10 +38,8 @@ async function create (name, input, opts = {}) {
       }
     } else if (['integer', 'smallint'].includes(idField.type) && !idField.autoInc) input.id = generateId('int')
   }
-  if (!noFeatureHook) await execFeatureHook.call(this, 'beforeCreate', { schema, body })
   if (!noValidation) body = await execValidation.call(this, { name, body, options })
   if (isSet(body.id) && !noCheckUnique) await checkUnique.call(this, { schema, body })
-  let record = {}
   const nbody = {}
   forOwn(body, (v, k) => {
     if (v === undefined) return undefined
@@ -49,20 +48,22 @@ async function create (name, input, opts = {}) {
     if (options.truncateString && isSet(v) && ['string', 'text'].includes(prop.type)) v = v.slice(0, prop.maxLength)
     nbody[k] = v
   })
-  record = await handler.call(this.app[driver.ns], { schema, body: nbody, options })
+  if (!noFeatureHook) await execFeatureHook.call(this, 'beforeCreate', { schema, body: nbody, options })
+  const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, body: nbody, options }))
+  delete options.record
   if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id: body.id, body, options, action: 'create' })
     if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordCreated'))
   }
-  if (!noFeatureHook) await execFeatureHook.call(this, 'afterCreate', { schema, body, record })
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordCreate`, body, options, record)
-    await runHook(`${this.name}:afterRecordCreate`, name, body, options, record)
+    await runHook(`${this.name}.${camelCase(name)}:afterRecordCreate`, nbody, options, record)
+    await runHook(`${this.name}:afterRecordCreate`, name, nbody, options, record)
   }
-  if (clearModel) await clearModel({ model: name, body, options, record })
+  if (clearModel) await clearModel({ model: name, body: nbody, options, record })
   if (noResult) return
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
+  if (!noFeatureHook) await execFeatureHook.call(this, 'afterCreate', { schema, body: nbody, options, record })
   return dataOnly ? record.data : record
 }
 

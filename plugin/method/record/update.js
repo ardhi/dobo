@@ -9,6 +9,7 @@ async function update (name, id, input, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { clearModel } = this.cache ?? {}
   const { forOwn, find, cloneDeep, camelCase, omit, get } = this.app.bajo.lib._
+  delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
   options.reply = opts.reply
@@ -27,7 +28,6 @@ async function update (name, id, input, opts = {}) {
     await runHook(`${this.name}:beforeRecordUpdate`, name, id, body, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordUpdate`, id, body, options)
   }
-  if (!noFeatureHook) await execFeatureHook.call(this, 'beforeUpdate', { schema, body })
   if (!noValidation) body = await execValidation.call(this, { name, body, options, partial })
   if (!noCheckUnique) await checkUnique.call(this, { schema, body, id })
   const nbody = {}
@@ -39,13 +39,14 @@ async function update (name, id, input, opts = {}) {
     nbody[k] = v
   })
   delete nbody.id
-  const record = await handler.call(this.app[driver.ns], { schema, id, body: nbody, options })
+  if (!noFeatureHook) await execFeatureHook.call(this, 'beforeUpdate', { schema, body: nbody, options })
+  const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, id, body: nbody, options }))
+  delete options.record
   if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (options.req) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, body, options, action: 'update' })
     if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordUpdated'))
   }
-  if (!noFeatureHook) await execFeatureHook.call(this, 'afterUpdate', { schema, body: nbody, record })
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordUpdate`, id, nbody, options, record)
     await runHook(`${this.name}:afterRecordUpdate`, name, id, nbody, options, record)
@@ -54,6 +55,7 @@ async function update (name, id, input, opts = {}) {
   if (noResult) return
   record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden, forceNoHidden })
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
+  if (!noFeatureHook) await execFeatureHook.call(this, 'afterUpdate', { schema, body: nbody, record })
   return dataOnly ? record.data : record
 }
 

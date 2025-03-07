@@ -1,14 +1,16 @@
 import resolveMethod from '../../../lib/resolve-method.js'
+import execFeatureHook from '../../../lib/exec-feature-hook.js'
 
 async function count (name, filter = {}, opts = {}) {
   const { runHook } = this.app.bajo
   const { get, set } = this.cache ?? {}
   const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
+  delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
   options.reply = opts.reply
   options.dataOnly = options.dataOnly ?? true
-  let { dataOnly, noHook, noCache } = options
+  let { dataOnly, noHook, noCache, noFeatureHook } = options
   options.dataOnly = false
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-count', options)
@@ -20,20 +22,23 @@ async function count (name, filter = {}, opts = {}) {
     await runHook(`${this.name}:beforeRecordCount`, name, filter, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordCount`, filter, options)
   }
-  if (get && !noCache) {
+  if (!noFeatureHook) await execFeatureHook.call(this, 'beforeCount', { schema, filter, options })
+  if (get && !noCache && !options.record) {
     const cachedResult = await get({ model: name, filter, options })
     if (cachedResult) {
       cachedResult.cached = true
       return dataOnly ? cachedResult.data : cachedResult
     }
   }
-  const count = await handler.call(this.app[driver.ns], { schema, filter, options })
+  const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, filter, options }))
+  delete options.record
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordCount`, filter, options, count)
-    await runHook(`${this.name}:afterRecordCount`, name, filter, options, count)
+    await runHook(`${this.name}.${camelCase(name)}:afterRecordCount`, filter, options, record)
+    await runHook(`${this.name}:afterRecordCount`, name, filter, options, record)
   }
-  if (set && !noCache) await set({ model: name, filter, options, count })
-  return dataOnly ? count.data : count
+  if (set && !noCache) await set({ model: name, filter, options, record })
+  if (!noFeatureHook) await execFeatureHook.call(this, 'afterCount', { schema, filter, options, record })
+  return dataOnly ? record.data : record
 }
 
 export default count

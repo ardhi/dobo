@@ -1,15 +1,17 @@
 import resolveMethod from '../../../lib/resolve-method.js'
 import singleRelRows from '../../../lib/single-rel-rows.js'
+import execFeatureHook from '../../../lib/exec-feature-hook.js'
 
 async function findOne (name, filter = {}, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { get, set } = this.cache ?? {}
   const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
+  delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
   options.reply = opts.reply
   options.dataOnly = options.dataOnly ?? true
-  let { fields, dataOnly, noHook, noCache, hidden, forceNoHidden } = options
+  let { fields, dataOnly, noHook, noCache, noFeatureHook, hidden, forceNoHidden } = options
   options.count = false
   options.dataOnly = false
   await this.modelExists(name, true)
@@ -23,15 +25,19 @@ async function findOne (name, filter = {}, opts = {}) {
     await runHook(`${this.name}:beforeRecordFindOne`, name, filter, options)
     await runHook(`${this.name}.${camelCase(name)}:beforeRecordFindOne`, filter, options)
   }
-  if (get && !noCache) {
+  if (!noFeatureHook) await execFeatureHook.call(this, 'beforeFindOne', { schema, filter, options })
+  if (get && !noCache && !options.record) {
     const cachedResult = await get({ model: name, filter, options })
     if (cachedResult) {
       cachedResult.cached = true
       return dataOnly ? cachedResult.data : cachedResult
     }
   }
-  const record = await handler.call(this.app[driver.ns], { schema, filter, options })
+  filter.limit = 1
+  const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, filter, options }))
+  delete options.record
   record.data = record.data[0]
+
   if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordFindOne`, filter, options, record)
@@ -39,6 +45,7 @@ async function findOne (name, filter = {}, opts = {}) {
   }
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (set && !noCache) await set({ model: name, filter, options, record })
+  if (!noFeatureHook) await execFeatureHook.call(this, 'afterFindOne', { schema, filter, options, record })
   return dataOnly ? record.data : record
 }
 
