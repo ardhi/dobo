@@ -5,7 +5,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 async function create (name, inputs, options) {
   const { generateId, runHook, isSet } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { find } = this.app.bajo.lib._
+  const { find } = this.lib._
   options.dataOnly = options.dataOnly ?? true
   options.truncateString = options.truncateString ?? true
   const { noHook, noValidation } = options

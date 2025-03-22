@@ -2,7 +2,7 @@ import postProcess from './lib/post-process.js'
 
 async function removeRecord (path, ...args) {
   const { importPkg } = this.app.bajo
-  const { isEmpty, map } = this.app.bajo.lib._
+  const { isEmpty, map } = this.lib._
   const [input, select] = await importPkg('bajoCli:@inquirer/input', 'bajoCli:@inquirer/select')
   if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.print.write('field.schema'), { exit: this.app.bajo.applet })
   let [schema, id] = args

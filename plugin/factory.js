@@ -95,9 +95,9 @@ async function factory (pkgName) {
 
     init = async () => {
       const { buildCollections } = this.app.bajo
-      const { fs } = this.app.bajo.lib
+      const { fs } = this.lib
       const checkType = async (item, items) => {
-        const { filter } = this.app.bajo.lib._
+        const { filter } = this.lib._
         const existing = filter(items, { type: 'dobo:memory' })
         if (existing.length > 1) this.fatal('onlyOneConnType%s', item.type)
       }
@@ -118,7 +118,7 @@ async function factory (pkgName) {
 
     start = async (conns = 'all', noRebuild = true) => {
       const { importModule, breakNsPath } = this.app.bajo
-      const { find, filter, isString, map } = this.app.bajo.lib._
+      const { find, filter, isString, map } = this.lib._
       if (conns === 'all') conns = this.connections
       else if (isString(conns)) conns = filter(this.connections, { name: conns })
       else conns = map(conns, c => find(this.connections, { name: c }))
@@ -133,8 +133,8 @@ async function factory (pkgName) {
     }
 
     pickRecord = async ({ record, fields, schema = {}, hidden = [], forceNoHidden } = {}) => {
-      const { isArray, pick, clone, isEmpty, omit } = this.app.bajo.lib._
-      const { dayjs } = this.app.bajo.lib
+      const { isArray, pick, clone, isEmpty, omit } = this.lib._
+      const { dayjs } = this.lib
 
       const transform = async ({ record, schema, hidden = [], forceNoHidden } = {}) => {
         if (record._id) {
@@ -186,7 +186,7 @@ async function factory (pkgName) {
       }
 
       const buildSort = (input, schema, allowSortUnindexed) => {
-        const { isEmpty, map, each, isPlainObject, isString, trim, keys } = this.app.bajo.lib._
+        const { isEmpty, map, each, isPlainObject, isString, trim, keys } = this.lib._
         let sort
         if (schema && isEmpty(input)) {
           const columns = map(schema.properties, 'name')
@@ -231,7 +231,7 @@ async function factory (pkgName) {
     }
 
     buildMatch = ({ input = '', schema, options }) => {
-      const { isPlainObject, trim } = this.app.bajo.lib._
+      const { isPlainObject, trim } = this.lib._
       const split = (value, schema) => {
         let [field, val] = value.split(':').map(i => i.trim())
         if (!val) {
@@ -264,7 +264,7 @@ async function factory (pkgName) {
     }
 
     buildQuery = async ({ filter, schema, options = {} } = {}) => {
-      const { trim, isString, isPlainObject } = this.app.bajo.lib._
+      const { trim, isString, isPlainObject } = this.lib._
       let query = {}
       if (isString(filter.query)) {
         filter.oquery = filter.query
@@ -286,13 +286,13 @@ async function factory (pkgName) {
     }
 
     getConnection = (name) => {
-      const { find } = this.app.bajo.lib._
+      const { find } = this.lib._
       return find(this.connections, { name })
     }
 
     getInfo = (name) => {
       const { breakNsPath } = this.app.bajo
-      const { find, map } = this.app.bajo.lib._
+      const { find, map } = this.lib._
       const schema = this.getSchema(name)
       const conn = this.getConnection(schema.connection)
       const { ns, path: type } = breakNsPath(conn.type)
@@ -304,12 +304,19 @@ async function factory (pkgName) {
     }
 
     getSchema = (input, cloned = true) => {
-      const { find, isPlainObject, cloneDeep } = this.app.bajo.lib._
+      const { find, isPlainObject, cloneDeep } = this.lib._
       let name = isPlainObject(input) ? input.name : input
       name = this.app.bajo.pascalCase(name)
       const schema = find(this.schemas, { name })
       if (!schema) throw this.error('unknownModelSchema%s', name)
       return cloned ? cloneDeep(schema) : schema
+    }
+
+    getMemdbStorage = (name, fields = []) => {
+      const { map, pick } = this.lib._
+      const all = this.memDb.storage[name] ?? []
+      if (fields.length === 0) return all
+      return map(all, item => pick(item, fields))
     }
   }
 }

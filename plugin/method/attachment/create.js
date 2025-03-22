@@ -1,7 +1,7 @@
 import mergeAttachmentInfo from '../../../lib/merge-attachment-info.js'
 
 async function create (name, id, options = {}) {
-  const { fs } = this.app.bajo.lib
+  const { fs } = this.lib
   name = this.attachmentPreCheck(name)
   if (!name) return
   const { source, field, file } = options

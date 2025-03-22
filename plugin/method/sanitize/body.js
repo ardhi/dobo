@@ -1,6 +1,6 @@
 async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extFields = [] }) {
   const { isSet, dayjs, callHandler } = this.app.bajo
-  const { has, isString, isNumber, concat } = this.app.bajo.lib._
+  const { has, isString, isNumber, concat } = this.lib._
   const result = {}
   for (const p of concat(schema.properties, extFields)) {
     if (partial && !has(body, p.name)) continue

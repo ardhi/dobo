@@ -1,11 +1,11 @@
 import path from 'path'
 
 async function attachment (req, reply) {
-  const { isString } = this.app.bajo.lib._
+  const { isString } = this.lib._
   const { importPkg, getPluginDataDir, pascalCase } = this.app.bajo
   const { routePath } = this.app.waibu
   const mime = await importPkg('waibu:mime')
-  const { fs } = this.app.bajo.lib
+  const { fs } = this.lib
   const file = `${getPluginDataDir('dobo')}/attachment/${pascalCase(req.params.model)}/${req.params.id}/${req.params.field}/${req.params.file}`
   const mimeType = mime.getType(path.extname(file))
   if (!fs.existsSync(file)) {

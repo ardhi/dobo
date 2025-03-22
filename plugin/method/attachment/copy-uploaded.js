@@ -1,7 +1,7 @@
 import path from 'path'
 
 async function copyUploaded (name, id, options = {}) {
-  const { fs } = this.app.bajo.lib
+  const { fs } = this.lib
   const { req, setField, setFile, mimeType, stats, silent = true } = options
   name = this.attachmentPreCheck(name)
   if (!name) {

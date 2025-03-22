@@ -5,7 +5,7 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 async function get (name, id, opts = {}) {
   const { runHook, isSet } = this.app.bajo
   const { get, set } = this.cache ?? {}
-  const { cloneDeep, camelCase, omit } = this.app.bajo.lib._
+  const { cloneDeep, camelCase, omit } = this.lib._
   delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req

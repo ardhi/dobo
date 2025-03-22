@@ -3,7 +3,7 @@ const conns = []
 async function postProcess ({ handler, params, path, processMsg, noConfirmation } = {}) {
   const { saveAsDownload, importPkg } = this.app.bajo
   const { prettyPrint } = this.app.bajoCli.helper
-  const { find, get } = this.app.bajo.lib._
+  const { find, get } = this.lib._
   const [stripAnsi, confirm] = await importPkg('bajoCli:strip-ansi', 'bajoCli:@inquirer/confirm')
   if (!noConfirmation && this.config.confirmation === false) noConfirmation = true
   params.push({ fields: this.config.fields, dataOnly: !this.config.full })

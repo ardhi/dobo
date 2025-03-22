@@ -9,7 +9,7 @@ import singleRelRows from '../../../lib/single-rel-rows.js'
 async function create (name, input, opts = {}) {
   const { generateId, runHook, isSet } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { find, forOwn, cloneDeep, camelCase, omit, get, pick } = this.app.bajo.lib._
+  const { find, forOwn, cloneDeep, camelCase, omit, get, pick } = this.lib._
   delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req

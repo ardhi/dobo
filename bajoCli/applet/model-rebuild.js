@@ -2,8 +2,8 @@ import addFixtures from '../../lib/add-fixtures.js'
 
 async function modelRebuild (...args) {
   const { importPkg } = this.app.bajo
-  const { outmatch } = this.app.bajo.lib
-  const { isEmpty, map, trim } = this.app.bajo.lib._
+  const { outmatch } = this.lib
+  const { isEmpty, map, trim, without } = this.lib._
   const [input, confirm, boxen] = await importPkg('bajoCli:@inquirer/input',
     'bajoCli:@inquirer/confirm', 'bajoCli:boxen')
   const schemas = map(this.schemas, 'name')
@@ -34,12 +34,18 @@ async function modelRebuild (...args) {
   */
   await this.start('all')
   const result = { succed: 0, failed: 0, skipped: 0 }
+  const skipped = []
   for (const s of names) {
     const { schema, instance, connection } = this.getInfo(s)
     const spin = this.print.spinner({ showCounter: true }).start('rebuilding%s', schema.name)
     if (!instance) {
       spin.warn('clientInstanceNotConnected%s', schema.connection, schema.name)
+      skipped.push(schema.name)
       result.skipped++
+      continue
+    }
+    if (connection.memory) {
+      spin.warn('memoryDbSkipped%s', schema.name)
       continue
     }
     const exists = await this.modelExists(schema.name, false, { spinner: spin })
@@ -61,11 +67,7 @@ async function modelRebuild (...args) {
     }
     try {
       await this.modelCreate(schema.name, { spinner: spin })
-      if (connection.memory) spin.succeed('modelCreated%s', schema.name)
-      else {
-        const fixture = await addFixtures.call(this, schema.name, { spinner: spin })
-        spin.succeed('modelCreatedWithFixture%s%s%s', schema.name, fixture.success, fixture.failed)
-      }
+      spin.succeed('modelCreated%s', schema.name)
       result.succed++
     } catch (err) {
       if (this.app.bajo.config.log.applet && this.app.bajo.config.log.level === 'trace') console.error(err)
@@ -74,6 +76,24 @@ async function modelRebuild (...args) {
     }
   }
   this.print.info('succeedFailSkip%d%d%d', result.succed, result.failed, result.skipped)
+  if (result.failed > 0) this.print.fatal('cantContinueAddFixture')
+  for (const s of without(names, ...skipped)) {
+    const { schema, connection } = this.getInfo(s)
+    const spin = this.print.spinner({ showCounter: true }).start('addingFixture%s', schema.name)
+    if (connection.memory) {
+      spin.warn('memoryDbSkipped%s', schema.name)
+      continue
+    }
+    try {
+      const fixture = await addFixtures.call(this, schema.name, { spinner: spin })
+      spin.succeed('fixtureAdded%s%s%s', schema.name, fixture.success, fixture.failed)
+      result.succed++
+    } catch (err) {
+      if (this.app.bajo.config.log.applet && this.app.bajo.config.log.level === 'trace') console.error(err)
+      spin.fail('errorAddingFixture%s%s', schema.name, err.message)
+      result.failed++
+    }
+  }
   process.exit()
 }
 

@@ -2,7 +2,7 @@ import postProcess from './lib/post-process.js'
 
 async function statCount (path, ...args) {
   const { importPkg } = this.app.bajo
-  const { isEmpty, map } = this.app.bajo.lib._
+  const { isEmpty, map } = this.lib._
   const [select, input] = await importPkg('bajoCli:@inquirer/select', 'bajoCli:@inquirer/input')
   if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.print.write('field.schema'), { exit: this.app.bajo.applet })
   let [schema, query] = args

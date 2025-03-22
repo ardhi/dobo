@@ -20,7 +20,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
   const {
     isPlainObject, get, each, isEmpty, isString, forOwn, keys,
     find, isArray, has, cloneDeep, concat, without
-  } = this.app.bajo.lib._
+  } = this.lib._
   const obj = {}
   const me = this
   const refs = []
@@ -127,7 +127,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
 
 async function validate (value, joiSchema, { ns, fields, extFields, params } = {}) {
   const { defaultsDeep, isSet } = this.app.bajo
-  const { isString, forOwn, find } = this.app.bajo.lib._
+  const { isString, forOwn, find } = this.lib._
 
   ns = ns ?? [this.name]
   params = defaultsDeep(params, this.config.validationParams)

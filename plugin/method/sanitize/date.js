@@ -1,5 +1,5 @@
 function sanitizeDate (value, { input, output, silent = true } = {}) {
-  const { dayjs } = this.app.bajo.lib
+  const { dayjs } = this.lib
   if (value === 0) return null
   if (!output) output = input
   const dt = dayjs(value, input)

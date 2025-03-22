@@ -2,7 +2,7 @@ import postProcess from './lib/post-process.js'
 
 async function updateRecord (path, ...args) {
   const { importPkg } = this.app.bajo
-  const { isEmpty, map, isPlainObject } = this.app.bajo.lib._
+  const { isEmpty, map, isPlainObject } = this.lib._
   const [input, select, boxen] = await importPkg('bajoCli:@inquirer/input',
     'bajoCli:@inquirer/select', 'bajoCli:boxen')
   if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.print.write('field.schema'), { exit: this.app.bajo.applet })
