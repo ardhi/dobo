@@ -9,7 +9,7 @@ async function attachment (req, reply) {
   const file = `${getPluginDataDir('dobo')}/attachment/${pascalCase(req.params.model)}/${req.params.id}/${req.params.field}/${req.params.file}`
   const mimeType = mime.getType(path.extname(file))
   if (!fs.existsSync(file)) {
-    if (!req.query.notfound) throw this.error('_notFound', { noView: true })
+    if (!req.query.notfound) throw this.error('_notFound', { noContent: true })
     const [, ext] = mimeType.split('/')
     const replacer = isString(req.query.notfound) ? req.query.notfound : `waibuStatic.asset:/not-found.${ext}`
     return reply.redirectTo(routePath(replacer))
