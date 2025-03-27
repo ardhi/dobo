@@ -18,7 +18,6 @@ async function modelRebuild (...args) {
   const isMatch = outmatch(map(names.split(' '), m => trim(m)))
   names = schemas.filter(isMatch)
   if (names.length === 0) return this.print.fail('No schema matched', true, { exit: this.app.bajo.applet })
-  names = names.sort()
   console.log(boxen(names.join(' '), { title: this.print.write('schema%d', names.length), padding: 0.5, borderStyle: 'round' }))
   const answer = await confirm({
     message: this.print.write('schemasWillBeRebuiltContinue'),
@@ -36,7 +35,7 @@ async function modelRebuild (...args) {
   const result = { succed: 0, failed: 0, skipped: 0 }
   const skipped = []
   for (const s of names) {
-    const { schema, instance, connection } = this.getInfo(s)
+    const { schema, instance } = this.getInfo(s)
     const spin = this.print.spinner({ showCounter: true }).start('rebuilding%s', schema.name)
     if (!instance) {
       spin.warn('clientInstanceNotConnected%s', schema.connection, schema.name)
@@ -44,10 +43,12 @@ async function modelRebuild (...args) {
       result.skipped++
       continue
     }
+    /*
     if (connection.memory) {
       spin.warn('memoryDbSkipped%s', schema.name)
       continue
     }
+    */
     const exists = await this.modelExists(schema.name, false, { spinner: spin })
     if (exists) {
       if (this.app.bajo.config.force) {
