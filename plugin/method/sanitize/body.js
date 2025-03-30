@@ -1,6 +1,6 @@
 async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extFields = [] }) {
   const { isSet, dayjs, callHandler } = this.app.bajo
-  const { has, isString, isNumber, concat } = this.lib._
+  const { has, isString, isNumber, concat, isNaN } = this.lib._
   const result = {}
   for (const p of concat(schema.properties, extFields)) {
     if (partial && !has(body, p.name)) continue
@@ -48,14 +48,15 @@ async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extField
         }
       }
     } else {
-      if (p.default) {
+      if (isSet(p.default)) {
         result[p.name] = p.default
         if (isString(p.default) && p.default.startsWith('handler:')) {
           const [, ...args] = p.default.split(':')
           if (args.length > 0) result[p.name] = await callHandler(args.join(':'))
         } else {
-          if (['float', 'double'].includes(p.type)) result[p.name] = parseFloat(result[p.name]) || null
-          if (['integer', 'smallint'].includes(p.type)) result[p.name] = parseInt(result[p.name]) || null
+          if (['float', 'double'].includes(p.type)) result[p.name] = parseFloat(result[p.name])
+          if (['integer', 'smallint'].includes(p.type)) result[p.name] = parseInt(result[p.name])
+          if (isNaN(result[p.name])) result[p.name] = null
         }
       }
     }
