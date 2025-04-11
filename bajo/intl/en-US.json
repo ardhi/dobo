@@ -121,6 +121,7 @@
   "fixtureAdded%s%s%s": "Fixture on '%s': added %s, rejected: %s",
   "errorAddingFixture%s%s": "Error adding fixture on model '%s': %s",
   "memoryDbSkipped%s": "'%s' is a memory DB, skipped",
+  "db": "DB",
   "field": {
     "id": "ID",
     "code": "Kode",

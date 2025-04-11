@@ -114,6 +114,7 @@
   "addingFixtureToMemDb": "Adding fixture for memory database",
   "recordsAdded%s%d%d": "%s: %d of %d records added",
   "driverInstantiated%s%s": "- Driver '%s:%s' instantiated",
+  "db": "DB",
   "field": {
     "id": "ID",
     "code": "Kode",
