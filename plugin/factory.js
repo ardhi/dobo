@@ -271,7 +271,37 @@ async function factory (pkgName) {
         if (trim(filter.query).startsWith('{')) query = JSON.parse(filter.query)
         else query = nql(filter.query).parse()
       } else if (isPlainObject(filter.query)) query = filter.query
-      return query
+      return this.sanitizeQuery(query, schema)
+    }
+
+    sanitizeQuery = (query, schema, parent) => {
+      const { cloneDeep, isPlainObject, isArray, find } = this.lib._
+      const { isSet } = this.app.bajo
+      const { dayjs } = this.lib
+      const obj = cloneDeep(query)
+      const keys = Object.keys(obj)
+      const sanitize = (key, val, p) => {
+        if (!isSet(val)) return val
+        const prop = find(schema.properties, { name: key.startsWith('$') ? p : key })
+        if (!prop) return val
+        if (['datetime', 'date', 'time'].includes(prop.type)) {
+          const dt = dayjs(val)
+          return dt.isValid() ? dt.toDate() : val
+        } else if (['smallint', 'integer'].includes(prop.type)) return parseInt(val) || val
+        else if (['float', 'double'].includes(prop.type)) return parseFloat(val) || val
+        else if (['boolean'].includes(prop.type)) return !!val
+        return val
+      }
+      keys.forEach(k => {
+        const v = obj[k]
+        if (isPlainObject(v)) obj[k] = this.sanitizeQuery(v, schema, k)
+        else if (isArray(v)) {
+          v.forEach((i, idx) => {
+            if (isPlainObject(i)) obj[k][idx] = this.sanitizeQuery(i, schema, k)
+          })
+        } else obj[k] = sanitize(k, v, parent)
+      })
+      return obj
     }
 
     validationErrorMessage = (err) => {
