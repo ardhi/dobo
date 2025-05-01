@@ -342,6 +342,18 @@ async function factory (pkgName) {
       return cloned ? cloneDeep(schema) : schema
     }
 
+    getField = (name, model) => {
+      const { getInfo } = this.app.dobo
+      const { find } = this.lib._
+      const { schema } = getInfo(model)
+
+      return find(schema.properties, { name })
+    }
+
+    hasField = (name, model) => {
+      return !!this.getField(name, model)
+    }
+
     getMemdbStorage = (name, fields = []) => {
       const { map, pick } = this.lib._
       const all = this.memDb.storage[name] ?? []
