@@ -47,6 +47,7 @@ async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extField
           if (p.type === type) result[p.name] = this.sanitizeDate(body[p.name], { input })
         }
       }
+      if (['string', 'text'].includes(p.type)) result[p.name] = body[p.name] + ''
     } else {
       if (isSet(p.default)) {
         result[p.name] = p.default
