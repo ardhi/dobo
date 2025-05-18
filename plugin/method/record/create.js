@@ -56,13 +56,13 @@ async function create (name, input, opts = {}) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id: body.id, body, options, action: 'create' })
     if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordCreated'))
   }
+  if (clearModel) await clearModel({ model: name, body: nbody, options, record })
+  if (noResult) return
+  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordCreate`, nbody, options, record)
     await runHook(`${this.name}:afterRecordCreate`, name, nbody, options, record)
   }
-  if (clearModel) await clearModel({ model: name, body: nbody, options, record })
-  if (noResult) return
-  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterCreate', { schema, body: nbody, options, record })
   return dataOnly ? record.data : record
 }

@@ -36,12 +36,12 @@ async function find (name, filter = {}, opts = {}) {
   const records = options.records ?? (await handler.call(this.app[driver.ns], { schema, filter, options }))
   delete options.records
   if (isSet(options.rels)) await multiRelRows.call(this, { schema, records: records.data, options })
+  for (const idx in records.data) {
+    records.data[idx] = await this.pickRecord({ record: records.data[idx], fields, schema, hidden, forceNoHidden })
+  }
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordFind`, filter, options, records)
     await runHook(`${this.name}:afterRecordFind`, name, filter, options, records)
-  }
-  for (const idx in records.data) {
-    records.data[idx] = await this.pickRecord({ record: records.data[idx], fields, schema, hidden, forceNoHidden })
   }
   if (set && !noCache) await set({ model: name, filter, options, records })
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterFind', { schema, filter, options, records })

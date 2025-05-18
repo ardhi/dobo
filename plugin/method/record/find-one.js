@@ -39,11 +39,11 @@ async function findOne (name, filter = {}, opts = {}) {
   record.data = record.data[0]
 
   if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
+  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordFindOne`, filter, options, record)
     await runHook(`${this.name}:afterRecordFindOne`, name, filter, options, record)
   }
-  record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (set && !noCache) await set({ model: name, filter, options, record })
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterFindOne', { schema, filter, options, record })
   return dataOnly ? record.data : record

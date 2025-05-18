@@ -47,14 +47,14 @@ async function update (name, id, input, opts = {}) {
     if (options.req.file) await handleAttachmentUpload.call(this, { name: schema.name, id, body, options, action: 'update' })
     if (options.req.flash && !options.noFlash) options.req.flash('notify', options.req.t('recordUpdated'))
   }
-  if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordUpdate`, id, nbody, options, record)
-    await runHook(`${this.name}:afterRecordUpdate`, name, id, nbody, options, record)
-  }
   if (clearModel) await clearModel({ model: name, id, body: nbody, options, record })
   if (noResult) return
   record.oldData = await this.pickRecord({ record: record.oldData, fields, schema, hidden, forceNoHidden })
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
+  if (!noHook) {
+    await runHook(`${this.name}.${camelCase(name)}:afterRecordUpdate`, id, nbody, options, record)
+    await runHook(`${this.name}:afterRecordUpdate`, name, id, nbody, options, record)
+  }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterUpdate', { schema, body: nbody, record })
   return dataOnly ? record.data : record
 }
