@@ -20,8 +20,9 @@ async function copyUploaded (name, id, options = {}) {
     if (parts.length === 0) continue
     field = setField ?? field
     const file = setFile ?? parts.join('@')
-    const opts = { source: f, field, file, mimeType, stats, req }
+    const opts = { source: f, field, file, mimeType, stats, req, silent: true }
     const rec = await this.attachmentCreate(name, id, opts)
+    if (!rec) continue
     delete rec.dir
     result.push(rec)
     if (setField || setFile) break

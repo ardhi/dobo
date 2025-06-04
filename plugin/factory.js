@@ -5,6 +5,7 @@ import collectSchemas from '../lib/collect-schemas.js'
 import memDbStart from '../lib/mem-db/start.js'
 import memDbInstantiate from '../lib/mem-db/instantiate.js'
 import nql from '@tryghost/nql'
+import path from 'path'
 
 async function factory (pkgName) {
   const me = this
@@ -359,6 +360,34 @@ async function factory (pkgName) {
       const all = this.memDb.storage[name] ?? []
       if (fields.length === 0) return all
       return map(all, item => pick(item, fields))
+    }
+
+    listAttachments = async ({ model, id = '*', field = '*', file = '*' } = {}, { uriEncoded = true } = {}) => {
+      const { map, kebabCase } = this.lib._
+      const { importPkg, getPluginDataDir, pascalCase } = this.app.bajo
+      const mime = await importPkg('waibu:mime')
+      const { fastGlob } = this.lib
+      const root = `${getPluginDataDir('dobo')}/attachment`
+      model = pascalCase(model)
+      let pattern = `${root}/${model}/${id}/${field}/${file}`
+      if (uriEncoded) pattern = pattern.split('/').map(p => decodeURI(p)).join('/')
+      return map(await fastGlob(pattern), f => {
+        const mimeType = mime.getType(path.extname(f)) ?? ''
+        const fullPath = f.replace(root, '')
+        const row = {
+          file: f,
+          fileName: path.basename(fullPath),
+          fullPath,
+          mimeType,
+          params: { model, id, field, file }
+        }
+        if (this.app.waibuMpa) {
+          const { routePath } = this.app.waibu
+          const [, _model, _id, _field, _file] = fullPath.split('/')
+          row.url = routePath(`dobo:/attachment/${kebabCase(_model)}/${_id}/${_field}/${_file}`)
+        }
+        return row
+      })
     }
   }
 }
