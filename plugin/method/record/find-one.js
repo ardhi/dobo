@@ -16,6 +16,7 @@ async function findOne (name, filter = {}, opts = {}) {
   options.dataOnly = false
   await this.modelExists(name, true)
   filter.limit = 1
+  filter.page = 1
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-find', options)
   if (!schema.cacheable) noCache = true
   filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
@@ -34,6 +35,7 @@ async function findOne (name, filter = {}, opts = {}) {
     }
   }
   filter.limit = 1
+  filter.page = 1
   const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, filter, options }))
   delete options.record
   record.data = record.data[0]
