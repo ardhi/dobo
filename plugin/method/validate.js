@@ -126,7 +126,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
 }
 
 async function validate (value, joiSchema, { ns, fields, extFields, params } = {}) {
-  const { defaultsDeep, isSet } = this.app.bajo
+  const { defaultsDeep, isSet } = this.lib.aneka
   const { isString, forOwn, find } = this.lib._
 
   ns = ns ?? [this.name]

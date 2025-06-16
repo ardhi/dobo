@@ -1,5 +1,7 @@
 async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extFields = [] }) {
-  const { isSet, dayjs, callHandler } = this.app.bajo
+  const { isSet } = this.lib.aneka
+  const { dayjs } = this.lib
+  const { callHandler } = this.app.bajo
   const { has, isString, isNumber, concat, isNaN } = this.lib._
   const result = {}
   for (const p of concat(schema.properties, extFields)) {

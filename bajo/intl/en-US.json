@@ -122,6 +122,7 @@
   "errorAddingFixture%s%s": "Error adding fixture on model '%s': %s",
   "memoryDbSkipped%s": "'%s' is a memory DB, skipped",
   "db": "DB",
+  "invalidQuery": "Invalid Query",
   "field": {
     "id": "ID",
     "code": "Kode",

@@ -267,17 +267,22 @@ async function factory (pkgName) {
     buildQuery = async ({ filter, schema, options = {} } = {}) => {
       const { trim, isString, isPlainObject } = this.lib._
       let query = {}
+      if (schema.name === 'SeatrackVessel') this.app.dump(filter)
       if (isString(filter.query)) {
-        filter.oquery = filter.query
-        if (trim(filter.query).startsWith('{')) query = JSON.parse(filter.query)
-        else query = nql(filter.query).parse()
+        try {
+          filter.oquery = filter.query
+          if (trim(filter.query).startsWith('{')) query = JSON.parse(filter.query)
+          else query = nql(filter.query).parse()
+        } catch (err) {
+          this.error('invalidQuery', { orgMessage: err.message })
+        }
       } else if (isPlainObject(filter.query)) query = filter.query
       return this.sanitizeQuery(query, schema)
     }
 
     sanitizeQuery = (query, schema, parent) => {
       const { cloneDeep, isPlainObject, isArray, find } = this.lib._
-      const { isSet } = this.app.bajo
+      const { isSet } = this.lib.aneka
       const { dayjs } = this.lib
       const obj = cloneDeep(query)
       const keys = Object.keys(obj)
@@ -336,8 +341,9 @@ async function factory (pkgName) {
 
     getSchema = (input, cloned = true) => {
       const { find, isPlainObject, cloneDeep } = this.lib._
+      const { pascalCase } = this.lib.aneka
       let name = isPlainObject(input) ? input.name : input
-      name = this.app.bajo.pascalCase(name)
+      name = pascalCase(name)
       const schema = find(this.schemas, { name })
       if (!schema) throw this.error('unknownModelSchema%s', name)
       return cloned ? cloneDeep(schema) : schema

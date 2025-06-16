@@ -3,7 +3,8 @@ import singleRelRows from '../../../lib/single-rel-rows.js'
 import execFeatureHook from '../../../lib/exec-feature-hook.js'
 
 async function get (name, id, opts = {}) {
-  const { runHook, isSet } = this.app.bajo
+  const { isSet } = this.lib.aneka
+  const { runHook } = this.app.bajo
   const { get, set } = this.cache ?? {}
   const { cloneDeep, camelCase, omit } = this.lib._
   delete opts.record

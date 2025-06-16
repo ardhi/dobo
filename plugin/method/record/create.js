@@ -7,7 +7,8 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 import singleRelRows from '../../../lib/single-rel-rows.js'
 
 async function create (name, input, opts = {}) {
-  const { generateId, runHook, isSet } = this.app.bajo
+  const { generateId, runHook } = this.app.bajo
+  const { isSet } = this.lib.aneka
   const { clearModel } = this.cache ?? {}
   const { find, forOwn, cloneDeep, camelCase, omit, get, pick } = this.lib._
   delete opts.record

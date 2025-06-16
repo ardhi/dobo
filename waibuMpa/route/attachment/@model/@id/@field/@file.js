@@ -2,7 +2,7 @@ import path from 'path'
 
 async function attachment (req, reply) {
   const { isString, isEmpty, find } = this.lib._
-  const { pascalCase } = this.app.bajo
+  const { pascalCase } = this.lib.aneka
   const { routePath } = this.app.waibu
   const { fs } = this.lib
   const items = await this.listAttachments({

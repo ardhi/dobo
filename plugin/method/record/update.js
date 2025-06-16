@@ -6,7 +6,8 @@ import execFeatureHook from '../../../lib/exec-feature-hook.js'
 import singleRelRows from '../../../lib/single-rel-rows.js'
 
 async function update (name, id, input, opts = {}) {
-  const { runHook, isSet } = this.app.bajo
+  const { isSet } = this.lib.aneka
+  const { runHook } = this.app.bajo
   const { clearModel } = this.cache ?? {}
   const { forOwn, find, cloneDeep, camelCase, omit, get } = this.lib._
   delete opts.record

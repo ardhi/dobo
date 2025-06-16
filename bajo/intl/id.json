@@ -115,6 +115,7 @@
   "recordsAdded%s%d%d": "%s: %d of %d records added",
   "driverInstantiated%s%s": "- Driver '%s:%s' instantiated",
   "db": "DB",
+  "invalidQuery": "Kueri Tidak Valid",
   "field": {
     "id": "ID",
     "code": "Kode",
