@@ -267,7 +267,6 @@ async function factory (pkgName) {
     buildQuery = async ({ filter, schema, options = {} } = {}) => {
       const { trim, isString, isPlainObject } = this.lib._
       let query = {}
-      if (schema.name === 'SeatrackVessel') this.app.dump(filter)
       if (isString(filter.query)) {
         try {
           filter.oquery = filter.query
