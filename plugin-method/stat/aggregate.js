@@ -1,4 +1,4 @@
-import resolveMethod from '../../../lib/resolve-method.js'
+import resolveMethod from '../../lib/resolve-method.js'
 
 async function aggregate (name, filter = {}, options = {}) {
   const { runHook } = this.app.bajo

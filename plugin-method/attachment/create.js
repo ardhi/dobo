@@ -1,4 +1,4 @@
-import mergeAttachmentInfo from '../../../lib/merge-attachment-info.js'
+import mergeAttachmentInfo from '../../lib/merge-attachment-info.js'
 
 async function create (name, id, options = {}) {
   const { fs } = this.lib

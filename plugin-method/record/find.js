@@ -1,6 +1,6 @@
-import resolveMethod from '../../../lib/resolve-method.js'
-import multiRelRows from '../../../lib/multi-rel-rows.js'
-import execFeatureHook from '../../../lib/exec-feature-hook.js'
+import resolveMethod from '../../lib/resolve-method.js'
+import multiRelRows from '../../lib/multi-rel-rows.js'
+import execFeatureHook from '../../lib/exec-feature-hook.js'
 
 async function find (name, filter = {}, opts = {}) {
   const { isSet } = this.lib.aneka

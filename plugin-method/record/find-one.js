@@ -1,6 +1,6 @@
-import resolveMethod from '../../../lib/resolve-method.js'
-import singleRelRows from '../../../lib/single-rel-rows.js'
-import execFeatureHook from '../../../lib/exec-feature-hook.js'
+import resolveMethod from '../../lib/resolve-method.js'
+import singleRelRows from '../../lib/single-rel-rows.js'
+import execFeatureHook from '../../lib/exec-feature-hook.js'
 
 async function findOne (name, filter = {}, opts = {}) {
   const { isSet } = this.lib.aneka

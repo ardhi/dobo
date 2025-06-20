@@ -1,6 +1,6 @@
-import resolveMethod from '../../../lib/resolve-method.js'
-import handleAttachmentUpload from '../../../lib/handle-attachment-upload.js'
-import execFeatureHook from '../../../lib/exec-feature-hook.js'
+import resolveMethod from '../../lib/resolve-method.js'
+import handleAttachmentUpload from '../../lib/handle-attachment-upload.js'
+import execFeatureHook from '../../lib/exec-feature-hook.js'
 
 async function remove (name, id, opts = {}) {
   const { runHook } = this.app.bajo

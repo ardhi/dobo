@@ -1,9 +1,9 @@
-import resolveMethod from '../../../lib/resolve-method.js'
-import checkUnique from '../../../lib/check-unique.js'
-import handleAttachmentUpload from '../../../lib/handle-attachment-upload.js'
-import execValidation from '../../../lib/exec-validation.js'
-import execFeatureHook from '../../../lib/exec-feature-hook.js'
-import singleRelRows from '../../../lib/single-rel-rows.js'
+import resolveMethod from '../../lib/resolve-method.js'
+import checkUnique from '../../lib/check-unique.js'
+import handleAttachmentUpload from '../../lib/handle-attachment-upload.js'
+import execValidation from '../../lib/exec-validation.js'
+import execFeatureHook from '../../lib/exec-feature-hook.js'
+import singleRelRows from '../../lib/single-rel-rows.js'
 
 async function update (name, id, input, opts = {}) {
   const { isSet } = this.lib.aneka

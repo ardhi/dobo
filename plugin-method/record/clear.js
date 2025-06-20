@@ -1,4 +1,4 @@
-import resolveMethod from '../../../lib/resolve-method.js'
+import resolveMethod from '../../lib/resolve-method.js'
 
 async function clear (name, opts = {}) {
   const { runHook } = this.app.bajo

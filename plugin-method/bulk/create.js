@@ -1,6 +1,6 @@
-import buildBulkAction from '../../../lib/build-bulk-action.js'
-import execValidation from '../../../lib/exec-validation.js'
-import execFeatureHook from '../../../lib/exec-feature-hook.js'
+import buildBulkAction from '../../lib/build-bulk-action.js'
+import execValidation from '../../lib/exec-validation.js'
+import execFeatureHook from '../../lib/exec-feature-hook.js'
 
 async function create (name, inputs, options) {
   const { isSet } = this.lib.aneka

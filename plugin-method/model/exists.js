@@ -1,4 +1,4 @@
-import resolveMethod from '../../../lib/resolve-method.js'
+import resolveMethod from '../../lib/resolve-method.js'
 
 const cache = {}
 

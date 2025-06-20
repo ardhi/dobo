@@ -1,5 +1,5 @@
-import resolveMethod from '../../../lib/resolve-method.js'
-import execFeatureHook from '../../../lib/exec-feature-hook.js'
+import resolveMethod from '../../lib/resolve-method.js'
+import execFeatureHook from '../../lib/exec-feature-hook.js'
 
 async function count (name, filter = {}, opts = {}) {
   const { runHook } = this.app.bajo
