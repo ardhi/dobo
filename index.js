@@ -369,7 +369,8 @@ async function factory (pkgName) {
 
     listAttachments = async ({ model, id = '*', field = '*', file = '*' } = {}, { uriEncoded = true } = {}) => {
       const { map, kebabCase } = this.lib._
-      const { importPkg, getPluginDataDir, pascalCase } = this.app.bajo
+      const { pascalCase } = this.lib.aneka
+      const { importPkg, getPluginDataDir } = this.app.bajo
       const mime = await importPkg('waibu:mime')
       const { fastGlob } = this.lib
       const root = `${getPluginDataDir('dobo')}/attachment`

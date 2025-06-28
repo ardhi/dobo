@@ -16,7 +16,7 @@ async function exists (name, thrown, options = {}) {
     await runHook(`${this.name}.${camelCase(name)}:afterModelExists`, exist, options)
     await runHook(`${this.name}:afterModelExists`, schema, exist, options)
   }
-  if (!exist && thrown) throw this.error('modelNotExists%s')
+  if (!exist && thrown) throw this.error('modelNotExists%s', name)
   cache[name] = exist
   return exist
 }
