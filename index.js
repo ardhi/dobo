@@ -327,10 +327,11 @@ async function factory (pkgName) {
 
     getInfo = (name) => {
       const { breakNsPath } = this.app.bajo
-      const { find, map } = this.lib._
+      const { find, map, isEmpty } = this.lib._
       const schema = this.getSchema(name)
       const conn = this.getConnection(schema.connection)
-      const { ns, path: type } = breakNsPath(conn.type)
+      let { ns, path: type } = breakNsPath(conn.type)
+      if (isEmpty(type)) type = conn.type
       const driver = find(this.drivers, { type, ns, driver: conn.driver })
       const instance = find(this.app[driver.ns].instances, { name: schema.connection })
       const opts = conn.type === 'mssql' ? { includeTriggerModifications: true } : undefined
