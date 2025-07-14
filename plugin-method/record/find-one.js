@@ -6,7 +6,7 @@ async function findOne (name, filter = {}, opts = {}) {
   const { isSet } = this.lib.aneka
   const { runHook } = this.app.bajo
   const { get, set } = this.cache ?? {}
-  const { cloneDeep, camelCase, omit } = this.lib._
+  const { cloneDeep, camelCase, omit, pick } = this.lib._
   delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
@@ -37,12 +37,13 @@ async function findOne (name, filter = {}, opts = {}) {
   }
   filter.limit = 1
   filter.page = 1
-  const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, filter, options }))
+  let record = options.record ?? (await handler.call(this.app[driver.ns], { schema, filter, options }))
   delete options.record
   record.data = record.data[0]
 
   if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
+  record = pick(record, ['data'])
   if (!noHook) {
     await runHook(`${this.name}.${camelCase(name)}:afterRecordFindOne`, filter, options, record)
     await runHook(`${this.name}:afterRecordFindOne`, name, filter, options, record)
