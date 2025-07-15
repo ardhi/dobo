@@ -18,6 +18,22 @@ $ npm install dobo
 
 Now open your ```<bajo-data-dir>/config/.plugins``` and put ```dobo``` in it
 
+## Documentations
+
+- [Query Language](docs/query-language.md)
+
+## Database Drivers
+
+- Memory (Built-in)
+- [SQL/Knex](https://github.com/ardhi/dobo-knex)
+- [CouchDB](https://github.com/ardhi/dobo-couchdb)
+- [Elasticsearch](https://github.com/ardhi/dobo-elasticsearch)
+- [MongoDB](https://github.com/ardhi/dobo-mongodb)
+- [Redis](https://github.com/ardhi/dobo-redis)
+- [REST Proxy](https://github.com/ardhi/dobo-restproxy)
+
+More will come soon
+
 ## License
 
 [MIT](LICENSE)

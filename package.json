@@ -1,6 +1,6 @@
 {
   "name": "dobo",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Database ORM/ODM for Bajo Framework",
   "main": "index.js",
   "scripts": {
