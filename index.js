@@ -233,6 +233,7 @@ async function factory (pkgName) {
 
     buildMatch = ({ input = '', schema, options }) => {
       const { isPlainObject, trim } = this.lib._
+      if (isPlainObject(input)) return input
       const split = (value, schema) => {
         let [field, val] = value.split(':').map(i => i.trim())
         if (!val) {
@@ -241,7 +242,6 @@ async function factory (pkgName) {
         }
         return { field, value: val }
       }
-
       input = trim(input)
       let items = {}
       if (isPlainObject(input)) items = input
@@ -265,13 +265,27 @@ async function factory (pkgName) {
     }
 
     buildQuery = async ({ filter, schema, options = {} } = {}) => {
-      const { trim, isString, isPlainObject } = this.lib._
+      const { trim, find, isString, isPlainObject } = this.lib._
       let query = {}
       if (isString(filter.query)) {
         try {
-          filter.oquery = filter.query
+          filter.query = trim(filter.query)
+          filter.orgQuery = filter.query
           if (trim(filter.query).startsWith('{')) query = JSON.parse(filter.query)
-          else query = nql(filter.query).parse()
+          else if (filter.query.includes(':')) query = nql(filter.query).parse()
+          else {
+            const fields = schema.sortables.filter(f => {
+              const field = find(schema.properties, { name: f, type: 'string' })
+              return !!field
+            })
+            const parts = fields.map(f => {
+              if (filter.query[0] === '*') return `${f}:~$'${filter.query.replaceAll('*', '')}'`
+              if (filter.query[filter.length - 1] === '*') return `${f}:~^'${filter.query.replaceAll('*', '')}'`
+              return `${f}:~'${filter.query.replaceAll('*', '')}'`
+            })
+            if (parts.length === 1) query = nql(parts[0]).parse()
+            else if (parts.length > 1) query = nql(parts.join(',')).parse()
+          }
         } catch (err) {
           this.error('invalidQuery', { orgMessage: err.message })
         }
