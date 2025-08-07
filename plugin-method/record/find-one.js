@@ -20,7 +20,7 @@ async function findOne (name, filter = {}, opts = {}) {
   filter.page = 1
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-find', options)
   if (!schema.cacheable) noCache = true
-  filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
+  filter.query = this.buildQuery({ filter, schema, options }) ?? {}
   if (options.queryHandler) filter.query = await options.queryHandler.call(opts.req ? this.app[opts.req.ns] : this, filter.query, opts.req)
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {

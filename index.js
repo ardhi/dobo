@@ -264,7 +264,7 @@ async function factory (pkgName) {
       return matcher
     }
 
-    buildQuery = async ({ filter, schema, options = {} } = {}) => {
+    buildQuery = ({ filter, schema, options = {} } = {}) => {
       const { trim, find, isString, isPlainObject } = this.lib._
       let query = {}
       if (isString(filter.query)) {

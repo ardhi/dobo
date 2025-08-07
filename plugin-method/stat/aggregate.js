@@ -10,7 +10,7 @@ async function aggregate (name, filter = {}, options = {}) {
     await runHook(`${this.name}:beforeStatAggregate`, name, aggregate, filter, options)
     await runHook(`${this.name}.${name}:beforeStatAggregate`, aggregate, filter, options)
   }
-  filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
+  filter.query = this.buildQuery({ filter, schema, options }) ?? {}
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   const rec = await handler.call(this.app[driver.ns], { schema, filter, options })
   if (!noHook) {

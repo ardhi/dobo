@@ -9,7 +9,7 @@ async function histogram (name, filter = {}, options = {}) {
   if (!types.includes(type)) throw this.error('histogramTypeMusBe%s', join(types))
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'stat-histogram', options)
-  filter.query = await this.buildQuery({ filter, schema, options }) ?? {}
+  filter.query = this.buildQuery({ filter, schema, options }) ?? {}
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {
     await runHook(`${this.name}:beforeStatHistogram`, name, type, filter, options)
