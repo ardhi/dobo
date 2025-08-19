@@ -34,6 +34,7 @@ async function factory (pkgName) {
           filter: {
             limit: 25,
             maxLimit: 200,
+            hardLimit: 10000,
             sort: ['dt:-1', 'updatedAt:-1', 'updated_at:-1', 'createdAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
           },
           idField: {
