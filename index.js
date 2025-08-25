@@ -10,10 +10,11 @@ import path from 'path'
 async function factory (pkgName) {
   const me = this
 
-  return class Dobo extends this.lib.Plugin {
+  class Dobo extends this.lib.Plugin {
+    static alias = 'db'
+
     constructor () {
       super(pkgName, me.app)
-      this.alias = 'db'
       this.config = {
         connections: [],
         mergeProps: ['connections'],
@@ -412,6 +413,8 @@ async function factory (pkgName) {
       })
     }
   }
+
+  return Dobo
 }
 
 export default factory
