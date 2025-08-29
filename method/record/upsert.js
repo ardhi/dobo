@@ -1,3 +1,19 @@
+/**
+ * Update a record by payload's ID. If no record is found by given ID, a new one will be created instead.
+ *
+ * Missing ID in payload always results a new record creation.
+ * ```
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordUpsert
+ * @param {string} name - Model's name
+ * @param {Object} body - Body payload
+ * @param {TRecordUpsertOptions} [options={}]
+ * @returns {(TRecordUpdateResult|TRecordCreateResult|Object)} Returns updated/newly created record if ```options.dataOnly``` is set. {@link TRecordUpdateResult} or {@link TRecordCreateResult} otherwise
+ */
 async function upsert (name, input, opts = {}) {
   const { generateId } = this.app.bajo
   const { find } = this.lib._

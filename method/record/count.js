@@ -1,6 +1,28 @@
 import resolveMethod from '../../lib/resolve-method.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 
+/**
+ * @typedef {Object} TRecordCountOptions
+ * @see Dobo#recordCount
+ * @property {boolean} [dataOnly=true] - If ```true``` (default) returns array of records. Otherwise {@link TFindRecordResult}
+ * @property {boolean} [noCache=true] - If ```true``` (default), result set won't be cached. This will overwrite model's ```cacheable``` property. Only applicable if {@link https://github.com/ardhi/bajo-cache|bajo-cache} is loaded
+ * @property {boolean} [noHook=false] - If ```true```, no model's hook will be executed
+ * @property {boolean} [noFeatureHook=false] - If ```true```, no model's feature hook will be executed
+ */
+
+/**
+ * Return the number of records found by given filter
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordCount
+ * @param {string} name - Model's name
+ * @param {TRecordFilter} [filter={}] - Filter object
+ * @param {TRecordCountOptions} [options={}]
+ * @returns {(TRecordCountResult|number)} Return ```number``` of records if ```options.dataOnly``` is set. {@link TRecordCountResult} otherwise
+ */
 async function count (name, filter = {}, opts = {}) {
   const { runHook } = this.app.bajo
   const { get, set } = this.cache ?? {}

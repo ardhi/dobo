@@ -1,5 +1,17 @@
 import resolveMethod from '../../lib/resolve-method.js'
 
+/**
+ * Drop database model
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name modelDrop
+ * @param {string} name - Model's name
+ * @param {Object} [options={}] - Options object
+ */
+
 async function drop (name, options = {}) {
   const { runHook } = this.app.bajo
   const { camelCase } = this.lib._

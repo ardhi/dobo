@@ -2,6 +2,19 @@ import resolveMethod from '../../lib/resolve-method.js'
 
 const cache = {}
 
+/**
+ * Check if model exists already
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name modelExists
+ * @param {string} name - Model's name
+ * @param {boolean} [thrown=false] - If ```true``` throw error if not exists instead of just silent
+ * @param {Object} [options={}] - Options object
+ * @returns {boolean}
+ */
 async function exists (name, thrown, options = {}) {
   if (cache[name]) return cache[name]
   const { runHook } = this.app.bajo

@@ -3,6 +3,80 @@ import joi from 'joi'
 const excludedTypes = ['object', 'array']
 const excludedNames = []
 
+/**
+ * @typedef {string[]} TValidatorString
+ * @property {string} 0=alphanum
+ * @property {string} 1=base64
+ * @property {string} 2=case
+ * @property {string} 3=creditCard
+ * @property {string} 4=dataUri
+ * @property {string} 5=email
+ * @property {string} 6=guid
+ * @property {string} 7=uuid
+ * @property {string} 8=hex
+ * @property {string} 9=hostname
+ * @property {string} 10=insenstive
+ * @property {string} 11=ip
+ * @property {string} 12=isoDate
+ * @property {string} 13=isoDuration
+ * @property {string} 14=length
+ * @property {string} 15=lowercase
+ * @property {string} 16=max
+ * @property {string} 17=min
+ * @property {string} 18=normalize
+ * @property {string} 19=pattern
+ * @property {string} 20=regex
+ * @property {string} 21=replace
+ * @property {string} 22=token
+ * @property {string} 23=trim
+ * @property {string} 24=truncate
+ * @property {string} 25=upercase
+ * @property {string} 26=uri
+ */
+
+/**
+ * @typedef {string[]} TValidatorNumber
+ * @property {string} 0=great
+ * @property {string} 1=less
+ * @property {string} 2=max
+ * @property {string} 3=min
+ * @property {string} 4=multiple
+ * @property {string} 5=negative
+ * @property {string} 6=port
+ * @property {string} 7=positive
+ * @property {string} 8=sign
+ * @property {string} 9=unsafe
+ */
+
+/**
+ * @typedef {string[]} TValidatorBoolean
+ * @property {string} 0=falsy
+ * @property {string} 1=sensitive
+ * @property {string} 2=truthy
+ */
+
+/**
+ * @typedef {string[]} TValidatorDate
+ * @property {string} 0=greater
+ * @property {string} 1=iso
+ * @property {string} 2=less
+ * @property {string} 2=max
+ * @property {string} 2=min
+ */
+
+/**
+ * @typedef {string[]} TValidatorTimestamp
+ * @property {string} 0=timestamp
+ */
+
+/**
+ * @typedef {Object} TValidator
+ * @property {TValidatorString} string
+ * @property {TValidatorNumber} number
+ * @property {TValidatorBoolean} boolean
+ * @property {TValidatorDate} date
+ * @property {TValidatorTimestamp} timestamp
+ */
 const validator = {
   string: ['alphanum', 'base64', 'case', 'creditCard', 'dataUri', 'domain', 'email', 'guid',
     'uuid', 'hex', 'hostname', 'insensitive', 'ip', 'isoDate', 'isoDuration', 'length', 'lowercase',
@@ -15,6 +89,20 @@ const validator = {
   timestamp: ['timestamp']
 }
 
+/**
+ * @module
+ */
+
+/**
+ * Automatically generate JOI's schema from schema
+ *
+ * @param {TSchema} schema
+ * @param {Object} [options={}] - Options object
+ * @param {string[]} [options.fields=[]]
+ * @param {string[]} [options.rule={}]
+ * @param {string[]} [options.extFields=[]]
+ * @returns {Object} JOI's schema
+ */
 function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } = {}) {
   // if (schema.validation) return schema.validation
   const {

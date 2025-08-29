@@ -10,5 +10,8 @@
   },
   "ecosystem": {
     "title": "Ecosystem"
+  },
+  "getting-started": {
+    "title": "Getting Started"
   }
 }
