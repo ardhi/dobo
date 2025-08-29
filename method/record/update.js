@@ -44,7 +44,7 @@ import singleRelRows from '../../lib/single-rel-rows.js'
  * @param {(string|number)} id - Record's ID
  * @param {Object} body - Body payload
  * @param {TRecordUpdateOptions} [options={}]
- * @returns {(TRecordUpdateResult|Object} Returns updated record if ```options.dataOnly``` is set. {@link TRecordUpdateResult} otherwise
+ * @returns {(TRecordUpdateResult|Object)} Returns updated record if ```options.dataOnly``` is set. {@link TRecordUpdateResult} otherwise
  */
 async function update (name, id, input, opts = {}) {
   const { isSet } = this.lib.aneka

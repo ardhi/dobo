@@ -31,7 +31,7 @@ import execFeatureHook from '../../lib/exec-feature-hook.js'
  * @param {string} name - Model's name
  * @param {(string|number)} id - Record's ID
  * @param {TRecordRemoveOptions} [options={}]
- * @returns {(TRecordRemoveResult|Object} Return the removed record if ```options.dataOnly``` is set. {@link TRecordRemoveResult} otherwise
+ * @returns {(TRecordRemoveResult|Object)} Return the removed record if ```options.dataOnly``` is set. {@link TRecordRemoveResult} otherwise
  */
 async function remove (name, id, opts = {}) {
   const { runHook } = this.app.bajo

@@ -44,7 +44,7 @@ import singleRelRows from '../../lib/single-rel-rows.js'
  * @param {string} name - Model's name
  * @param {Object} body - Data to be saved
  * @param {TRecordCreateOptions} [options={}]
- * @returns {(TRecordCreateResult|Object} Returns newly created record if ```options.dataOnly``` is set. {@link TRecordCreateResult} otherwise
+ * @returns {(TRecordCreateResult|Object)} Returns newly created record if ```options.dataOnly``` is set. {@link TRecordCreateResult} otherwise
  */
 async function create (name, input, opts = {}) {
   const { generateId, runHook } = this.app.bajo

@@ -108,11 +108,19 @@ const propType = {
   array: {}
 }
 
+/**
+ * Plugin factory
+ *
+ * @param {string} pkgName - NPM package name
+ * @returns {class}
+ */
 async function factory (pkgName) {
   const me = this
 
   /**
-   * Dobo Database Framework for Bajo
+   * Dobo Database Framework for {@link https://github.com/ardhi/bajo|Bajo}.
+   *
+   * See {@tutorial ecosystem} for available drivers & tools
    *
    * @class
    */
