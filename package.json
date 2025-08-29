@@ -4,7 +4,8 @@
   "description": "Database ORM/ODM for Bajo Framework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-doc": "jsdoc -c .jsdoc.conf.json",
+    "test": "mocha"
   },
   "type": "module",
   "bajo": {
@@ -32,5 +33,9 @@
     "@tryghost/nql": "^0.12.7",
     "joi": "^17.13.3",
     "mingo": "^6.5.1"
+  },
+  "devDependencies": {
+    "clean-jsdoc-theme": "^4.3.0",
+    "jsdoc-plugin-intersection": "^1.0.4"
   }
 }

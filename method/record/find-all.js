@@ -1,3 +1,19 @@
+/**
+ * Find all records by model's name and given filter.
+ *
+ * The total number of records returned is limited by ```hardLimit``` value set in {@tutorial config} file.
+ *
+ * @see Dobo#recordFind
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordFindAll
+ * @param {string} name - Model's name
+ * @param {Object} [filter={}] - Filter object
+ * @param {TRecordFindOptions} [options={}]
+ * @returns {(TRecordFindResult|Array.<Object>)} Return ```array``` of records if ```options.dataOnly``` is set. {@link TRecordFindResult} otherwise
+ */
 async function findAll (name, filter = {}, options = {}) {
   const { maxLimit, hardLimit } = this.config.default.filter
   filter.page = 1

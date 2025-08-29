@@ -6,6 +6,46 @@ import execValidation from '../../lib/exec-validation.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 import singleRelRows from '../../lib/single-rel-rows.js'
 
+/**
+ * @typedef {Object} TRecordCreateOptions
+ * @see Dobo#recordCreate
+ * @property {boolean} [dataOnly=true] - If ```true``` (default) returns record's object. Otherwise {@link TRecordCreateResult}
+ * @property {boolean} [noHook=false] - If ```true```, no model's hook will be executed
+ * @property {boolean} [noFeatureHook=false] - If ```true```, no model's feature hook will be executed
+ * @property {boolean} [noValidation=false] - If ```true```, no validation of data payload performed
+ * @property {boolean} [noCheckUnique=false] - If ```true```, no unique validation for ID performed
+ * @property {boolean} [noSanitize=false] - If ```true```, accept data payload as is without sanitization
+ * @property {boolean} [noResult=false] - If ```true```, returns nothing
+ * @property {boolean} [truncateString=true] - If ```true``` (default), string is truncated to its schema's ```maxLemngth```
+ * @property {boolean} [fields=[]] - If not empty, return only these fields EXCLUDING hidden fields
+ * @property {boolean} [hidden=[]] - Additional fields to hide, in addition the one set in model's schema
+ * @property {boolean} [forceNoHidden=false] - If ```true```, hidden fields will be ignored and ALL fields will be returned
+ */
+
+/**
+ * Create a new record
+ *
+ * Example:
+ * ```javascript
+ * const { recordCreate } = this.app.dobo
+ * const { body } = {
+ *   id: 'ID',
+ *   name: 'Indonesia',
+ *   iso3: 'IDN'
+ * }
+ * const result = await recordCreate('CdbCountry', body)
+ * ```
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordCreate
+ * @param {string} name - Model's name
+ * @param {Object} body - Data to be saved
+ * @param {TRecordCreateOptions} [options={}]
+ * @returns {(TRecordCreateResult|Object} Returns newly created record if ```options.dataOnly``` is set. {@link TRecordCreateResult} otherwise
+ */
 async function create (name, input, opts = {}) {
   const { generateId, runHook } = this.app.bajo
   const { isSet } = this.lib.aneka

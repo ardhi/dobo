@@ -5,6 +5,47 @@ import execValidation from '../../lib/exec-validation.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 import singleRelRows from '../../lib/single-rel-rows.js'
 
+/**
+ * @typedef {Object} TRecordUpdateOptions
+ * @see Dobo#recordUpdate
+ * @property {boolean} [dataOnly=true] - If ```true``` (default) returns record's object. Otherwise {@link TRecordUpdateResult}
+ * @property {boolean} [noHook=false] - If ```true```, no model's hook will be executed
+ * @property {boolean} [noFeatureHook=false] - If ```true```, no model's feature hook will be executed
+ * @property {boolean} [noValidation=false] - If ```true```, no validation of data payload performed
+ * @property {boolean} [noCheckUnique=false] - If ```true```, no unique validation for ID performed
+ * @property {boolean} [noSanitize=false] - If ```true```, accept data payload as is without sanitization
+ * @property {boolean} [noResult=false] - If ```true```, returns nothing
+ * @property {boolean} [truncateString=true] - If ```true``` (default), string is truncated to its schema's ```maxLemngth```
+ * @property {boolean} [partial=true] - If ```true``` (default), only updated values are saved. Otherwise replace all existing values with given payload
+ * @property {boolean} [fields=[]] - If not empty, return only these fields EXCLUDING hidden fields
+ * @property {boolean} [hidden=[]] - Additional fields to hide, in addition the one set in model's schema
+ * @property {boolean} [forceNoHidden=false] - If ```true```, hidden fields will be ignored and ALL fields will be returned
+ */
+
+/**
+ * Update a record by it's ID and body payload
+ *
+ * Example:
+ * ```javascript
+ * const { recordUpdate } = this.app.dobo
+ * const { body } = {
+ *   name: 'Republic of Indonesia',
+ *   phoneCode: '+62'
+ * }
+ * const result = await recordUpdate('CdbCountry', 'ID', body)
+ * ```
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordUpdate
+ * @param {string} name - Model's name
+ * @param {(string|number)} id - Record's ID
+ * @param {Object} body - Body payload
+ * @param {TRecordUpdateOptions} [options={}]
+ * @returns {(TRecordUpdateResult|Object} Returns updated record if ```options.dataOnly``` is set. {@link TRecordUpdateResult} otherwise
+ */
 async function update (name, id, input, opts = {}) {
   const { isSet } = this.lib.aneka
   const { runHook } = this.app.bajo

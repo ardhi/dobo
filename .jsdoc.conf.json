@@ -1,0 +1,42 @@
+{
+  "plugins": ["plugins/markdown", "jsdoc-plugin-intersection"],
+  "opts": {
+    "encoding": "utf8",
+    "recurse": true,
+    "verbose": true,
+    "destination": "./docs",
+    "template": "node_modules/clean-jsdoc-theme",
+    "tutorials": "./tutorial",
+    "readme": "./docs/home.md",
+    "theme_opts": {
+      "default_theme": "light",
+      "display-module-header": true,
+      "title": "Dobo Database Framework",
+      "homepageTitle": "Dobo Database Framework",
+      "menu": [{
+        "title": "Dobo",
+        "link": "https://bajo.app/dobo"
+      }, {
+        "title": "NPM",
+        "link": "https://www.npmjs.com/package/dobo"
+      }, {
+        "title": "Github",
+        "link": "https://github.com/ardhi/dobo"
+      }]
+    }
+  },
+  "source": {
+    "include": ["."],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "exclude": ["node_modules", "docs", "test"]
+  },
+  "markdown": {
+    "hardwrap": false,
+    "idInHeadings": true
+  },
+  "sourceType": "module",
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  }
+}

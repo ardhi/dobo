@@ -2,6 +2,37 @@ import resolveMethod from '../../lib/resolve-method.js'
 import handleAttachmentUpload from '../../lib/handle-attachment-upload.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 
+/**
+ * @typedef {Object} TRecordRemoveOptions
+ * @see Dobo#recordRemove
+ * @property {boolean} [dataOnly=true] - If ```true``` (default) returns deleted record. Otherwise {@link TRecordRemoveResult}
+ * @property {boolean} [noHook=false] - If ```true```, no model's hook will be executed
+ * @property {boolean} [noFeatureHook=false] - If ```true```, no model's feature hook will be executed
+ * @property {boolean} [noResult=false] - If ```true```, returns nothing
+ * @property {boolean} [fields=[]] - If not empty, return only these fields EXCLUDING hidden fields
+ * @property {boolean} [hidden=[]] - Additional fields to hide, in addition the one set in model's schema
+ * @property {boolean} [forceNoHidden=false] - If ```true```, hidden fields will be ignored and ALL fields will be returned
+ */
+
+/**
+ * Remove existing record by it's ID. All attachments bound to this record will also be removed forever.
+ *
+ * Example:
+ * ```javascript
+ * const { recordRemove } = this.app.dobo
+ * const result = await recordRemove('CdbCountry', 'ID')
+ * ```
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordRemove
+ * @param {string} name - Model's name
+ * @param {(string|number)} id - Record's ID
+ * @param {TRecordRemoveOptions} [options={}]
+ * @returns {(TRecordRemoveResult|Object} Return the removed record if ```options.dataOnly``` is set. {@link TRecordRemoveResult} otherwise
+ */
 async function remove (name, id, opts = {}) {
   const { runHook } = this.app.bajo
   const { clearModel } = this.cache ?? {}

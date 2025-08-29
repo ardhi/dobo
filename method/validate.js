@@ -22,7 +22,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
     find, isArray, has, cloneDeep, concat, without
   } = this.lib._
   const obj = {}
-  const me = this
+  const { propType } = this.app.pluginFactory.dobo
   const refs = []
 
   function getRuleKv (kvRule) {
@@ -44,7 +44,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
     const rules = get(rule, prop.name, prop.rules ?? [])
     if (!isArray(rules)) return rules
     each(rules, r => {
-      const types = validator[me.propType[prop.type].validator]
+      const types = validator[propType[prop.type].validator]
       const { key, value } = getRuleKv(r)
       if (keys(minMax).includes(key)) minMax[key] = true
       if (key === 'ref') {
@@ -110,7 +110,7 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
     each(without(keys(obj), ...refs), k => {
       const prop = find(props, { name: k })
       if (!prop) return undefined
-      const types = validator[me.propType[prop.type].validator]
+      const types = validator[propType[prop.type].validator]
       const { key, value, columns = [] } = getRuleKv(r)
       if (!types.includes(key)) return undefined
       if (columns.length === 0 || columns.includes(k)) obj[k] = obj[k][key](value)

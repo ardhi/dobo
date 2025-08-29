@@ -1,0 +1,11 @@
+{
+  "config": {
+    "title": "Config Object"
+  },
+  "contribution": {
+    "title": "Contribution"
+  },
+  "query-language": {
+    "title": "Query Language"
+  }
+}

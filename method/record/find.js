@@ -2,6 +2,69 @@ import resolveMethod from '../../lib/resolve-method.js'
 import multiRelRows from '../../lib/multi-rel-rows.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 
+/**
+ * @typedef {Object} TRecordFilter
+ * @see Dobo#recordFind
+ * @see Dobo#recordFindOne
+ * @see Dobo#recordFindAll
+ * @property {(string|Object)} [query={}] - Query definition. See {@tutorial query-language} for more
+ * @property {number} limit - Max number of records per page
+ * @property {number} page - Which page is the returned records currently at
+ * @property {number} skip - Records to skip
+ * @property {TRecordSort} sort - Sort order info
+ */
+
+/**
+ * @typedef {Object} TRecordFindResult
+ * @see Dobo#recordFind
+ * @see Dobo#recordFindAll
+ * @see Dobo#recordGet
+ * @property {Array.<Object>} data - Array of returned records
+ * @property {boolean} success - Whether operation is successfull or failed
+ * @property {number} page - Which page is the returned records currently at
+ * @property {number} limit - Max number of records per page
+ * @property {number} count - Total number of records returned
+ * @property {number} pages - Total number of pages returned
+ */
+
+/**
+ * @typedef {Object} TRecordFindOptions
+ * @see Dobo#recordFind
+ * @see Dobo#recordFindOne
+ * @see Dobo#recordFindAll
+ * @property {boolean} [dataOnly=true] - If ```true``` (default) returns array of records. Otherwise {@link TFindRecordResult}
+ * @property {boolean} [count=false] - If ```true``` and ```dataOnly``` is also ```true```, the total number of records found will be returned
+ * @property {boolean} [noCache=true] - If ```true``` (default), result set won't be cached. This will overwrite model's ```cacheable``` property. Only applicable if {@link https://github.com/ardhi/bajo-cache|bajo-cache} is loaded
+ * @property {boolean} [noHook=false] - If ```true```, no model's hook will be executed
+ * @property {boolean} [noFeatureHook=false] - If ```true```, no model's feature hook will be executed
+ * @property {boolean} [fields=[]] - If not empty, return only these fields EXCLUDING hidden fields
+ * @property {boolean} [hidden=[]] - Additional fields to hide, in addition the one set in model's schema
+ * @property {boolean} [forceNoHidden=false] - If ```true```, hidden fields will be ignored and ALL fields will be returned
+ */
+
+/**
+ * Find records by model's name and given filter
+ *
+ * Example: find records from model **CdbCountry** where its id is 'ID' or 'MY',
+ * sorted by ```name``` in ascending order and return only its ```id```, ```name``` and ```iso3```
+ * ```javascript
+ * const { recordFind } = this.app.dobo
+ * const query = { id: { $in: ['ID', 'MY'] } }
+ * const sort = { name: 1 }
+ * const fields = ['id', 'name', 'iso3']
+ * const result = await recordFind('CdbCountry', { query, sort }, { fields })
+ * ```
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordFind
+ * @param {string} name - Model's name
+ * @param {Object} [filter={}] - Filter object
+ * @param {TRecordFindOptions} [options={}]
+ * @returns {(TRecordFindResult|Array.<Object>)} Return ```array``` of records if ```options.dataOnly``` is set. {@link TRecordFindResult} otherwise
+ */
 async function find (name, filter = {}, opts = {}) {
   const { isSet } = this.lib.aneka
   const { runHook } = this.app.bajo

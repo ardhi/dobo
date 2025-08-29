@@ -2,6 +2,48 @@ import resolveMethod from '../../lib/resolve-method.js'
 import singleRelRows from '../../lib/single-rel-rows.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 
+/**
+ * @typedef {Object} TRecordGetResult
+ * @see Dobo#recordGet
+ * @see Dobo#recordFindOne
+ * @property {Object} data - Returned record
+ * @property {boolean} success - Whether operation is successfull or failed
+ */
+
+/**
+ * @typedef {Object} TRecordGetOptions
+ * @see Dobo#recordGet
+ * @property {boolean} [dataOnly=true] - If ```true``` (default) returns array of records. Otherwise {@link TFindRecordResult}
+ * @property {boolean} [count=false] - If ```true``` and ```dataOnly``` is also ```true```, the total number of records found will be returned
+ * @property {boolean} [noCache=true] - If ```true``` (default), result set won't be cached. This will overwrite model's ```cacheable``` property. Only applicable if {@link https://github.com/ardhi/bajo-cache|bajo-cache} is loaded
+ * @property {boolean} [noHook=false] - If ```true```, no model's hook will be executed
+ * @property {boolean} [noFeatureHook=false] - If ```true```, no model's feature hook will be executed
+ * @property {boolean} [fields=[]] - If not empty, return only these fields EXCLUDING hidden fields
+ * @property {boolean} [hidden=[]] - Additional fields to hide, in addition the one set in model's schema
+ * @property {boolean} [forceNoHidden=false] - If ```true```, hidden fields will be ignored and ALL fields will be returned
+ */
+
+/**
+ * Get record by model's name and record ID
+ *
+ * Example:
+ * ```javascript
+ * const { recordGet } = this.app.dobo
+ * const fields = ['id', 'name', 'iso3']
+ * const result = await recordGet('CdbCountry', 'ID', { fields })
+ * ```
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordGet
+ * @param {string} name - Model's name
+ * @param {(string|number)} - Record's ID
+ * @param {TRecordGetOptions} [options={}]
+ * @returns {(TRecordGetResult|Object)} Return record's ```object``` if ```options.dataOnly``` is set. {@link TRecordGetResult} otherwise
+ */
+
 async function get (name, id, opts = {}) {
   const { isSet } = this.lib.aneka
   const { runHook } = this.app.bajo

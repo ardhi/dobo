@@ -2,6 +2,20 @@ import resolveMethod from '../../lib/resolve-method.js'
 import singleRelRows from '../../lib/single-rel-rows.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 
+/**
+ * Find the first record by model's name and given filter.
+ *
+ * @see Dobo#recordFind
+ * @method
+ * @memberof Dobo
+ * @async
+ * @instance
+ * @name recordFindOne
+ * @param {string} name - Model's name
+ * @param {Object} [filter={}] - Filter object
+ * @param {TRecordFindOptions} [options={}]
+ * @returns {(TRecordGetResult|Object)} Return record's ```object``` if ```options.dataOnly``` is set. {@link TRecordGetResult} otherwise
+ */
 async function findOne (name, filter = {}, opts = {}) {
   const { isSet } = this.lib.aneka
   const { runHook } = this.app.bajo
