@@ -3,10 +3,10 @@ import execValidation from '../../lib/exec-validation.js'
 import execFeatureHook from '../../lib/exec-feature-hook.js'
 
 async function create (name, inputs, options) {
-  const { isSet } = this.lib.aneka
+  const { isSet } = this.app.lib.aneka
   const { generateId, runHook } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { find } = this.lib._
+  const { find } = this.app.lib._
   options.dataOnly = options.dataOnly ?? true
   options.truncateString = options.truncateString ?? true
   const { noHook, noValidation } = options

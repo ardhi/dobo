@@ -1,6 +1,6 @@
 async function beforeFind ({ filter = {}, options }, opts) {
   filter.query = filter.query ?? {}
-  const { isEmpty, set } = this.lib._
+  const { isEmpty, set } = this.app.lib._
   const q = { $and: [] }
   if (!isEmpty(filter.query)) {
     if (filter.query.$and) q.$and.push(...filter.query.$and)
@@ -17,7 +17,7 @@ async function afterFind ({ records }, opts) {
 }
 
 async function afterGet ({ schema, id, record }, opts) {
-  const { isEmpty } = this.lib._
+  const { isEmpty } = this.app.lib._
   if (!isEmpty(record.data[opts.fieldName])) throw this.error('recordNotFound%s%s', id, schema.name, { statusCode: 404 })
   delete record.data[opts.fieldName]
 }
@@ -70,7 +70,7 @@ async function removedAt (opts = {}) {
       beforeRemove: async function ({ schema, id, options }) {
         const { recordUpdate, recordGet } = this.app.dobo
         await recordGet(schema.name, id, options)
-        const { set } = this.lib._
+        const { set } = this.app.lib._
         const body = set({}, opts.fieldName, new Date())
         const record = await recordUpdate(schema.name, id, body, { dataOnly: false, noValidation: true, noFeatureHook: true })
         options.record = { oldData: record.oldData }

@@ -15,7 +15,7 @@ import resolveMethod from '../../lib/resolve-method.js'
  */
 async function create (name, options = {}) {
   const { runHook } = this.app.bajo
-  const { camelCase } = this.lib._
+  const { camelCase } = this.app.lib._
 
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'model-create', options)
   if (!options.noHook) {

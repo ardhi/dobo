@@ -1,6 +1,6 @@
 import collectConnections from './lib/collect-connections.js'
 import collectDrivers from './lib/collect-drivers.js'
-import collectFeature from './lib/collect-feature.js'
+import collectFeatures from './lib/collect-features.js'
 import collectSchemas from './lib/collect-schemas.js'
 import memDbStart from './lib/mem-db/start.js'
 import memDbInstantiate from './lib/mem-db/instantiate.js'
@@ -124,7 +124,7 @@ async function factory (pkgName) {
    *
    * @class
    */
-  class Dobo extends this.lib.Plugin {
+  class Dobo extends this.app.pluginClass.base {
     /**
      * @constant {string}
      * @memberof Dobo
@@ -182,19 +182,42 @@ async function factory (pkgName) {
           }
         }
       }
+
+      /**
+       * @type {Object[]}
+       */
+      this.drivers = []
+
+      /**
+       * @type {Object[]}
+       */
+      this.connections = []
+
+      /**
+       * @type {Object[]}
+       */
+      this.features = []
+
+      /**
+       * @type {Object[]}
+       */
+      this.schemas = []
     }
 
     /**
-     * Initialize plugin
-     *
+     * Initialize plugin and performing the following tasks:
+     * - {@link module:Lib.collectDrivers|Collecting all drivers}
+     * - {@link module:Lib.collectConnections|Collecting all connections}
+     * - {@link module:Lib.collectFeatures|Collecting all features}
+     * - {@link module:Lib.collectSchemas|Collecting all schemas}
      * @method
      * @async
      */
     init = async () => {
       const { buildCollections } = this.app.bajo
-      const { fs } = this.lib
+      const { fs } = this.app.lib
       const checkType = async (item, items) => {
-        const { filter } = this.lib._
+        const { filter } = this.app.lib._
         const existing = filter(items, { type: 'dobo:memory' })
         if (existing.length > 1) this.fatal('onlyOneConnType%s', item.type)
       }
@@ -208,8 +231,8 @@ async function factory (pkgName) {
         })
       }
       this.connections = await buildCollections({ ns: this.name, container: 'connections', handler: collectConnections, dupChecks: ['name', checkType] })
-      if (this.connections.length === 0) this.log.warn('notFound%s', this.print.write('connection'))
-      await collectFeature.call(this)
+      if (this.connections.length === 0) this.log.warn('notFound%s', this.t('connection'))
+      await collectFeatures.call(this)
       await collectSchemas.call(this)
     }
 
@@ -223,7 +246,7 @@ async function factory (pkgName) {
      */
     start = async (conns = 'all', noRebuild = true) => {
       const { importModule, breakNsPath } = this.app.bajo
-      const { find, filter, isString, map } = this.lib._
+      const { find, filter, isString, map } = this.app.lib._
       if (conns === 'all') conns = this.connections
       else if (isString(conns)) conns = filter(this.connections, { name: conns })
       else conns = map(conns, c => find(this.connections, { name: c }))
@@ -251,8 +274,8 @@ async function factory (pkgName) {
      * @returns {Object}
      */
     pickRecord = async ({ record, fields, schema = {}, hidden = [], forceNoHidden } = {}) => {
-      const { isArray, pick, clone, isEmpty, omit } = this.lib._
-      const { dayjs } = this.lib
+      const { isArray, pick, clone, isEmpty, omit } = this.app.lib._
+      const { dayjs } = this.app.lib
 
       const transform = async ({ record, schema, hidden = [], forceNoHidden } = {}) => {
         if (record._id) {
@@ -318,7 +341,7 @@ async function factory (pkgName) {
       }
 
       const buildSort = (input, schema, allowSortUnindexed) => {
-        const { isEmpty, map, each, isPlainObject, isString, trim, keys } = this.lib._
+        const { isEmpty, map, each, isPlainObject, isString, trim, keys } = this.app.lib._
         let sort
         if (schema && isEmpty(input)) {
           const columns = map(schema.properties, 'name')
@@ -363,7 +386,7 @@ async function factory (pkgName) {
     }
 
     buildMatch = ({ input = '', schema, options }) => {
-      const { isPlainObject, trim } = this.lib._
+      const { isPlainObject, trim } = this.app.lib._
       if (isPlainObject(input)) return input
       const split = (value, schema) => {
         let [field, val] = value.split(':').map(i => i.trim())
@@ -396,7 +419,7 @@ async function factory (pkgName) {
     }
 
     buildQuery = ({ filter, schema, options = {} } = {}) => {
-      const { trim, find, isString, isPlainObject } = this.lib._
+      const { trim, find, isString, isPlainObject } = this.app.lib._
       let query = {}
       if (isString(filter.query)) {
         try {
@@ -425,9 +448,9 @@ async function factory (pkgName) {
     }
 
     sanitizeQuery = (query, schema, parent) => {
-      const { cloneDeep, isPlainObject, isArray, find } = this.lib._
-      const { isSet } = this.lib.aneka
-      const { dayjs } = this.lib
+      const { cloneDeep, isPlainObject, isArray, find } = this.app.lib._
+      const { isSet } = this.app.lib.aneka
+      const { dayjs } = this.app.lib
       const obj = cloneDeep(query)
       const keys = Object.keys(obj)
       const sanitize = (key, val, p) => {
@@ -466,13 +489,13 @@ async function factory (pkgName) {
     }
 
     getConnection = (name) => {
-      const { find } = this.lib._
+      const { find } = this.app.lib._
       return find(this.connections, { name })
     }
 
     getInfo = (name) => {
       const { breakNsPath } = this.app.bajo
-      const { find, map, isEmpty } = this.lib._
+      const { find, map, isEmpty } = this.app.lib._
       const schema = this.getSchema(name)
       const conn = this.getConnection(schema.connection)
       let { ns, path: type } = breakNsPath(conn.type)
@@ -485,8 +508,8 @@ async function factory (pkgName) {
     }
 
     getSchema = (input, cloned = true) => {
-      const { find, isPlainObject, cloneDeep } = this.lib._
-      const { pascalCase } = this.lib.aneka
+      const { find, isPlainObject, cloneDeep } = this.app.lib._
+      const { pascalCase } = this.app.lib.aneka
       let name = isPlainObject(input) ? input.name : input
       name = pascalCase(name)
       const schema = find(this.schemas, { name })
@@ -496,7 +519,7 @@ async function factory (pkgName) {
 
     getField = (name, model) => {
       const { getInfo } = this.app.dobo
-      const { find } = this.lib._
+      const { find } = this.app.lib._
       const { schema } = getInfo(model)
 
       return find(schema.properties, { name })
@@ -507,18 +530,18 @@ async function factory (pkgName) {
     }
 
     getMemdbStorage = (name, fields = []) => {
-      const { map, pick } = this.lib._
+      const { map, pick } = this.app.lib._
       const all = this.memDb.storage[name] ?? []
       if (fields.length === 0) return all
       return map(all, item => pick(item, fields))
     }
 
     listAttachments = async ({ model, id = '*', field = '*', file = '*' } = {}, { uriEncoded = true } = {}) => {
-      const { map, kebabCase } = this.lib._
-      const { pascalCase } = this.lib.aneka
+      const { map, kebabCase } = this.app.lib._
+      const { pascalCase } = this.app.lib.aneka
       const { importPkg, getPluginDataDir } = this.app.bajo
       const mime = await importPkg('waibu:mime')
-      const { fastGlob } = this.lib
+      const { fastGlob } = this.app.lib
       const root = `${getPluginDataDir('dobo')}/attachment`
       model = pascalCase(model)
       let pattern = `${root}/${model}/${id}/${field}/${file}`

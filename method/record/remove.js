@@ -36,7 +36,7 @@ import execFeatureHook from '../../lib/exec-feature-hook.js'
 async function remove (name, id, opts = {}) {
   const { runHook } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { cloneDeep, camelCase, omit } = this.lib._
+  const { cloneDeep, camelCase, omit } = this.app.lib._
   delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req

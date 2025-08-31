@@ -2,7 +2,7 @@ import resolveMethod from '../../lib/resolve-method.js'
 
 async function clear (name, options = {}) {
   const { runHook } = this.app.bajo
-  const { camelCase } = this.lib._
+  const { camelCase } = this.app.lib._
 
   await this.modelExists(name, true)
   const { noHook } = options

@@ -2,33 +2,33 @@ import postProcess from './lib/post-process.js'
 
 async function updateRecord (path, ...args) {
   const { importPkg } = this.app.bajo
-  const { isEmpty, map, isPlainObject } = this.lib._
+  const { isEmpty, map, isPlainObject } = this.app.lib._
   const [input, select, boxen] = await importPkg('bajoCli:@inquirer/input',
     'bajoCli:@inquirer/select', 'bajoCli:boxen')
-  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.print.write('field.schema'), { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.bajo.applet })
   let [schema, id, body] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.print.write('selectSchema'),
+      message: this.t('selectSchema'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(id)) {
     id = await input({
-      message: this.print.write('enterRecordId'),
-      validate: text => isEmpty(text) ? this.print.write('idIsRequired') : true
+      message: this.t('enterRecordId'),
+      validate: text => isEmpty(text) ? this.t('idIsRequired') : true
     })
   }
   if (isEmpty(body)) {
     body = await input({
-      message: this.print.write('enterJsonPayload'),
+      message: this.t('enterJsonPayload'),
       validate: text => {
-        if (isEmpty(text)) return this.print.write('payloadRequired')
+        if (isEmpty(text)) return this.t('payloadRequired')
         try {
           const parsed = JSON.parse(text)
           if (!isPlainObject(parsed)) throw new Error()
         } catch (err) {
-          return this.print.write('payloadMustBeJson')
+          return this.t('payloadMustBeJson')
         }
         return true
       }

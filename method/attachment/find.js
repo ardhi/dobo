@@ -1,7 +1,7 @@
 import mergeAttachmentInfo from '../../lib/merge-attachment-info.js'
 
 async function find (name, id, options = {}) {
-  const { fastGlob, fs } = this.lib
+  const { fastGlob, fs } = this.app.lib
   const { getPluginDataDir } = this.app.bajo
   name = this.attachmentPreCheck(name)
   if (!name) return

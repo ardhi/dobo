@@ -1,10 +1,10 @@
 import path from 'path'
 
 async function attachment (req, reply) {
-  const { isString, isEmpty, find } = this.lib._
-  const { pascalCase } = this.lib.aneka
+  const { isString, isEmpty, find } = this.app.lib._
+  const { pascalCase } = this.app.lib.aneka
   const { routePath } = this.app.waibu
-  const { fs } = this.lib
+  const { fs } = this.app.lib
   const items = await this.listAttachments({
     model: req.params.model,
     id: req.params.id,

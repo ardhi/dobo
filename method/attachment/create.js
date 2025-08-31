@@ -1,13 +1,13 @@
 import mergeAttachmentInfo from '../../lib/merge-attachment-info.js'
 
 async function create (name, id, options = {}) {
-  const { fs } = this.lib
-  const { isEmpty } = this.lib._
+  const { fs } = this.app.lib
+  const { isEmpty } = this.app.lib._
   name = this.attachmentPreCheck(name)
   if (!name) return
   const { source, field = 'file', file } = options
   if (isEmpty(file)) return
-  if (!source) throw this.error('isMissing%s', this.print.write('field.source'))
+  if (!source) throw this.error('isMissing%s', this.t('field.source'))
   const baseDir = await this.attachmentGetPath(name, id, field, file, { dirOnly: true })
   const { fullPath, stats, mimeType, req } = options
 

@@ -66,10 +66,10 @@ import execFeatureHook from '../../lib/exec-feature-hook.js'
  * @returns {(TRecordFindResult|Array.<Object>)} Return ```array``` of records if ```options.dataOnly``` is set. {@link TRecordFindResult} otherwise
  */
 async function find (name, filter = {}, opts = {}) {
-  const { isSet } = this.lib.aneka
+  const { isSet } = this.app.lib.aneka
   const { runHook } = this.app.bajo
   const { get, set } = this.cache ?? {}
-  const { cloneDeep, camelCase, omit } = this.lib._
+  const { cloneDeep, camelCase, omit } = this.app.lib._
   delete opts.records
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req

@@ -18,7 +18,7 @@ const cache = {}
 async function exists (name, thrown, options = {}) {
   if (cache[name]) return cache[name]
   const { runHook } = this.app.bajo
-  const { camelCase } = this.lib._
+  const { camelCase } = this.app.lib._
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'model-exists', options)
   if (!options.noHook) {
     await runHook(`${this.name}:beforeModelExists`, schema, options)

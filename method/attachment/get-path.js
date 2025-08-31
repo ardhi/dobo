@@ -1,7 +1,7 @@
 async function getPath (name, id, field, file, options = {}) {
   const { getPluginDataDir } = this.app.bajo
-  const { pascalCase } = this.lib.aneka
-  const { fs } = this.lib
+  const { pascalCase } = this.app.lib.aneka
+  const { fs } = this.app.lib
   const dir = `${getPluginDataDir(this.name)}/attachment/${pascalCase(name)}/${id}`
   if (options.dirOnly) return dir
   const path = field ? `${dir}/${field}/${file}` : `${dir}/${file}`

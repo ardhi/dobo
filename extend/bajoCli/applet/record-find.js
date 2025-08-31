@@ -2,19 +2,19 @@ import postProcess from './lib/post-process.js'
 
 async function findRecord (path, ...args) {
   const { importPkg } = this.app.bajo
-  const { isEmpty, map, pick } = this.lib._
+  const { isEmpty, map, pick } = this.app.lib._
   const [select, input] = await importPkg('bajoCli:@inquirer/select', 'bajoCli:@inquirer/input')
-  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.print.write('field.schema'), { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.bajo.applet })
   let [schema, query] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.print.write('selectSchema'),
+      message: this.t('selectSchema'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(query)) {
     query = await input({
-      message: this.print.write('enterQueryIfAny')
+      message: this.t('enterQueryIfAny')
     })
   }
   if (isEmpty(query)) query = {}

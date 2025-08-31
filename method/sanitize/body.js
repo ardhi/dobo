@@ -1,8 +1,23 @@
+/**
+ * Sanitize payload body against schema
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @param {Object} [options={}]
+ * @param {Object} [options.body={}]
+ * @param {Object} [options.schema={}]
+ * @param {boolean} [options.partial=false]
+ * @param {boolean} [options.strict=false]
+ * @param {Array} [options.extFields=[]]
+ * @returns {Object}
+ */
+
 async function sanitizeBody ({ body = {}, schema = {}, partial, strict, extFields = [] }) {
-  const { isSet } = this.lib.aneka
-  const { dayjs } = this.lib
+  const { isSet } = this.app.lib.aneka
+  const { dayjs } = this.app.lib
   const { callHandler } = this.app.bajo
-  const { has, isString, isNumber, concat, isNaN } = this.lib._
+  const { has, isString, isNumber, concat, isNaN } = this.app.lib._
   const result = {}
   for (const p of concat(schema.properties, extFields)) {
     if (partial && !has(body, p.name)) continue

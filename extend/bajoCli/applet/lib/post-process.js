@@ -2,17 +2,17 @@ const conns = []
 
 async function postProcess ({ handler, params, path, processMsg, noConfirmation } = {}) {
   const { saveAsDownload, importPkg } = this.app.bajo
-  const { prettyPrint } = this.app.bajoCli.helper
-  const { find, get } = this.lib._
+  const { prettyPrint } = this.app.bajoCli
+  const { find, get } = this.app.lib._
   const [stripAnsi, confirm] = await importPkg('bajoCli:strip-ansi', 'bajoCli:@inquirer/confirm')
   if (!noConfirmation && this.config.confirmation === false) noConfirmation = true
   params.push({ fields: this.config.fields, dataOnly: !this.config.full })
 
   const schema = find(this.schemas, { name: params[0] })
-  if (!schema) return this.print.fatal('notFound%s', this.print.write('field.schema'))
+  if (!schema) return this.print.fatal('notFound%s', this.t('field.schema'))
   let cont = true
   if (!noConfirmation) {
-    const answer = await confirm({ message: this.print.write('sureContinue'), default: false })
+    const answer = await confirm({ message: this.t('sureContinue'), default: false })
     if (!answer) {
       this.print.fail('aborted')
       cont = false

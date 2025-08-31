@@ -3,7 +3,7 @@ import resolveMethod from '../../lib/resolve-method.js'
 async function clear (name, opts = {}) {
   const { runHook } = this.app.bajo
   await this.modelExists(name, true)
-  const { cloneDeep, camelCase, omit } = this.lib._
+  const { cloneDeep, camelCase, omit } = this.app.lib._
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req
   options.reply = opts.reply

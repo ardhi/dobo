@@ -1,12 +1,12 @@
 import path from 'path'
 
 async function copyUploaded (name, id, options = {}) {
-  const { fs } = this.lib
+  const { fs } = this.app.lib
   const { req, setField, setFile, mimeType, stats, silent = true } = options
   name = this.attachmentPreCheck(name)
   if (!name) {
     if (silent) return
-    throw this.error('isMissing%s', this.print.write('field.name'))
+    throw this.error('isMissing%s', this.t('field.name'))
   }
   if (!this.app.waibu) {
     if (silent) return

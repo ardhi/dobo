@@ -16,8 +16,8 @@
  */
 async function upsert (name, input, opts = {}) {
   const { generateId } = this.app.bajo
-  const { find } = this.lib._
-  const { cloneDeep, omit, merge } = this.lib._
+  const { find } = this.app.lib._
+  const { cloneDeep, omit, merge } = this.app.lib._
   const { query, omitOnUpdate = [], omitOnCreate = [] } = opts
   const options = cloneDeep(omit(opts, ['req', 'reply', 'query', 'omitOnUpdate', 'omitOnCreate']))
   options.req = opts.req

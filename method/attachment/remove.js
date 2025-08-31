@@ -1,5 +1,5 @@
 async function remove (name, id, field, file, options = {}) {
-  const { fs } = this.lib
+  const { fs } = this.app.lib
   name = this.attachmentPreCheck(name)
   if (!name) return
   const path = await this.attachmentGetPath(name, id, field, file)

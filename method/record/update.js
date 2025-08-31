@@ -47,10 +47,10 @@ import singleRelRows from '../../lib/single-rel-rows.js'
  * @returns {(TRecordUpdateResult|Object)} Returns updated record if ```options.dataOnly``` is set. {@link TRecordUpdateResult} otherwise
  */
 async function update (name, id, input, opts = {}) {
-  const { isSet } = this.lib.aneka
+  const { isSet } = this.app.lib.aneka
   const { runHook } = this.app.bajo
   const { clearModel } = this.cache ?? {}
-  const { forOwn, find, cloneDeep, camelCase, omit, get } = this.lib._
+  const { forOwn, find, cloneDeep, camelCase, omit, get } = this.app.lib._
   delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req

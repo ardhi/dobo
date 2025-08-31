@@ -48,9 +48,9 @@ import singleRelRows from '../../lib/single-rel-rows.js'
  */
 async function create (name, input, opts = {}) {
   const { generateId, runHook } = this.app.bajo
-  const { isSet } = this.lib.aneka
+  const { isSet } = this.app.lib.aneka
   const { clearModel } = this.cache ?? {}
-  const { find, forOwn, cloneDeep, camelCase, omit, get, pick } = this.lib._
+  const { find, forOwn, cloneDeep, camelCase, omit, get, pick } = this.app.lib._
   delete opts.record
   const options = cloneDeep(omit(opts, ['req', 'reply']))
   options.req = opts.req

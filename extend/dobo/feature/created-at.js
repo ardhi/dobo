@@ -8,7 +8,7 @@ async function createdAt (opts = {}) {
     },
     hook: {
       beforeCreate: async function ({ body }) {
-        const { isSet } = this.lib.aneka
+        const { isSet } = this.app.lib.aneka
         const now = new Date()
         if (opts.overwrite || !isSet(body[opts.fieldName])) body[opts.fieldName] = now
       }

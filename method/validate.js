@@ -89,28 +89,14 @@ const validator = {
   timestamp: ['timestamp']
 }
 
-/**
- * @module
- */
-
-/**
- * Automatically generate JOI's schema from schema
- *
- * @param {TSchema} schema
- * @param {Object} [options={}] - Options object
- * @param {string[]} [options.fields=[]]
- * @param {string[]} [options.rule={}]
- * @param {string[]} [options.extFields=[]]
- * @returns {Object} JOI's schema
- */
 function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } = {}) {
   // if (schema.validation) return schema.validation
   const {
     isPlainObject, get, each, isEmpty, isString, forOwn, keys,
     find, isArray, has, cloneDeep, concat, without
-  } = this.lib._
+  } = this.app.lib._
   const obj = {}
-  const { propType } = this.app.pluginFactory.dobo
+  const { propType } = this.app.pluginClass.dobo
   const refs = []
 
   function getRuleKv (kvRule) {
@@ -213,9 +199,24 @@ function buildFromDbSchema (schema, { fields = [], rule = {}, extFields = [] } =
   return result
 }
 
+/**
+ * Validate value against JOI schema
+ *
+ * @method
+ * @memberof Dobo
+ * @async
+ * @param {Object} value - value to validate
+ * @param {Object} joiSchema - JOI schema
+ * @param {Object} [options={}] - Options object
+ * @param {string} [options.ns=dobo] - Scope's namespace
+ * @param {Array} [options.fields=[]]
+ * @param {Array} [options.extFields=[]]
+ * @param {Object} [options.params={}] - Validation parameters. See {@tutorial config} and {@link https://joi.dev/api/?v=17.13.3#anyvalidateasyncvalue-options|JOI validate's options}
+ * @returns {Object}
+ */
 async function validate (value, joiSchema, { ns, fields, extFields, params } = {}) {
-  const { defaultsDeep, isSet } = this.lib.aneka
-  const { isString, forOwn, find } = this.lib._
+  const { defaultsDeep, isSet } = this.app.lib.aneka
+  const { isString, forOwn, find } = this.app.lib._
 
   ns = ns ?? [this.name]
   params = defaultsDeep(params, this.config.validationParams)

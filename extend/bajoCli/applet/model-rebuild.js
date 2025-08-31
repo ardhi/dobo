@@ -1,9 +1,9 @@
-import addFixtures from '../../lib/add-fixtures.js'
+import addFixtures from '../../../lib/add-fixtures.js'
 
-async function modelRebuild (...args) {
+async function modelRebuild (path, ...args) {
   const { importPkg } = this.app.bajo
-  const { outmatch } = this.lib
-  const { isEmpty, map, trim, without } = this.lib._
+  const { outmatch } = this.app.lib
+  const { isEmpty, map, trim, without } = this.app.lib._
   const [input, confirm, boxen] = await importPkg('bajoCli:@inquirer/input',
     'bajoCli:@inquirer/confirm', 'bajoCli:boxen')
   const schemas = map(this.schemas, 'name')
@@ -11,16 +11,16 @@ async function modelRebuild (...args) {
   if (isEmpty(schemas)) return this.print.fail('notFound%s', 'schema', { exit: this.app.bajo.applet })
   if (isEmpty(names)) {
     names = await input({
-      message: this.print.write('enterSchemaName'),
+      message: this.t('enterSchemaName'),
       default: '*'
     })
   }
   const isMatch = outmatch(map(names.split(' '), m => trim(m)))
   names = schemas.filter(isMatch)
   if (names.length === 0) return this.print.fail('No schema matched', true, { exit: this.app.bajo.applet })
-  console.log(boxen(names.join(' '), { title: this.print.write('schema%d', names.length), padding: 0.5, borderStyle: 'round' }))
+  console.log(boxen(names.join(' '), { title: this.t('schema%d', names.length), padding: 0.5, borderStyle: 'round' }))
   const answer = await confirm({
-    message: this.print.write('schemasWillBeRebuiltContinue'),
+    message: this.t('schemasWillBeRebuiltContinue'),
     default: false
   })
   if (!answer) return this.print.fail('aborted', { exit: this.app.bajo.applet })
