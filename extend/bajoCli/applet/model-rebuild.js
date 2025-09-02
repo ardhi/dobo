@@ -8,7 +8,7 @@ async function modelRebuild (path, ...args) {
     'bajoCli:@inquirer/confirm', 'bajoCli:boxen')
   const schemas = map(this.schemas, 'name')
   let names = args.join(' ')
-  if (isEmpty(schemas)) return this.print.fail('notFound%s', 'schema', { exit: this.app.bajo.applet })
+  if (isEmpty(schemas)) return this.print.fail('notFound%s', 'schema', { exit: this.app.applet })
   if (isEmpty(names)) {
     names = await input({
       message: this.t('enterSchemaName'),
@@ -17,13 +17,13 @@ async function modelRebuild (path, ...args) {
   }
   const isMatch = outmatch(map(names.split(' '), m => trim(m)))
   names = schemas.filter(isMatch)
-  if (names.length === 0) return this.print.fail('No schema matched', true, { exit: this.app.bajo.applet })
+  if (names.length === 0) return this.print.fail('No schema matched', true, { exit: this.app.applet })
   console.log(boxen(names.join(' '), { title: this.t('schema%d', names.length), padding: 0.5, borderStyle: 'round' }))
   const answer = await confirm({
     message: this.t('schemasWillBeRebuiltContinue'),
     default: false
   })
-  if (!answer) return this.print.fail('aborted', { exit: this.app.bajo.applet })
+  if (!answer) return this.print.fail('aborted', { exit: this.app.applet })
   /*
   const conns = []
   for (const s of names) {

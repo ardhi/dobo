@@ -218,7 +218,7 @@ async function validate (value, joiSchema, { ns, fields, extFields, params } = {
   const { defaultsDeep, isSet } = this.app.lib.aneka
   const { isString, forOwn, find } = this.app.lib._
 
-  ns = ns ?? [this.name]
+  ns = ns ?? [this.ns]
   params = defaultsDeep(params, this.config.validationParams)
   const { rule = {} } = params
   delete params.rule

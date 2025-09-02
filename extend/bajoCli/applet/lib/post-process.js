@@ -1,12 +1,13 @@
 const conns = []
 
 async function postProcess ({ handler, params, path, processMsg, noConfirmation } = {}) {
+  const { _: argv } = this.app.argv
   const { saveAsDownload, importPkg } = this.app.bajo
   const { prettyPrint } = this.app.bajoCli
   const { find, get } = this.app.lib._
   const [stripAnsi, confirm] = await importPkg('bajoCli:strip-ansi', 'bajoCli:@inquirer/confirm')
-  if (!noConfirmation && this.config.confirmation === false) noConfirmation = true
-  params.push({ fields: this.config.fields, dataOnly: !this.config.full })
+  if (!noConfirmation && argv.confirmation === false) noConfirmation = true
+  params.push({ fields: argv.fields, dataOnly: !argv.full })
 
   const schema = find(this.schemas, { name: params[0] })
   if (!schema) return this.print.fatal('notFound%s', this.t('field.schema'))
@@ -28,20 +29,20 @@ async function postProcess ({ handler, params, path, processMsg, noConfirmation 
   try {
     const resp = await this[handler](...params)
     spin.succeed('done')
-    const result = this.config.pretty ? (await prettyPrint(resp)) : JSON.stringify(resp, null, 2)
-    if (this.config.save) {
+    const result = argv.pretty ? (await prettyPrint(resp)) : JSON.stringify(resp, null, 2)
+    if (argv.save) {
       const id = resp.id ?? get(resp, 'data.id') ?? get(resp, 'oldData.id')
       const base = path === 'recordFind' ? params[0] : (params[0] + '/' + id)
-      const file = `/${path}/${base}.${this.config.pretty ? 'txt' : 'json'}`
+      const file = `/${path}/${base}.${argv.pretty ? 'txt' : 'json'}`
       await saveAsDownload(file, stripAnsi(result))
     } else console.log(result)
   } catch (err) {
-    if (this.config.log.applet) {
+    if (this.app.bajo.config.log.applet) {
       spin.stop()
       console.error(err)
     } else spin.fail('error%s', err.message)
   }
-  process.exit()
+  this.app.exit()
 }
 
 export default postProcess

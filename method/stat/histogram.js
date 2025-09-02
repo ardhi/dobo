@@ -12,13 +12,13 @@ async function histogram (name, filter = {}, options = {}) {
   filter.query = this.buildQuery({ filter, schema, options }) ?? {}
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {
-    await runHook(`${this.name}:beforeStatHistogram`, name, type, filter, options)
-    await runHook(`${this.name}.${name}:beforeStatHistogram`, type, filter, options)
+    await runHook(`${this.ns}:beforeStatHistogram`, name, type, filter, options)
+    await runHook(`${this.ns}.${name}:beforeStatHistogram`, type, filter, options)
   }
   const rec = await handler.call(this.app[driver.ns], { schema, type, filter, options })
   if (!noHook) {
-    await runHook(`${this.name}.${name}:afterStatHistogram`, type, filter, options, rec)
-    await runHook(`${this.name}:afterStatHistogram`, name, type, filter, options, rec)
+    await runHook(`${this.ns}.${name}:afterStatHistogram`, type, filter, options, rec)
+    await runHook(`${this.ns}:afterStatHistogram`, name, type, filter, options, rec)
   }
   return dataOnly ? rec.data : rec
 }

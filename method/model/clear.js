@@ -8,13 +8,13 @@ async function clear (name, options = {}) {
   const { noHook } = options
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'model-clear', options)
   if (!noHook) {
-    await runHook(`${this.name}:beforeModelClear`, schema, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeModelClear`, options)
+    await runHook(`${this.ns}:beforeModelClear`, schema, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeModelClear`, options)
   }
   const resp = await handler.call(this.app[driver.ns], { schema, options })
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterModelClear`, options, resp)
-    await runHook(`${this.name}:afterModelClear`, schema, options, resp)
+    await runHook(`${this.ns}.${camelCase(name)}:afterModelClear`, options, resp)
+    await runHook(`${this.ns}:afterModelClear`, schema, options, resp)
   }
   return resp
 }

@@ -4,7 +4,7 @@ async function findRecord (path, ...args) {
   const { importPkg } = this.app.bajo
   const { isEmpty, map, pick } = this.app.lib._
   const [select, input] = await importPkg('bajoCli:@inquirer/select', 'bajoCli:@inquirer/input')
-  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.applet })
   let [schema, query] = args
   if (isEmpty(schema)) {
     schema = await select({

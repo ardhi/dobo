@@ -18,13 +18,13 @@ async function drop (name, options = {}) {
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'model-drop', options)
 
   if (!options.noHook) {
-    await runHook(`${this.name}:beforeModelDrop`, schema, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeModelDrop`, options)
+    await runHook(`${this.ns}:beforeModelDrop`, schema, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeModelDrop`, options)
   }
   await handler.call(this.app[driver.ns], { schema, options })
   if (!options.noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterModelDrop`, options)
-    await runHook(`${this.name}:afterModelDrop`, schema, options)
+    await runHook(`${this.ns}.${camelCase(name)}:afterModelDrop`, options)
+    await runHook(`${this.ns}:afterModelDrop`, schema, options)
   }
 }
 

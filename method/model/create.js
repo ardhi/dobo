@@ -19,13 +19,13 @@ async function create (name, options = {}) {
 
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'model-create', options)
   if (!options.noHook) {
-    await runHook(`${this.name}:beforeModelCreate`, schema, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeModelCreate`, options)
+    await runHook(`${this.ns}:beforeModelCreate`, schema, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeModelCreate`, options)
   }
   await handler.call(this.app[driver.ns], { schema, options })
   if (!options.noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterModelCreate`, options)
-    await runHook(`${this.name}:afterModelCreate`, schema, options)
+    await runHook(`${this.ns}.${camelCase(name)}:afterModelCreate`, options)
+    await runHook(`${this.ns}:afterModelCreate`, schema, options)
   }
 }
 

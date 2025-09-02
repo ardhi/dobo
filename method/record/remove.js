@@ -48,8 +48,8 @@ async function remove (name, id, opts = {}) {
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'record-remove', options)
   id = this.sanitizeId(id, schema)
   if (!noHook) {
-    await runHook(`${this.name}:beforeRecordRemove`, name, id, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeRecordRemove`, id, options)
+    await runHook(`${this.ns}:beforeRecordRemove`, name, id, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeRecordRemove`, id, options)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeRemove', { schema, id, options })
   const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, id, options }))
@@ -62,8 +62,8 @@ async function remove (name, id, opts = {}) {
   if (noResult) return
   record.oldData = options.record ? options.record.oldData : (await this.pickRecord({ record: record.oldData, fields, schema, hidden, forceNoHidden }))
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordRemove`, id, options, record)
-    await runHook(`${this.name}:afterRecordRemove`, name, id, options, record)
+    await runHook(`${this.ns}.${camelCase(name)}:afterRecordRemove`, id, options, record)
+    await runHook(`${this.ns}:afterRecordRemove`, name, id, options, record)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterRemove', { schema, id, options, record })
   return dataOnly ? record.oldData : record

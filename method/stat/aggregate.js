@@ -7,15 +7,15 @@ async function aggregate (name, filter = {}, options = {}) {
   await this.modelExists(name, true)
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'stat-aggregate', options)
   if (!noHook) {
-    await runHook(`${this.name}:beforeStatAggregate`, name, aggregate, filter, options)
-    await runHook(`${this.name}.${name}:beforeStatAggregate`, aggregate, filter, options)
+    await runHook(`${this.ns}:beforeStatAggregate`, name, aggregate, filter, options)
+    await runHook(`${this.ns}.${name}:beforeStatAggregate`, aggregate, filter, options)
   }
   filter.query = this.buildQuery({ filter, schema, options }) ?? {}
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   const rec = await handler.call(this.app[driver.ns], { schema, filter, options })
   if (!noHook) {
-    await runHook(`${this.name}.${name}:afterStatAggregate`, aggregate, filter, options, rec)
-    await runHook(`${this.name}:afterStatAggregate`, name, aggregate, filter, options, rec)
+    await runHook(`${this.ns}.${name}:afterStatAggregate`, aggregate, filter, options, rec)
+    await runHook(`${this.ns}:afterStatAggregate`, name, aggregate, filter, options, rec)
   }
   return dataOnly ? rec.data : rec
 }

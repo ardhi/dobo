@@ -4,7 +4,7 @@ async function schema (path, ...args) {
   const { getOutputFormat, writeOutput } = this.app.bajoCli
   const select = await importPkg('bajoCli:@inquirer/select')
   const format = getOutputFormat()
-  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.applet })
   let name = args[0]
   if (isEmpty(name)) {
     const choices = map(this.schemas, s => ({ value: s.name }))
@@ -14,7 +14,7 @@ async function schema (path, ...args) {
     })
   }
   const result = find(this.schemas, { name })
-  if (!result) return this.print.fail('cantFindSchema%s', this.t('schema'), name, { exit: this.app.bajo.applet })
+  if (!result) return this.print.fail('cantFindSchema%s', this.t('schema'), name, { exit: this.app.applet })
   this.print.info('done')
   await writeOutput(result, path, format)
 }

@@ -4,7 +4,7 @@ async function removeRecord (path, ...args) {
   const { importPkg } = this.app.bajo
   const { isEmpty, map } = this.app.lib._
   const [input, select] = await importPkg('bajoCli:@inquirer/input', 'bajoCli:@inquirer/select')
-  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.applet })
   let [schema, id] = args
   if (isEmpty(schema)) {
     schema = await select({

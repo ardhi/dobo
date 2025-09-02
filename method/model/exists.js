@@ -21,13 +21,13 @@ async function exists (name, thrown, options = {}) {
   const { camelCase } = this.app.lib._
   const { handler, schema, driver } = await resolveMethod.call(this, name, 'model-exists', options)
   if (!options.noHook) {
-    await runHook(`${this.name}:beforeModelExists`, schema, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeModelExists`, options)
+    await runHook(`${this.ns}:beforeModelExists`, schema, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeModelExists`, options)
   }
   const exist = await handler.call(this.app[driver.ns], { schema, options })
   if (!options.noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterModelExists`, exist, options)
-    await runHook(`${this.name}:afterModelExists`, schema, exist, options)
+    await runHook(`${this.ns}.${camelCase(name)}:afterModelExists`, exist, options)
+    await runHook(`${this.ns}:afterModelExists`, schema, exist, options)
   }
   if (!exist && thrown) throw this.error('modelNotExists%s', name)
   cache[name] = exist

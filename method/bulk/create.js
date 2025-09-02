@@ -20,8 +20,8 @@ async function create (name, inputs, options) {
     if (!noValidation) b = await execValidation.call(this, { noHook, name, b, options })
   }
   if (!noHook) {
-    await runHook(`${this.name}:beforeBulkCreate`, name, bodies, options)
-    await runHook(`${this.name}.${name}:beforeBulkCreate`, bodies, options)
+    await runHook(`${this.ns}:beforeBulkCreate`, name, bodies, options)
+    await runHook(`${this.ns}.${name}:beforeBulkCreate`, bodies, options)
   }
   for (const idx in bodies) {
     await execFeatureHook.call(this, 'beforeCreate', { schema, body: bodies[idx] })
@@ -37,8 +37,8 @@ async function create (name, inputs, options) {
     await execFeatureHook.call(this, 'afterCreate', { schema, body: bodies[idx] })
   }
   if (!noHook) {
-    await runHook(`${this.name}.${name}:afterBulkCreate`, bodies, options)
-    await runHook(`${this.name}:afterBulkCreate`, name, bodies, options)
+    await runHook(`${this.ns}.${name}:afterBulkCreate`, bodies, options)
+    await runHook(`${this.ns}:afterBulkCreate`, name, bodies, options)
   }
   if (clearModel) await clearModel({ model: name })
 }

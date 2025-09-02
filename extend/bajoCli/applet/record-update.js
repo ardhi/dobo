@@ -5,7 +5,7 @@ async function updateRecord (path, ...args) {
   const { isEmpty, map, isPlainObject } = this.app.lib._
   const [input, select, boxen] = await importPkg('bajoCli:@inquirer/input',
     'bajoCli:@inquirer/select', 'bajoCli:boxen')
-  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.bajo.applet })
+  if (isEmpty(this.schemas)) return this.print.fail('notFound%s', this.t('field.schema'), { exit: this.app.applet })
   let [schema, id, body] = args
   if (isEmpty(schema)) {
     schema = await select({
@@ -38,7 +38,7 @@ async function updateRecord (path, ...args) {
   try {
     payload = JSON.parse(body)
   } catch (err) {
-    return this.print.fail('invalidPayloadSyntax', { exit: this.app.bajo.applet })
+    return this.print.fail('invalidPayloadSyntax', { exit: this.app.applet })
   }
   console.log(boxen(JSON.stringify(payload, null, 2), { title: schema, padding: 0.5, borderStyle: 'round' }))
   await postProcess.call(this, { handler: 'recordUpdate', params: [schema, id, payload], path, processMsg: 'Updating record' })

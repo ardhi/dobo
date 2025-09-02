@@ -41,8 +41,8 @@ async function count (name, filter = {}, opts = {}) {
   if (options.queryHandler) filter.query = await options.queryHandler.call(opts.req ? this.app[opts.req.ns] : this, filter.query, opts.req)
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {
-    await runHook(`${this.name}:beforeRecordCount`, name, filter, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeRecordCount`, filter, options)
+    await runHook(`${this.ns}:beforeRecordCount`, name, filter, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeRecordCount`, filter, options)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeCount', { schema, filter, options })
   if (get && !noCache && !options.record) {
@@ -55,8 +55,8 @@ async function count (name, filter = {}, opts = {}) {
   const record = options.record ?? (await handler.call(this.app[driver.ns], { schema, filter, options }))
   delete options.record
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordCount`, filter, options, record)
-    await runHook(`${this.name}:afterRecordCount`, name, filter, options, record)
+    await runHook(`${this.ns}.${camelCase(name)}:afterRecordCount`, filter, options, record)
+    await runHook(`${this.ns}:afterRecordCount`, name, filter, options, record)
   }
   if (set && !noCache) await set({ model: name, filter, options, record })
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterCount', { schema, filter, options, record })

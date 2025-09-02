@@ -85,8 +85,8 @@ async function find (name, filter = {}, opts = {}) {
   if (options.queryHandler) filter.query = await options.queryHandler.call(opts.req ? this.app[opts.req.ns] : this, filter.query, opts.req)
   filter.match = this.buildMatch({ input: filter.match, schema, options }) ?? {}
   if (!noHook) {
-    await runHook(`${this.name}:beforeRecordFind`, name, filter, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeRecordFind`, filter, options)
+    await runHook(`${this.ns}:beforeRecordFind`, name, filter, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeRecordFind`, filter, options)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeFind', { schema, filter, options })
   if (get && !noCache && !options.records) {
@@ -104,8 +104,8 @@ async function find (name, filter = {}, opts = {}) {
     records.data[idx] = await this.pickRecord({ record: records.data[idx], fields, schema, hidden, forceNoHidden })
   }
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordFind`, filter, options, records)
-    await runHook(`${this.name}:afterRecordFind`, name, filter, options, records)
+    await runHook(`${this.ns}.${camelCase(name)}:afterRecordFind`, filter, options, records)
+    await runHook(`${this.ns}:afterRecordFind`, name, filter, options, records)
   }
   if (set && !noCache) await set({ model: name, filter, options, records })
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterFind', { schema, filter, options, records })

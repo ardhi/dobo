@@ -66,8 +66,8 @@ async function create (name, input, opts = {}) {
   const extFields = get(options, 'validation.extFields', [])
   let body = noSanitize ? cloneDeep(input) : await this.sanitizeBody({ body: input, schema, extFields, strict: true })
   if (!noHook) {
-    await runHook(`${this.name}:beforeRecordCreate`, name, body, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeRecordCreate`, body, options)
+    await runHook(`${this.ns}:beforeRecordCreate`, name, body, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeRecordCreate`, body, options)
   }
   if (!isSet(body.id)) {
     if (idField.type === 'string') {
@@ -101,8 +101,8 @@ async function create (name, input, opts = {}) {
   if (noResult) return
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordCreate`, nbody, options, record)
-    await runHook(`${this.name}:afterRecordCreate`, name, nbody, options, record)
+    await runHook(`${this.ns}.${camelCase(name)}:afterRecordCreate`, nbody, options, record)
+    await runHook(`${this.ns}:afterRecordCreate`, name, nbody, options, record)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterCreate', { schema, body: nbody, options, record })
   return dataOnly ? record.data : record

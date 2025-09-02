@@ -180,6 +180,9 @@ async function factory (pkgName) {
           persistence: {
             syncPeriodDur: '1s'
           }
+        },
+        applet: {
+          confirmation: false
         }
       }
 
@@ -230,7 +233,7 @@ async function factory (pkgName) {
           name: 'memory'
         })
       }
-      this.connections = await buildCollections({ ns: this.name, container: 'connections', handler: collectConnections, dupChecks: ['name', checkType] })
+      this.connections = await buildCollections({ ns: this.ns, container: 'connections', handler: collectConnections, dupChecks: ['name', checkType] })
       if (this.connections.length === 0) this.log.warn('notFound%s', this.t('connection'))
       await collectFeatures.call(this)
       await collectSchemas.call(this)
@@ -253,7 +256,7 @@ async function factory (pkgName) {
       for (const c of conns) {
         const { ns } = breakNsPath(c.type)
         const schemas = filter(this.schemas, { connection: c.name })
-        const mod = c.type === 'dobo:memory' ? memDbInstantiate : await importModule(`${ns}:/extend/${this.name}/boot/instantiate.js`)
+        const mod = c.type === 'dobo:memory' ? memDbInstantiate : await importModule(`${ns}:/extend/${this.ns}/boot/instantiate.js`)
         await mod.call(this.app[ns], { connection: c, noRebuild, schemas })
         this.log.trace('driverInstantiated%s%s', c.driver, c.name)
       }

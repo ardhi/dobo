@@ -5,7 +5,7 @@ async function find (name, id, options = {}) {
   const { getPluginDataDir } = this.app.bajo
   name = this.attachmentPreCheck(name)
   if (!name) return
-  const dir = `${getPluginDataDir(this.name)}/attachment/${name}/${id}`
+  const dir = `${getPluginDataDir(this.ns)}/attachment/${name}/${id}`
   if (!fs.existsSync(dir)) return []
   const files = await fastGlob(`${dir}/**/*`)
   const { fullPath, stats, mimeType } = options

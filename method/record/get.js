@@ -61,8 +61,8 @@ async function get (name, id, opts = {}) {
   id = this.sanitizeId(id, schema)
   options.dataOnly = false
   if (!noHook) {
-    await runHook(`${this.name}:beforeRecordGet`, name, id, options)
-    await runHook(`${this.name}.${camelCase(name)}:beforeRecordGet`, id, options)
+    await runHook(`${this.ns}:beforeRecordGet`, name, id, options)
+    await runHook(`${this.ns}.${camelCase(name)}:beforeRecordGet`, id, options)
   }
   if (!noFeatureHook) await execFeatureHook.call(this, 'beforeGet', { schema, id, options })
   if (get && !noCache && !options.record) {
@@ -78,8 +78,8 @@ async function get (name, id, opts = {}) {
   if (isSet(options.rels)) await singleRelRows.call(this, { schema, record: record.data, options })
   record.data = await this.pickRecord({ record: record.data, fields, schema, hidden, forceNoHidden })
   if (!noHook) {
-    await runHook(`${this.name}.${camelCase(name)}:afterRecordGet`, id, options, record)
-    await runHook(`${this.name}:afterRecordGet`, name, id, options, record)
+    await runHook(`${this.ns}.${camelCase(name)}:afterRecordGet`, id, options, record)
+    await runHook(`${this.ns}:afterRecordGet`, name, id, options, record)
   }
   if (set && !noCache) await set({ model: name, id, options, record })
   if (!noFeatureHook) await execFeatureHook.call(this, 'afterGet', { schema, id, options, record })
