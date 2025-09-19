@@ -9,7 +9,7 @@ async function schema (path, ...args) {
   if (isEmpty(name)) {
     const choices = map(this.schemas, s => ({ value: s.name }))
     name = await select({
-      message: this.t('selectSchema'),
+      message: this.print.buildText('selectSchema'),
       choices
     })
   }

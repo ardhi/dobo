@@ -116,6 +116,7 @@
   "driverInstantiated%s%s": "- Driver '%s:%s' instantiated",
   "db": "DB",
   "invalidQuery": "Kueri Tidak Valid",
+  "noResultFound": "Tidak ditemukan hasil",
   "field": {
     "id": "ID",
     "code": "Kode",

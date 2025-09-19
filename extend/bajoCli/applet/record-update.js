@@ -9,19 +9,19 @@ async function updateRecord (path, ...args) {
   let [schema, id, body] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.t('selectSchema'),
+      message: this.print.buildText('selectSchema'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(id)) {
     id = await input({
-      message: this.t('enterRecordId'),
+      message: this.print.buildText('enterRecordId'),
       validate: text => isEmpty(text) ? this.t('idIsRequired') : true
     })
   }
   if (isEmpty(body)) {
     body = await input({
-      message: this.t('enterJsonPayload'),
+      message: this.print.buildText('enterJsonPayload'),
       validate: text => {
         if (isEmpty(text)) return this.t('payloadRequired')
         try {

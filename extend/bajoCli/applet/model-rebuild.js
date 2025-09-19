@@ -11,7 +11,7 @@ async function modelRebuild (path, ...args) {
   if (isEmpty(schemas)) return this.print.fail('notFound%s', 'schema', { exit: this.app.applet })
   if (isEmpty(names)) {
     names = await input({
-      message: this.t('enterSchemaName'),
+      message: this.print.buildText('enterSchemaName'),
       default: '*'
     })
   }
@@ -20,7 +20,7 @@ async function modelRebuild (path, ...args) {
   if (names.length === 0) return this.print.fail('No schema matched', true, { exit: this.app.applet })
   console.log(boxen(names.join(' '), { title: this.t('schema%d', names.length), padding: 0.5, borderStyle: 'round' }))
   const answer = await confirm({
-    message: this.t('schemasWillBeRebuiltContinue'),
+    message: this.print.buildText('schemasWillBeRebuiltContinue'),
     default: false
   })
   if (!answer) return this.print.fail('aborted', { exit: this.app.applet })
@@ -36,7 +36,7 @@ async function modelRebuild (path, ...args) {
   const skipped = []
   for (const s of names) {
     const { schema, instance } = this.getInfo(s)
-    const spin = this.print.spinner({ showCounter: true }).start('rebuilding%s', schema.name)
+    const spin = this.print.spinner().start('rebuilding%s', schema.name)
     if (!instance) {
       spin.warn('clientInstanceNotConnected%s', schema.connection, schema.name)
       skipped.push(schema.name)
@@ -80,7 +80,7 @@ async function modelRebuild (path, ...args) {
   if (result.failed > 0) this.print.fatal('cantContinueAddFixture')
   for (const s of without(names, ...skipped)) {
     const { schema, connection } = this.getInfo(s)
-    const spin = this.print.spinner({ showCounter: true }).start('addingFixture%s', schema.name)
+    const spin = this.print.spinner().start('addingFixture%s', schema.name)
     if (connection.memory) {
       spin.warn('memoryDbSkipped%s', schema.name)
       continue
@@ -95,7 +95,7 @@ async function modelRebuild (path, ...args) {
       result.failed++
     }
   }
-  process.exit()
+  this.app.exit()
 }
 
 export default modelRebuild

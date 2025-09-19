@@ -1,38 +1,42 @@
 # dobo
 
-Plugin name: **dobo**, alias: **db**
-
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/ardhi/dobo) ![NPM Version](https://img.shields.io/npm/v/dobo)
 
-> <br />**Attention**: I do NOT accept any pull request at the moment, thanks!<br /><br />
+> <br />**Attention**: I do NOT accept any pull request at the moment, thanks!  ([Why?](tutorial/00-welcome.md#contribution))<br /><br />
 
-Database connectivity, tools, ORM/ODM support for [Bajo](https://github.com/ardhi/bajo)
+Database Management System for [Bajo](https://github.com/ardhi/bajo)
 
 ## Installation
 
-Goto your ```<bajo-base-dir>``` and type:
+Goto your ```{project-dir}``` and type:
 
 ```bash
 $ npm install dobo
 ```
 
-Now open your ```<bajo-data-dir>/config/.plugins``` and put ```dobo``` in it
+Now open your ```{data-dir}/config/.plugins``` and add ```dobo```
 
 ## Documentations
 
-- [Query Language](docs/query-language.md)
+- [Getting Started](tutorial/01-getting-started.md)
+- [User Guide](tutorial/02-user-guide.md)
+- [Developer Guide](tutorial/03-dev-guide.md)
+- [Config Object](tutorial/04-config.md)
+- [Query Language](tutorial/05-query-language.md)
+- [Applets](tutorial/06-applets.md)
+- [Ecosystem](tutorial/07-ecosystem.md)
+- [API](https://ardhi.github.io/dobo)
 
-## Database Drivers
+## Donations
 
-- Memory (Built-in)
-- [SQL/Knex](https://github.com/ardhi/dobo-knex)
-- [CouchDB](https://github.com/ardhi/dobo-couchdb)
-- [Elasticsearch](https://github.com/ardhi/dobo-elasticsearch)
-- [MongoDB](https://github.com/ardhi/dobo-mongodb)
-- [Redis](https://github.com/ardhi/dobo-redis)
-- [REST Proxy](https://github.com/ardhi/dobo-restproxy)
+### Paypal
 
-More will come soon
+[Donate](https://www.paypal.com/ncp/payment/EWLERL7SCUU64)
+
+### Bitcoin
+
+Address: **bc1qwtv78cwp9ef8hnqaw84fxg5856l0pggqe32g6f**
+<p><img alt="bc1qwtv78cwp9ef8hnqaw84fxg5856l0pggqe32g6f" src="docs-static/bitcoin.jpeg" width="150" height="150" /></p>
 
 ## License
 

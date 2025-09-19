@@ -8,13 +8,13 @@ async function removeRecord (path, ...args) {
   let [schema, id] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.t('Please select a schema:'),
+      message: this.print.buildText('Please select a schema:'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(id)) {
     id = await input({
-      message: this.t('Enter record ID:'),
+      message: this.print.buildText('Enter record ID:'),
       validate: text => isEmpty(text) ? this.t('ID is required') : true
     })
   }

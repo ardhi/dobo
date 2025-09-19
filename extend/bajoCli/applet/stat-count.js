@@ -8,13 +8,13 @@ async function statCount (path, ...args) {
   let [schema, query] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.t('selectSchema'),
+      message: this.print.buildText('selectSchema'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(query)) {
     query = await input({
-      message: this.t('enterQueryIfAny')
+      message: this.print.buildText('enterQueryIfAny')
     })
   }
   const filter = { query }

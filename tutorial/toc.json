@@ -1,20 +1,29 @@
 {
-  "config": {
-    "title": "Config Object"
+  "00-welcome": {
+    "title": "Welcome"
   },
-  "contribution": {
-    "title": "Contribution"
-  },
-  "query-language": {
-    "title": "Query Language"
-  },
-  "ecosystem": {
-    "title": "Ecosystem"
-  },
-  "getting-started": {
+  "01-getting-started": {
     "title": "Getting Started"
   },
-  "applet": {
-    "title": "Applet"
+  "02-user-guide": {
+    "title": "User Guide"
+  },
+  "03-dev-guide": {
+    "title": "Developer Guide"
+  },
+  "04-config": {
+    "title": "Config Object"
+  },
+  "05-query-language": {
+    "title": "Query Language"
+  },
+  "06-applets": {
+    "title": "Applets"
+  },
+  "07-ecosystem": {
+    "title": "Ecosystem"
+  },
+  "08-donations": {
+    "title": "Donations"
   }
 }

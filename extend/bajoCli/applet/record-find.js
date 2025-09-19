@@ -8,20 +8,21 @@ async function findRecord (path, ...args) {
   let [schema, query] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.t('selectSchema'),
+      message: this.print.buildText('selectSchema'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(query)) {
     query = await input({
-      message: this.t('enterQueryIfAny')
+      message: this.print.buildText('enterQueryIfAny')
     })
   }
   if (isEmpty(query)) query = {}
   const filter = pick(this.app.bajo.config, ['page', 'offset', 'pageSize', 'sort', 'limit'])
   filter.pageSize = filter.pageSize ?? filter.limit
   filter.query = query
-  await postProcess.call(this, { noConfirmation: true, handler: 'recordFind', params: [schema, filter], path, processMsg: 'Finding record(s)' })
+  const resp = await postProcess.call(this, { noConfirmation: true, handler: 'recordFind', params: [schema, filter], path, processMsg: 'Finding record(s)' })
+  if (!resp) await findRecord.call(this, path, ...args)
 }
 
 export default findRecord

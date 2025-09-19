@@ -123,6 +123,7 @@
   "memoryDbSkipped%s": "'%s' is a memory DB, skipped",
   "db": "DB",
   "invalidQuery": "Invalid Query",
+  "noResultFound": "No result found",
   "field": {
     "id": "ID",
     "code": "Kode",

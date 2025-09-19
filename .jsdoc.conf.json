@@ -7,12 +7,14 @@
     "destination": "./docs",
     "template": "node_modules/clean-jsdoc-theme",
     "tutorials": "./tutorial",
-    "readme": "./docs/home.md",
+    "readme": "./docs-static/home.md",
     "theme_opts": {
+      "static_dir": ["./docs-static"],
       "default_theme": "light",
       "display-module-header": true,
-      "title": "Dobo Database Framework",
-      "homepageTitle": "Dobo Database Framework",
+      "title": "Dobo DBMS",
+      "homepageTitle": "Dobo DBMS",
+      "sections": ["Tutorials", "Classes", "Events", "Modules", "Global"],
       "menu": [{
         "title": "Dobo",
         "link": "https://bajo.app/dobo"

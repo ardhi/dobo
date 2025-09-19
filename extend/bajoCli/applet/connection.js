@@ -9,7 +9,7 @@ async function connection (path, ...args) {
   if (isEmpty(name)) {
     const choices = map(this.connections, s => ({ value: s.name }))
     name = await select({
-      message: this.t('chooseConn'),
+      message: this.print.buildText('chooseConn'),
       choices
     })
   }

@@ -9,13 +9,13 @@ async function createRecord (path, ...args) {
   let [schema, body] = args
   if (isEmpty(schema)) {
     schema = await select({
-      message: this.t('selectSchema'),
+      message: this.print.buildText('selectSchema'),
       choices: map(this.schemas, s => ({ value: s.name }))
     })
   }
   if (isEmpty(body)) {
     body = await input({
-      message: this.t('enterJsonPayload'),
+      message: this.print.buildText('enterJsonPayload'),
       validate: text => {
         if (isEmpty(text)) return this.t('payloadRequired')
         try {
@@ -35,7 +35,9 @@ async function createRecord (path, ...args) {
     return this.print.fail('invalidPayloadSyntax', { exit: this.app.applet })
   }
   console.log(boxen(JSON.stringify(payload, null, 2), { title: schema, padding: 0.5, borderStyle: 'round' }))
-  await postProcess.call(this, { handler: 'recordCreate', params: [schema, payload], path, processMsg: 'Creating record' })
+  const result = await postProcess.call(this, { handler: 'recordCreate', params: [schema, payload], path, processMsg: 'Creating record' })
+  if (!result) await createRecord.call(this, path, ...args)
+  this.app.exit()
 }
 
 export default createRecord
