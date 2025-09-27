@@ -2,13 +2,13 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/ardhi/dobo) ![NPM Version](https://img.shields.io/npm/v/dobo)
 
-> <br />**Attention**: I do NOT accept any pull request at the moment, thanks!  ([Why?](tutorial/00-welcome.md#contribution))<br /><br />
+> <br />**Attention**: I do NOT accept any pull request at the moment, thanks! ([Why?](tutorial/00-welcome.md#contribution))<br /><br />
 
 Database Management System for [Bajo](https://github.com/ardhi/bajo)
 
 ## Installation
 
-Goto your ```{project-dir}``` and type:
+Goto your ```{app-dir}``` and type:
 
 ```bash
 $ npm install dobo
