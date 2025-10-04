@@ -4,6 +4,8 @@
 
 > <br />**Attention**: I do NOT accept any pull request at the moment, thanks! ([Why?](tutorial/00-welcome.md#contribution))<br /><br />
 
+<img src="docs/static/logo.png" width="300" alt="dobo">
+
 Database Management System for [Bajo](https://github.com/ardhi/bajo)
 
 ## Installation
