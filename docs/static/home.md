@@ -1,5 +1,6 @@
-<p><img alt="Dobo DBMS" src="static/logo-ecosystem.png" width="200" /></p>
-- [Contributing](CONTRIBUTING.md)
+![Dobo DBMS](static/logo.png)
+
+### Dobo Database Management System
 
 ## Hire Me
 
@@ -22,4 +23,3 @@ Please support me using the channels below. Your donation will motivate me to wo
 <p>
 <div><img alt="bc1qwtv78cwp9ef8hnqaw84fxg5856l0pggqe32g6f" src="static/bitcoin.jpeg" width="150" height="150" /><br>Bitcoin</div>
 </p>
-
