@@ -14,14 +14,14 @@
       "homepageTitle": "Dobo API",
       "sections": ["Classes", "Events", "Modules", "Global"],
       "menu": [{
-        "title": "Homepage",
-        "link": "https://dobo.bajo.app/"
-      }, {
         "title": "NPM",
         "link": "https://www.npmjs.com/package/dobo"
       }, {
         "title": "Github",
         "link": "https://github.com/ardhi/dobo"
+      }, {
+        "title": "Dobo",
+        "link": "https://dobo.bajo.app/"
       }, {
         "title": "Bajo",
         "link": "https://bajo.app/"
