@@ -10,13 +10,13 @@
 
 ## Installation
 
-Goto your ```{app-dir}``` and type:
+Goto your ```{appDir}``` and type:
 
 ```bash
 $ npm install dobo
 ```
 
-Now open your ```{data-dir}/config/.plugins``` and add ```dobo```
+And enable the plugin by adding ```dobo``` to the plugin list in either the ```$dataDir/config/.plugins``` file or the ```bajo.plugins``` array within your ```package.json``` file
 
 ## Documentations
 

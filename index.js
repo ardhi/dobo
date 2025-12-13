@@ -2,10 +2,13 @@ import collectConnections from './lib/collect-connections.js'
 import collectDrivers from './lib/collect-drivers.js'
 import collectFeatures from './lib/collect-features.js'
 import collectSchemas from './lib/collect-schemas.js'
-import memDbStart from './lib/mem-db/start.js'
-import memDbInstantiate from './lib/mem-db/instantiate.js'
 import nql from '@tryghost/nql'
 import path from 'path'
+
+import connectionFactory from './lib/factory/connection.js'
+import featureFactory from './lib/factory/feature.js'
+import { driverFactory } from './lib/factory/driver.js'
+import schemaFactory from './lib/factory/schema.js'
 
 /**
  * @typedef {string} TRecordSortKey
@@ -68,45 +71,71 @@ import path from 'path'
  */
 const propType = {
   integer: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   smallint: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   text: {
     validator: 'string',
     textType: 'text',
-    values: ['text', 'mediumtext', 'longtext']
+    values: ['text', 'mediumtext', 'longtext'],
+    rules: []
   },
   string: {
     validator: 'string',
-    maxLength: 255,
-    minLength: 0
+    maxLength: 50,
+    minLength: 0,
+    rules: []
   },
   float: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   double: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   boolean: {
-    validator: 'boolean'
+    validator: 'boolean',
+    rules: []
   },
   date: {
-    validator: 'date'
+    validator: 'date',
+    rules: []
   },
   datetime: {
-    validator: 'date'
+    validator: 'date',
+    rules: []
   },
   time: {
-    validator: 'date'
+    validator: 'date',
+    rules: []
   },
   timestamp: {
-    validator: 'timestamp'
+    validator: 'timestamp',
+    rules: []
   },
-  object: {},
-  array: {}
+  object: {
+    validator: null,
+    rules: []
+  },
+  array: {
+    validator: null,
+    rules: []
+  }
 }
+
+/**
+ * @typedef {Object} TLib
+ * @property {Object} Connection - Connection class
+ * @property {Object} Feature - Feature class
+ * @property {Object} Driver - Driver class
+ * @property {Object} Schema - Schema class
+*/
+const lib = {}
 
 /**
  * Plugin factory
@@ -116,6 +145,13 @@ const propType = {
  */
 async function factory (pkgName) {
   const me = this
+  const { breakNsPath } = this.app.bajo
+
+  lib.Connection = await connectionFactory.call(this)
+  lib.Feature = await featureFactory.call(this)
+  lib.Driver = await driverFactory.call(this)
+  lib.Schema = await schemaFactory.call(this)
+  const { find, filter, isString, map } = this.app.lib._
 
   /**
    * Dobo Database Framework for {@link https://github.com/ardhi/bajo|Bajo}.
@@ -144,6 +180,13 @@ async function factory (pkgName) {
      */
     static propType = propType
 
+    /**
+     * @constant {string[]}
+     * @memberof Dobo
+     * @default ['index', 'unique', 'primary', 'fulltext']
+     */
+    static indexTypes = ['index', 'unique', 'primary', 'fulltext']
+
     constructor () {
       super(pkgName, me.app)
       this.config = {
@@ -154,32 +197,15 @@ async function factory (pkgName) {
           allowUnknown: true
         },
         default: {
-          property: {
-            text: {
-              textType: 'text'
-            },
-            string: {
-              length: 50
-            }
-          },
           filter: {
             limit: 25,
             maxLimit: 200,
             hardLimit: 10000,
             sort: ['dt:-1', 'updatedAt:-1', 'updated_at:-1', 'createdAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
-          },
-          idField: {
-            type: 'string',
-            maxLength: 50,
-            required: true,
-            index: { type: 'primary' }
           }
         },
         memDb: {
-          createDefConnAtStart: true,
-          persistence: {
-            syncPeriodDur: '1s'
-          }
+          autoSaveDur: '1s'
         },
         applet: {
           confirmation: false
@@ -205,6 +231,41 @@ async function factory (pkgName) {
        * @type {Object[]}
        */
       this.schemas = []
+
+      /**
+       * @type {Object}
+       */
+      this.lib = lib
+    }
+
+    /**
+     * Get allowed property keys by field type
+     *
+     * @param {string} type
+     * @returns {string[]}
+     */
+    getPropKeys = (type) => {
+      const keys = ['name', 'type', 'required', 'rules', 'validator']
+      if (['string'].includes(type)) keys.push('minLength', 'maxLength', 'values')
+      if (['text'].includes(type)) keys.push('textType')
+      if (['smallint', 'integer'].includes(type)) keys.push('autoInc', 'values')
+      if (['float', 'double'].includes(type)) keys.push('values')
+      return keys
+    }
+
+    /**
+     * Get all allowed property keys
+     *
+     * @returns {string[]}
+     */
+
+    getAllPropKeys = () => {
+      const { uniq } = this.app.lib._
+      const keys = ['name', 'type', 'required', 'ref']
+      for (const type in propType) {
+        keys.push(...Object.keys(propType[type]))
+      }
+      return uniq(keys)
     }
 
     /**
@@ -217,24 +278,8 @@ async function factory (pkgName) {
      * @async
      */
     init = async () => {
-      const { buildCollections } = this.app.bajo
-      const { fs } = this.app.lib
-      const checkType = async (item, items) => {
-        const { filter } = this.app.lib._
-        const existing = filter(items, { type: 'dobo:memory' })
-        if (existing.length > 1) this.fatal('onlyOneConnType%s', item.type)
-      }
-
-      fs.ensureDirSync(`${this.dir.data}/attachment`)
       await collectDrivers.call(this)
-      if (this.config.memDb.createDefConnAtStart) {
-        this.config.connections.push({
-          type: 'dobo:memory',
-          name: 'memory'
-        })
-      }
-      this.connections = await buildCollections({ ns: this.ns, container: 'connections', handler: collectConnections, dupChecks: ['name', checkType] })
-      if (this.connections.length === 0) this.log.warn('notFound%s', this.t('connection'))
+      await collectConnections.call(this)
       await collectFeatures.call(this)
       await collectSchemas.call(this)
     }
@@ -248,19 +293,64 @@ async function factory (pkgName) {
      * @param {boolean} [noRebuild=false] - Set ```true``` to ALWAYS rebuild model on start. Yes, only set it to ```true``` if you REALLY know what you're doing!!!
      */
     start = async (conns = 'all', noRebuild = true) => {
-      const { importModule, breakNsPath } = this.app.bajo
-      const { find, filter, isString, map } = this.app.lib._
       if (conns === 'all') conns = this.connections
       else if (isString(conns)) conns = filter(this.connections, { name: conns })
       else conns = map(conns, c => find(this.connections, { name: c }))
-      for (const c of conns) {
-        const { ns } = breakNsPath(c.type)
-        const schemas = filter(this.schemas, { connection: c.name })
-        const mod = c.type === 'dobo:memory' ? memDbInstantiate : await importModule(`${ns}:/extend/${this.ns}/boot/instantiate.js`)
-        await mod.call(this.app[ns], { connection: c, noRebuild, schemas })
-        this.log.trace('driverInstantiated%s%s', c.driver, c.name)
+      this.log.debug('dbInit')
+      for (const connection of conns) {
+        const schemas = filter(this.schemas, { connection: connection.name })
+        connection.client = await connection.driver.init({ connection, schemas, noRebuild })
+        this.log.trace('dbInit%s%s%s', connection.driver.plugin.ns, connection.driver.name, connection.name)
       }
-      await memDbStart.call(this)
+    }
+
+    /**
+     * Get connection by name. It returns the first connection named after "{name}"
+     *
+     * @param {string} - Connection name
+     * @returns {Driver} Return connection instance
+     */
+    getConnection = name => {
+      return find(this.connections, { name })
+    }
+
+    /**
+     * Get driver by name. It returns the first driver named after "{name}"
+     *
+     * Also support NsPath format for those who load the same named driver but from different provider/plugin.
+     *
+     * @param {string} - Driver name
+     * @returns {Driver} Return driver instance
+     */
+    getDriver = name => {
+      const { breakNsPath } = this.app.bajo
+      if (!name.includes(':')) return find(this.drivers, { name })
+      const { ns, path } = breakNsPath(name)
+      return find(this.drivers, d => d.name === path && d.plugin.ns === ns)
+    }
+
+    /**
+     * Get feature by name. It returns the first driver named after "{name}"
+     *
+     * Also support NsPath format for those who load the same named driver but from different provider/plugin.
+     *
+     * @param {string} - Feature name
+     * @returns {Feature} Return feature instance
+     */
+    getFeature = name => {
+      if (!name.includes(':')) return find(this.features, { name })
+      const { ns, path } = breakNsPath(name)
+      return find(this.features, d => d.name === path && d.plugin.ns === ns)
+    }
+
+    /**
+     * Get schema by name
+     *
+     * @param {string} name - Schema name
+     * @retuns {Object}
+     */
+    getSchema = name => {
+      return find(this.schemas, { name })
     }
 
     /**
@@ -491,33 +581,11 @@ async function factory (pkgName) {
       return text
     }
 
-    getConnection = (name) => {
-      const { find } = this.app.lib._
-      return find(this.connections, { name })
-    }
-
     getInfo = (name) => {
-      const { breakNsPath } = this.app.bajo
-      const { find, map, isEmpty } = this.app.lib._
       const schema = this.getSchema(name)
-      const conn = this.getConnection(schema.connection)
-      let { ns, path: type } = breakNsPath(conn.type)
-      if (isEmpty(type)) type = conn.type
-      const driver = find(this.drivers, { type, ns, driver: conn.driver })
-      const instance = find(this.app[driver.ns].instances, { name: schema.connection })
-      const opts = conn.type === 'mssql' ? { includeTriggerModifications: true } : undefined
-      const returning = [map(schema.properties, 'name'), opts]
-      return { instance, driver, connection: conn, returning, schema }
-    }
-
-    getSchema = (input, cloned = true) => {
-      const { find, isPlainObject, cloneDeep } = this.app.lib._
-      const { pascalCase } = this.app.lib.aneka
-      let name = isPlainObject(input) ? input.name : input
-      name = pascalCase(name)
-      const schema = find(this.schemas, { name })
-      if (!schema) throw this.error('unknownModelSchema%s', name)
-      return cloned ? cloneDeep(schema) : schema
+      const connection = this.getConnection(schema.connection)
+      const driver = connection.driver
+      return { driver, connection, schema }
     }
 
     getField = (name, model) => {

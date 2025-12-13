@@ -1,6 +1,6 @@
 {
   "name": "dobo",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "DBMS for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -31,8 +31,8 @@
   "homepage": "https://github.com/ardhi/dobo#readme",
   "dependencies": {
     "@tryghost/nql": "^0.12.7",
-    "joi": "^17.13.3",
-    "mingo": "^6.5.1"
+    "joi": "^18.0.2",
+    "mingo": "^7.0.2"
   },
   "devDependencies": {
     "clean-jsdoc-theme": "^4.3.0",
