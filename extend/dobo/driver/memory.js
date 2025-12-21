@@ -122,7 +122,6 @@ async function memory () {
     }
 
     findAllRecord = async (model, filter = {}, options = {}) => {
-      this.app.dump('xxx')
       const { sort } = await model.preparePagination(filter)
       const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)

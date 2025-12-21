@@ -130,7 +130,7 @@ async function factory (pkgName) {
    *
    * @class
    */
-  class Dobo extends this.app.pluginClass.base {
+  class Dobo extends this.app.baseClass.Base {
     /**
      * @constant {string}
      * @memberof Dobo
