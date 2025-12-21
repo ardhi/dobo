@@ -7,18 +7,21 @@ async function updatedAt (opts = {}) {
       type: 'datetime',
       index: true
     },
-    hook: {
-      beforeCreate: async function ({ body }) {
-        const { isSet } = this.app.lib.aneka
-        const now = new Date()
-        if (opts.overwrite || !isSet(body[opts.fieldName])) body[opts.fieldName] = now
-      },
-      beforeUpdate: async function ({ body }) {
+    hooks: [{
+      name: 'beforeCreateRecord',
+      handler: async function (body, options) {
         const { isSet } = this.app.lib.aneka
         const now = new Date()
         if (opts.overwrite || !isSet(body[opts.fieldName])) body[opts.fieldName] = now
       }
-    }
+    }, {
+      name: 'beforeUpdateRecord',
+      handler: async function (id, body, options) {
+        const { isSet } = this.app.lib.aneka
+        const now = new Date()
+        if (opts.overwrite || !isSet(body[opts.fieldName])) body[opts.fieldName] = now
+      }
+    }]
   }
 }
 

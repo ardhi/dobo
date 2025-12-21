@@ -1,7 +1,8 @@
 const conns = []
 
 async function postProcess ({ handler, params, path, processMsg, noConfirmation } = {}) {
-  const { importPkg, generateId } = this.app.bajo
+  const { importPkg } = this.app.bajo
+  const { generateId } = this.app.lib.aneka
   const { writeOutput } = this.app.bajoCli
   const { find, get, isEmpty } = this.app.lib._
   const [confirm] = await importPkg('bajoCli:strip-ansi', 'bajoCli:@inquirer/confirm')

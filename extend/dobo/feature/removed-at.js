@@ -1,4 +1,4 @@
-async function beforeFind ({ filter = {}, options }, opts) {
+async function beforeFindRecord ({ filter = {} }, opts) {
   filter.query = filter.query ?? {}
   const { isEmpty, set } = this.app.lib._
   const q = { $and: [] }
@@ -10,25 +10,13 @@ async function beforeFind ({ filter = {}, options }, opts) {
   filter.query = q
 }
 
-async function afterFind ({ records }, opts) {
-  for (const rec of records.data) {
-    delete rec[opts.fieldName]
-  }
-}
-
-async function afterGet ({ schema, id, record }, opts) {
+async function afterGetRecord ({ id, record = {} }, opts) {
   const { isEmpty } = this.app.lib._
-  if (!isEmpty(record.data[opts.fieldName])) throw this.error('recordNotFound%s%s', id, schema.name, { statusCode: 404 })
-  delete record.data[opts.fieldName]
+  if (!isEmpty(record.data[opts.fieldName])) throw this.error('recordNotFound%s%s', id, this.name, { statusCode: 404 })
 }
 
-async function beforeCreate ({ body }, opts) {
+async function beforeCreateRecord ({ body = {} }, opts) {
   delete body[opts.fieldName]
-}
-
-async function afterCreate ({ record }, opts) {
-  delete record.data[opts.fieldName]
-  if (record.oldData) delete record.oldData[opts.fieldName]
 }
 
 async function removedAt (opts = {}) {
@@ -39,46 +27,35 @@ async function removedAt (opts = {}) {
       type: 'datetime',
       index: true
     },
-    hook: {
-      beforeFind: async function ({ filter, options }) {
-        await beforeFind.call(this, { filter, options }, opts)
-      },
-      beforeFindOne: async function ({ filter, options }) {
-        await beforeFind.call(this, { filter, options }, opts)
-      },
-      afterFind: async function ({ records }) {
-        await afterFind.call(this, { records }, opts)
-      },
-      afterFindOne: async function ({ record }) {
-        await afterGet.call(this, { record }, opts)
-      },
-      afterGet: async function ({ record }) {
-        await afterGet.call(this, { record }, opts)
-      },
-      beforeCreate: async function ({ body }) {
-        await beforeCreate.call(this, { body }, opts)
-      },
-      afterCreate: async function ({ record }) {
-        await afterCreate.call(this, { record }, opts)
-      },
-      beforeUpdate: async function ({ schema, id, body, options }) {
-        await beforeCreate.call(this, { body }, opts)
-      },
-      afterUpdate: async function ({ record }) {
-        await afterCreate.call(this, { record }, opts)
-      },
-      beforeRemove: async function ({ schema, id, options }) {
-        const { recordUpdate, recordGet } = this.app.dobo
-        await recordGet(schema.name, id, options)
+    hooks: [{
+      name: 'beforeFindRecord',
+      handler: async function (filter, options) {
+        await beforeFindRecord.call(this, { filter, options }, opts)
+      }
+    }, {
+      name: 'afterGetRecord',
+      handler: async function (id, record, options) {
+        await afterGetRecord.call(this, { record }, opts)
+      }
+    }, {
+      name: 'beforeCreateRecord',
+      handler: async function (body, options) {
+        await beforeCreateRecord.call(this, { body }, opts)
+      }
+    }, {
+      name: 'beforeUpdateRecord',
+      handler: async function (id, body, options) {
+        await beforeCreateRecord.call(this, { body }, opts)
+      }
+    }, {
+      name: 'beforeRemoveRecord',
+      handler: async function (id, options) {
         const { set } = this.app.lib._
         const body = set({}, opts.fieldName, new Date())
-        const record = await recordUpdate(schema.name, id, body, { dataOnly: false, noValidation: true, noFeatureHook: true })
+        const record = await this.driver.recordUpdate(this, id, body)
         options.record = { oldData: record.oldData }
-      },
-      afterRemove: async function ({ record }) {
-        delete record.oldData[opts.fieldName]
       }
-    }
+    }]
   }
 }
 

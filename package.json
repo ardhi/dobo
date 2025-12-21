@@ -1,6 +1,6 @@
 {
   "name": "dobo",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "DBMS for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,8 @@
   "dependencies": {
     "@tryghost/nql": "^0.12.7",
     "joi": "^18.0.2",
-    "mingo": "^7.0.2"
+    "mingo": "^7.1.0",
+    "ulid": "^3.0.2"
   },
   "devDependencies": {
     "clean-jsdoc-theme": "^4.3.0",
