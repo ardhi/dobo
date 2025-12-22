@@ -1,5 +1,9 @@
 # Changes
 
+## 2025-12-22
+
+- [2.2.0] Introduce Action class that enables you to work on models with chainable methods
+
 ## 2025-12-16
 
 - [2.2.0] Upgrade mingo to 7.1.0
