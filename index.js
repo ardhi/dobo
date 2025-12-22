@@ -6,7 +6,7 @@ import collectModels from './lib/collect-models.js'
 import connectionFactory from './lib/factory/connection.js'
 import featureFactory from './lib/factory/feature.js'
 import { driverFactory } from './lib/factory/driver.js'
-import schemaFactory from './lib/factory/model.js'
+import modelFactory from './lib/factory/model.js'
 
 /**
  * @typedef {Object} TPropertyType
@@ -99,13 +99,13 @@ const propertyType = {
 }
 
 /**
- * @typedef {Object} TLib
+ * @typedef {Object} TBaseClass
  * @property {Object} Connection - Connection class
  * @property {Object} Feature - Feature class
  * @property {Object} Driver - Driver class
  * @property {Object} Schema - Schema class
 */
-const lib = {}
+const baseClass = {}
 
 /**
  * Plugin factory
@@ -117,10 +117,10 @@ async function factory (pkgName) {
   const me = this
   const { breakNsPath } = this.app.bajo
 
-  lib.Connection = await connectionFactory.call(this)
-  lib.Feature = await featureFactory.call(this)
-  lib.Driver = await driverFactory.call(this)
-  lib.Schema = await schemaFactory.call(this)
+  baseClass.Connection = await connectionFactory.call(this)
+  baseClass.Feature = await featureFactory.call(this)
+  baseClass.Driver = await driverFactory.call(this)
+  baseClass.Model = await modelFactory.call(this)
   const { find, filter, isString, map } = this.app.lib._
 
   /**
@@ -205,7 +205,7 @@ async function factory (pkgName) {
       /**
        * @type {Object}
        */
-      this.lib = lib
+      this.baseClass = baseClass
     }
 
     /**

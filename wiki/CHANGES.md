@@ -3,6 +3,7 @@
 ## 2025-12-22
 
 - [2.2.0] Introduce Action class that enables you to work on models with chainable methods
+- [2.2.0] All base class definitions moved now to ```this.baseClass``` instead of ```this.lib```
 
 ## 2025-12-16
 

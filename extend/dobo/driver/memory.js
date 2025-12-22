@@ -1,7 +1,7 @@
 import { Query } from 'mingo'
 
 async function memory () {
-  const { Driver } = this.app.dobo.lib
+  const { Driver } = this.app.dobo.baseClass
   const { findIndex, pullAt, omit, has } = this.app.lib._
   const { defaultsDeep } = this.app.lib.aneka
 
