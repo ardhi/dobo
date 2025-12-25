@@ -103,7 +103,7 @@ const propertyType = {
  * @property {Object} Connection - Connection class
  * @property {Object} Feature - Feature class
  * @property {Object} Driver - Driver class
- * @property {Object} Schema - Schema class
+ * @property {Object} Model - Model class
 */
 const baseClass = {}
 
@@ -144,6 +144,14 @@ async function factory (pkgName) {
      * @default ['count', 'avg', 'min', 'max', 'sum']
      */
     static aggregateTypes = ['count', 'avg', 'min', 'max', 'sum']
+
+    /**
+     * @constant {string[]}
+     * @memberof Dobo
+     * @default ['daily', 'monthly', 'annually']
+     */
+    static histogramTypes = ['daily', 'monthly', 'annually']
+
     /**
      * @constant {TPropertyType}
      * @memberof Dobo
@@ -229,12 +237,13 @@ async function factory (pkgName) {
      * @returns {string[]}
      */
 
-    getAllPropertyKeys = () => {
-      const { uniq } = this.app.lib._
+    getAllPropertyKeys = (driver) => {
+      const { uniq, isEmpty } = this.app.lib._
       const keys = ['name', 'type', 'required', 'ref', 'default']
       for (const type in propertyType) {
         keys.push(...Object.keys(propertyType[type]))
       }
+      if (driver && !isEmpty(driver.constructor.propertyKeys)) keys.push(...Object.keys(driver.constructor.propertyKeys))
       return uniq(keys)
     }
 
@@ -268,7 +277,8 @@ async function factory (pkgName) {
       else conns = map(conns, c => find(this.connections, { name: c }))
       this.log.debug('dbInit')
       for (const connection of conns) {
-        await connection.driver.init(noRebuild)
+        await connection.driver.init()
+        await connection.connect(noRebuild)
         this.log.trace('dbInit%s%s%s', connection.driver.plugin.ns, connection.driver.name, connection.name)
       }
     }
@@ -281,7 +291,7 @@ async function factory (pkgName) {
      */
     getConnection = name => {
       const conn = find(this.connections, { name })
-      if (!conn) throw this.error('unknown%s%s', this.plugin.t('connection'), name)
+      if (!conn) throw this.error('unknown%s%s', this.t('connection'), name)
       return conn
     }
 
@@ -295,9 +305,16 @@ async function factory (pkgName) {
      */
     getDriver = name => {
       const { breakNsPath } = this.app.bajo
-      if (!name.includes(':')) return find(this.drivers, { name })
+      let driver
+      if (!name.includes(':')) {
+        driver = find(this.drivers, { name })
+        if (driver) return driver
+        driver = filter(this.drivers, d => d.plugin.ns === name)
+        if (driver.length === 1) return driver[0]
+        return
+      }
       const { ns, path } = breakNsPath(name)
-      const driver = find(this.drivers, d => d.name === path && d.plugin.ns === ns)
+      driver = find(this.drivers, d => d.name === path && d.plugin.ns === ns)
       if (!driver) throw this.error('unknown%s%s', this.plugin.t('driver'), name)
       return driver
     }
@@ -321,12 +338,12 @@ async function factory (pkgName) {
     /**
      * Get model by name
      *
-     * @param {string} name - Schema name
+     * @param {string} name - Model name
      * @retuns {Object}
      */
     getModel = name => {
       const model = find(this.models, { name })
-      if (!model) throw this.error('unknown%s%s', this.plugin.t('model'), name)
+      if (!model) throw this.error('unknown%s%s', this.t('model'), name)
       return model
     }
 

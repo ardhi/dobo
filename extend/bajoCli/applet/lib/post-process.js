@@ -1,17 +1,17 @@
-const conns = []
-
 async function postProcess ({ handler, params, path, processMsg, noConfirmation } = {}) {
   const { importPkg } = this.app.bajo
   const { generateId } = this.app.lib.aneka
   const { writeOutput } = this.app.bajoCli
-  const { find, get, isEmpty } = this.app.lib._
-  const [confirm] = await importPkg('bajoCli:strip-ansi', 'bajoCli:@inquirer/confirm')
-  const { confirmation, fields, full } = this.app.bajo.config
+  const { get, isEmpty } = this.app.lib._
+  const confirm = await importPkg('bajoCli:@inquirer/confirm')
+
+  const { confirmation, fields = [], full } = this.app.bajo.config
   if (!noConfirmation && confirmation === false) noConfirmation = true
   params.push({ fields, dataOnly: !full })
 
-  const schema = find(this.schemas, { name: params[0] })
-  if (!schema) return this.print.fatal('notFound%s', this.t('field.schema'))
+  const name = params.shift()
+  const model = this.getModel(name)
+  if (!model) return this.print.fatal('notFound%s', this.t('field.model'))
   let cont = true
   if (!noConfirmation) {
     const answer = await confirm({ message: this.print.buildText('sureContinue'), default: false })
@@ -22,13 +22,9 @@ async function postProcess ({ handler, params, path, processMsg, noConfirmation 
   }
   if (!cont) return
   const spin = this.print.spinner().start(`${processMsg}...`)
-  const { connection } = this.getInfo(schema)
-  if (!conns.includes(connection.name)) {
-    await this.start(connection.name)
-    conns.push(connection.name)
-  }
+  await this.start([model.connection.name])
   try {
-    const resp = await this[handler](...params)
+    const resp = await model[handler](...params)
     if (isEmpty(resp)) {
       spin.warn('noResultFound')
       return false
@@ -46,7 +42,7 @@ async function postProcess ({ handler, params, path, processMsg, noConfirmation 
     if (this.app.bajo.config.log.applet) {
       spin.stop()
       console.error(err)
-    } else spin.fail('error%s', err.message)
+    } else spin.fail('error%s', err.detailsMessage ?? err.message)
     return false
   }
 }

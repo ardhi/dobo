@@ -1,6 +1,6 @@
 import { Query } from 'mingo'
 
-async function memory () {
+async function memoryDriverFactory () {
   const { Driver } = this.app.dobo.baseClass
   const { findIndex, pullAt, omit, has } = this.app.lib._
   const { defaultsDeep } = this.app.lib.aneka
@@ -9,13 +9,12 @@ async function memory () {
     constructor (plugin, options) {
       super(plugin)
       this.idGenerator = 'ulid'
-      this.memory = true
       this.saving = true
       this.autoSave = []
       this.storage = {}
     }
 
-    _loadFromFile = async (model, dir) => {
+    async _loadFromFile (model, dir) {
       const { fs } = this.app.lib
       this.autoSave.push(model.name)
       const file = `${dir}/${model.name}.json`
@@ -28,7 +27,13 @@ async function memory () {
       }
     }
 
-    init = async (noRebuild) => {
+    async sanitizeConnection (conn) {
+      await super.sanitizeConnection(conn)
+      conn.memory = true
+    }
+
+    async init () {
+      await super.init()
       const conn = this.plugin.getConnection('memory')
       const models = this.plugin.getModelsByConnection(conn.name)
       const { getPluginDataDir } = this.app.bajo
@@ -53,65 +58,65 @@ async function memory () {
       }, this.plugin.config.memDb.autoSaveDur)
     }
 
-    _getOldRecord = async (model, id, options = {}) => {
+    async _getOldRecord (model, id, options = {}) {
       const idx = findIndex(this.storage[model.name], { _id: id })
       const oldData = this.storage[model.name][idx]
       if (idx === -1) throw this.plugin.error('notFound%s%s', this.plugin.t('record'), `${id}@${model.name}`)
       return { idx, oldData }
     }
 
-    modelExists = async (model, options = {}) => {
+    async modelExists (model, options = {}) {
       return { data: has(this.storage, model.name) }
     }
 
-    buildModel = async (model, options = {}) => {
+    async buildModel (model, options = {}) {
       if (has(this.storage, model.name)) throw this.plugin.error('exist%s%s', this.plugin.t('model'), model.name)
       this.storage[model.name] = []
       if (options.noResult) return
       return {}
     }
 
-    clearModel = async (model, options = {}) => {
+    async clearModel (model, options = {}) {
       if (!has(this.storage, model.name)) throw this.plugin.error('notFound%s%s', this.plugin.t('model'), model.name)
       this.storage[model.name] = []
       if (options.noResult) return
       return {}
     }
 
-    dropModel = async (model, options = {}) => {
+    async dropModel (model, options = {}) {
       if (!has(this.storage, model.name)) throw this.plugin.error('notFound%s%s', this.plugin.t('model'), model.name)
       delete this.storage[model.name]
       if (options.noResult) return
       return {}
     }
 
-    createRecord = async (model, body = {}, options = {}) => {
+    async createRecord (model, body = {}, options = {}) {
       const idx = findIndex(this.storage[model.name], { _id: body._id })
       if (idx > -1) throw this.plugin.error('exist%s%s', this.plugin.t('record'), `${body._id}@${model.name}`)
       this.storage[model.name].push(body)
       return { data: body }
     }
 
-    getRecord = async (model, id, options = {}) => {
+    async getRecord (model, id, options = {}) {
       const { oldData: data } = await this._getOldRecord(model, id)
       return { data }
     }
 
-    updateRecord = async (model, id, body = {}, options = {}) => {
+    async updateRecord (model, id, body = {}, options = {}) {
       const { idx, oldData } = await this._getOldRecord(model, id)
       const data = defaultsDeep(body, oldData)
       this.storage[model.name][idx] = data
       return { oldData, data }
     }
 
-    removeRecord = async (model, id, options = {}) => {
+    async removeRecord (model, id, options = {}) {
       const { idx, oldData } = await this._getOldRecord(model, id)
       pullAt(this.storage[model.name], idx)
       return { oldData }
     }
 
-    findRecord = async (model, filter = {}, options = {}) => {
-      const { limit, skip, sort, page } = await model.preparePagination(filter)
+    async findRecord (model, filter = {}, options = {}) {
+      const { limit, skip, sort, page } = filter
       const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)
       if (sort) cursor.sort(sort)
@@ -121,7 +126,7 @@ async function memory () {
       return result
     }
 
-    findAllRecord = async (model, filter = {}, options = {}) => {
+    async findAllRecord (model, filter = {}, options = {}) {
       const { sort } = await model.preparePagination(filter)
       const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)
@@ -131,13 +136,13 @@ async function memory () {
       return result
     }
 
-    countRecord = async (model, filter = {}, options = {}) => {
+    async countRecord (model, filter = {}, options = {}) {
       const cursor = this._getCursor(model, filter)
       const data = cursor.all().length
       return { data }
     }
 
-    _getCursor = function (model, filter) {
+    _getCursor (model, filter) {
       const criteria = filter.query ?? {}
       const q = new Query(criteria, { idKey: '_id' })
       return q.find(this.storage[model.name])
@@ -147,4 +152,4 @@ async function memory () {
   return MemoryDriver
 }
 
-export default memory
+export default memoryDriverFactory

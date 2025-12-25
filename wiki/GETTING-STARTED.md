@@ -7,7 +7,7 @@
 Here is some basic knowledge about Dobo you need to be familiar with:
 
 - All record-related actions mimic REST API methods: *find* records, *get* a particular record by its ID, *create* a new record, *update* an existing record by ID and payload, and *remove* an existing record by its ID.
-- A Dobo model requires a predefined schema. Even if you use a NoSQL database, you still need to write a schema.
+- A Dobo model requires a predefined model. Even if you use a NoSQL database, you still need to write a model.
 - There are two main groups of methods to be familiar with:
   - ```dobo.model{Action}``` methods manage everything related to model management, such as table creation or deletion.
   - ```dobo.record{Action}``` methods handle record manipulation.
@@ -29,10 +29,10 @@ Don't forget to add ```dobo``` and ```dobo-knex``` to the ```data/config/.plugin
 
 ### Model
 
-Let's pretend we're building an address book with fields like name, age, phone, etc. This entity needs to be modeled with a schema and then "connected" to a database:
+Let's pretend we're building an address book with fields like name, age, phone, etc. This entity needs to be modeled with a model and then "connected" to a database:
 
-1. Create ```main/extend/dobo/schema/address-book.json``` file.
-2. Enter the following schema:
+1. Create ```main/extend/dobo/model/address-book.json``` file.
+2. Enter the following model:
    ```json
    {
      "properties": [{
@@ -68,7 +68,7 @@ Let's pretend we're building an address book with fields like name, age, phone, 
      "phone": "+1-0000001"
    }]
    ```
-4. By default, all schemas are connected to a database connection named ```default```. Now let's create this connection by creating ```data/config/dobo.json``` file:
+4. By default, all models are connected to a database connection named ```default```. Now let's create this connection by creating ```data/config/dobo.json``` file:
 
    ```json
    {
@@ -85,19 +85,19 @@ Let's pretend we're building an address book with fields like name, age, phone, 
    ```
    $ node index.js -a dobo:modelRebuild MainAddressBook
    ℹ App runs in applet mode
-   ╭ Schema (1) ──────╮
+   ╭ Model (1) ──────╮
    │ MainAddressBook  │
    ╰──────────────────╯
-   ✔ The above mentioned schema(s) will be rebuilt as model. Continue? Yes
+   ✔ The above mentioned model(s) will be rebuilt as model. Continue? Yes
    ✔ Model 'MainAddressBook' successfully created
    ℹ Done! Succeded: 1, failed: 0, skipped: 0
    ✔ Fixture on 'MainAddressBook': added 2, rejected: 0
    ```
 6. Done!
 
-Note: Although you can use YAML or TOML for schemas/fixtures, it's recommended to stick with JSON because it's always supported and doesn't require an extra plugin.
+Note: Although you can use YAML or TOML for models/fixtures, it's recommended to stick with JSON because it's always supported and doesn't require an extra plugin.
 
-Dobo models are by default always named with ```{Alias}{ModelName}```, which is a pascal-cased plugin alias and base name from your schema file. For field names, Dobo use camel-cased names as a convention. You can change this behavior to match your needs, but it is suggested that you're keeping these conventions at least for this tutorial.
+Dobo models are by default always named with ```{Alias}{ModelName}```, which is a pascal-cased plugin alias and base name from your model file. For field names, Dobo use camel-cased names as a convention. You can change this behavior to match your needs, but it is suggested that you're keeping these conventions at least for this tutorial.
 
 ### Applets
 
@@ -160,7 +160,7 @@ $ node index.js -a dobo:recordCreate MainAddressBook
 └───────────┴──────────────────────────┘
 ```
 
-As you can see, Dobo is smart enough to reject any payload that isn't right. In this case, we forgot to include the phone number since according to the schema, this field is defined as required.
+As you can see, Dobo is smart enough to reject any payload that isn't right. In this case, we forgot to include the phone number since according to the model, this field is defined as required.
 
 You can now try all of Dobo's other applets. [This page](https://github.com/ardhi/dobo/tutorials/applets) provides its complete list.
 
