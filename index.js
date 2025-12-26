@@ -148,6 +148,13 @@ async function factory (pkgName) {
     /**
      * @constant {string[]}
      * @memberof Dobo
+     * @default ['string', 'integer', 'smallint']
+     */
+    static idTypes = ['string', 'integer', 'smallint']
+
+    /**
+     * @constant {string[]}
+     * @memberof Dobo
      * @default ['daily', 'monthly', 'annually']
      */
     static histogramTypes = ['daily', 'monthly', 'annually']
@@ -243,7 +250,7 @@ async function factory (pkgName) {
       for (const type in propertyType) {
         keys.push(...Object.keys(propertyType[type]))
       }
-      if (driver && !isEmpty(driver.constructor.propertyKeys)) keys.push(...Object.keys(driver.constructor.propertyKeys))
+      if (driver && !isEmpty(driver.constructor.propertyKeys)) keys.push(...driver.constructor.propertyKeys)
       return uniq(keys)
     }
 

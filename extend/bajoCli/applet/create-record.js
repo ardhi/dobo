@@ -31,7 +31,7 @@ async function createRecord (path, ...args) {
     return this.print.fail('invalidPayloadSyntax', { exit: this.app.applet })
   }
   console.log(boxen(JSON.stringify(payload, null, 2), { title: model, padding: 0.5, borderStyle: 'round' }))
-  await postProcess.call(this, { noConfirmation: options.confirmation, handler: 'createRecord', params: [model, payload, options], path, processMsg: 'Creating record' })
+  await postProcess.call(this, { noConfirmation: options.noConfirmation, handler: 'createRecord', params: [model, payload, options], path, processMsg: 'Creating record' })
   // if (!result) await createRecord.call(this, path, ...args)
   this.app.exit()
 }

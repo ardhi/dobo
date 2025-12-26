@@ -37,7 +37,7 @@ async function updateRecord (path, ...args) {
     return this.print.fail('invalidPayloadSyntax', { exit: this.app.applet })
   }
   console.log(boxen(JSON.stringify(payload, null, 2), { title: model, padding: 0.5, borderStyle: 'round' }))
-  await postProcess.call(this, { noConfirmation: options.confirmation, handler: 'updateRecord', params: [model, id, payload, options], path, processMsg: 'Updating record' })
+  await postProcess.call(this, { noConfirmation: options.noConfirmation, handler: 'updateRecord', params: [model, id, payload, options], path, processMsg: 'Updating record' })
   this.app.exit()
 }
 

@@ -139,6 +139,7 @@
   "keyIsRequired%s%s%s": "Key '%s' on %s|toLower '%s' is required",
   "enterRecordId": "Enter record ID:",
   "allowedPropType%s%s": "Allowed property type for field '%s': %s",
+  "invalidIdType%s%s": "Invalid ID type for '%s'. Please only use one of these: %s",
   "field": {
     "id": "ID",
     "code": "Kode",

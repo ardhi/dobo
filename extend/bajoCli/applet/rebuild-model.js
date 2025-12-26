@@ -39,7 +39,7 @@ async function modelRebuild (path, ...args) {
       spin.warn('memoryDbSkipped%s', model.name)
       continue
     }
-    const exists = await model.isExists({ spinner: spin })
+    const exists = await model.exists({ spinner: spin })
     if (exists) {
       if (this.app.bajo.config.force) {
         try {

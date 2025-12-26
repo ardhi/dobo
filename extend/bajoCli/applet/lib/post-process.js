@@ -5,10 +5,6 @@ async function postProcess ({ handler, params, path, processMsg, noConfirmation 
   const { get, isEmpty } = this.app.lib._
   const confirm = await importPkg('bajoCli:@inquirer/confirm')
 
-  const { confirmation, fields = [], full } = this.app.bajo.config
-  if (!noConfirmation && confirmation === false) noConfirmation = true
-  params.push({ fields, dataOnly: !full })
-
   const name = params.shift()
   const model = this.getModel(name)
   if (!model) return this.print.fatal('notFound%s', this.t('field.model'))

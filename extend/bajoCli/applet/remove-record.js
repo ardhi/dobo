@@ -20,7 +20,7 @@ async function removeRecord (path, ...args) {
       validate: text => isEmpty(text) ? this.t('idIsRequired') : true
     })
   }
-  await postProcess.call(this, { noConfirmation: options.confirmation, handler: 'removeRecord', params: [model, id, options], path, processMsg: 'Removing record' })
+  await postProcess.call(this, { noConfirmation: options.noConfirmation, handler: 'removeRecord', params: [model, id, options], path, processMsg: 'Removing record' })
   this.app.exit()
 }
 

@@ -12,6 +12,12 @@ async function memoryDriverFactory () {
       this.saving = true
       this.autoSave = []
       this.storage = {}
+      this.support = {
+        propType: {
+          object: true,
+          array: true
+        }
+      }
     }
 
     async _loadFromFile (model, dir) {
@@ -73,21 +79,14 @@ async function memoryDriverFactory () {
       if (has(this.storage, model.name)) throw this.plugin.error('exist%s%s', this.plugin.t('model'), model.name)
       this.storage[model.name] = []
       if (options.noResult) return
-      return {}
-    }
-
-    async clearModel (model, options = {}) {
-      if (!has(this.storage, model.name)) throw this.plugin.error('notFound%s%s', this.plugin.t('model'), model.name)
-      this.storage[model.name] = []
-      if (options.noResult) return
-      return {}
+      return { data: true }
     }
 
     async dropModel (model, options = {}) {
       if (!has(this.storage, model.name)) throw this.plugin.error('notFound%s%s', this.plugin.t('model'), model.name)
       delete this.storage[model.name]
       if (options.noResult) return
-      return {}
+      return { data: true }
     }
 
     async createRecord (model, body = {}, options = {}) {
@@ -113,6 +112,12 @@ async function memoryDriverFactory () {
       const { idx, oldData } = await this._getOldRecord(model, id)
       pullAt(this.storage[model.name], idx)
       return { oldData }
+    }
+
+    async clearRecord (model, options = {}) {
+      this.storage[model.name] = []
+      if (options.noResult) return
+      return { data: true }
     }
 
     async findRecord (model, filter = {}, options = {}) {
