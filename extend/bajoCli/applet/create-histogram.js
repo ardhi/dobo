@@ -6,7 +6,7 @@ async function createHistogram (path, ...args) {
   const { parseKvString } = this.app.lib.aneka
   const [select, input] = await importPkg('bajoCli:@inquirer/select', 'bajoCli:@inquirer/input')
   if (isEmpty(this.models)) return this.print.fail('notFound%s', this.t('field.model'), { exit: this.app.applet })
-  let [model, filter, options] = args
+  let [model, filter, params, options] = args
   options = isEmpty(options) ? {} : parseKvString(options)
   if (isEmpty(model)) {
     model = await select({
@@ -20,7 +20,13 @@ async function createHistogram (path, ...args) {
     })
   }
   filter = isEmpty(filter) ? {} : parseKvString(filter)
-  await postProcess.call(this, { noConfirmation: true, handler: 'createHistogram', params: [model, filter, options], path, processMsg: 'Create histogram' })
+  if (isEmpty(params)) {
+    params = await input({
+      message: this.print.buildText('enterParams')
+    })
+  }
+  params = isEmpty(params) ? {} : parseKvString(params)
+  await postProcess.call(this, { noConfirmation: true, handler: 'createHistogram', params: [model, filter, params, options], path, processMsg: 'Create histogram' })
   this.app.exit()
 }
 
