@@ -121,7 +121,7 @@ async function factory (pkgName) {
   baseClass.Feature = await featureFactory.call(this)
   baseClass.Driver = await driverFactory.call(this)
   baseClass.Model = await modelFactory.call(this)
-  const { find, filter, isString, map } = this.app.lib._
+  const { find, filter, isString, map, pick, groupBy, isEmpty } = this.app.lib._
 
   /**
    * Dobo Database Framework for {@link https://github.com/ardhi/bajo|Bajo}.
@@ -157,7 +157,7 @@ async function factory (pkgName) {
      * @memberof Dobo
      * @default ['daily', 'monthly', 'annually']
      */
-    static histogramTypes = ['daily', 'monthly', 'annually']
+    static histogramTypes = ['daily', 'monthly', 'yearly']
 
     /**
      * @constant {TPropertyType}
@@ -293,12 +293,13 @@ async function factory (pkgName) {
     /**
      * Get connection by name. It returns the first connection named after "{name}"
      *
-     * @param {string} - Connection name
-     * @returns {Driver} Return connection instance
+     * @param {string} name - Connection name
+     * @param {boolean} [silent] - If ```true``` and connection is not found, it won't throw error
+     * @returns {Driver} Return connection instance or ```undefined``` if silent is ```true```
      */
-    getConnection = name => {
+    getConnection = (name, silent) => {
       const conn = find(this.connections, { name })
-      if (!conn) throw this.error('unknown%s%s', this.t('connection'), name)
+      if (!conn && !silent) throw this.error('unknown%s%s', this.t('connection'), name)
       return conn
     }
 
@@ -307,10 +308,11 @@ async function factory (pkgName) {
      *
      * Also support NsPath format for those who load the same named driver but from different provider/plugin.
      *
-     * @param {string} - Driver name
-     * @returns {Driver} Return driver instance
+     * @param {string} name - Driver name
+     * @param {boolean} [silent] - If ```true``` and driver is not found, it won't throw error
+     * @returns {Driver} Returns driver instance or ```undefined``` if silent is ```true```
      */
-    getDriver = name => {
+    getDriver = (name, silent) => {
       const { breakNsPath } = this.app.bajo
       let driver
       if (!name.includes(':')) {
@@ -318,11 +320,12 @@ async function factory (pkgName) {
         if (driver) return driver
         driver = filter(this.drivers, d => d.plugin.ns === name)
         if (driver.length === 1) return driver[0]
+        if (!silent) throw this.error('unknown%s%s', this.plugin.t('driver'), name)
         return
       }
       const { ns, path } = breakNsPath(name)
       driver = find(this.drivers, d => d.name === path && d.plugin.ns === ns)
-      if (!driver) throw this.error('unknown%s%s', this.plugin.t('driver'), name)
+      if (!driver && !silent) throw this.error('unknown%s%s', this.plugin.t('driver'), name)
       return driver
     }
 
@@ -346,11 +349,12 @@ async function factory (pkgName) {
      * Get model by name
      *
      * @param {string} name - Model name
-     * @retuns {Object}
+     * @param {boolean} [silent] - If ```true``` and model is not found, it won't throw error
+     * @retuns {Model} Returns model instance or ```undefined``` if silent is ```true```
      */
-    getModel = name => {
+    getModel = (name, silent) => {
       const model = find(this.models, { name })
-      if (!model) throw this.error('unknown%s%s', this.t('model'), name)
+      if (!model && !silent) throw this.error('unknown%s%s', this.t('model'), name)
       return model
     }
 
@@ -444,6 +448,72 @@ async function factory (pkgName) {
 
     sanitizeString = (value) => {
       return value + ''
+    }
+
+    _calcStats = (items, field, aggregates) => {
+      const { generateId, isSet } = this.app.lib.aneka
+      const result = { id: generateId, count: 0, avg: null, min: null, max: null }
+      let sum = 0
+      for (const item of items) {
+        const value = Number(item[field]) ?? 0
+        if (aggregates.includes('count')) result.count++
+        if (aggregates.includes('avg')) sum = sum + value
+        if (aggregates.includes('min') && (!isSet(result.min) || value < result.min)) result.min = value
+        if (aggregates.includes('max') && (!isSet(result.max) || value > result.max)) result.max = value
+      }
+      result.avg = sum / items.length
+      return result
+    }
+
+    calcAggregate = ({ data = [], group = '', field = '', aggregates = ['count'] } = {}) => {
+      this.checkAggregateParams({ group, field, aggregates })
+      const { pick, groupBy } = this.app.lib._
+      const grouped = groupBy(data, group)
+      const all = []
+      for (const key in grouped) {
+        const items = grouped[key]
+        const result = this._calcStats(items, field, aggregates)
+        result[group] = key
+        all.push(pick(result, ['id', group, ...aggregates]))
+      }
+      return all
+    }
+
+    calcHistogram = ({ data = [], type = '', group = '', field = '', aggregates = ['count'] } = {}) => {
+      this.checkHistogramParams({ group, field, type, aggregates })
+      const { dayjs } = this.app.lib
+      const pattern = { daily: ['YYYY-MM-DD', 'date'], monthly: ['YYYY-MM', 'month'], yearly: ['YYYY', 'year'] }
+      for (const d of data) {
+        d._group = dayjs(d[group]).format(pattern[type][0])
+      }
+      const grouped = groupBy(data, '_group')
+      const all = []
+      for (const key in grouped) {
+        const items = grouped[key]
+        const result = this._calcStats(items, field, aggregates)
+        const title = pattern[type][1]
+        result[title] = key
+        all.push(pick(result, ['id', title, ...aggregates]))
+      }
+      return all
+    }
+
+    checkAggregateParams = (params = {}) => {
+      let { group, field, aggregates } = params
+      if (isString(aggregates)) aggregates = [aggregates]
+      params.aggregates = aggregates
+      if (isEmpty(group)) throw this.error('fieldGroupMissing')
+      if (isEmpty(field)) throw this.error('fieldCalcMissing')
+      for (const agg of aggregates) {
+        if (!this.constructor.aggregateTypes.includes(agg)) throw this.error('unsupportedAggregateType%s', agg)
+      }
+    }
+
+    checkHistogramParams = (params = {}) => {
+      this.checkAggregateParams(params)
+      const { type } = params
+      if (isEmpty(type)) throw this.error('histogramTypeMissing')
+      if (!this.constructor.histogramTypes.includes(type)) throw this.error('unsupportedHistogramType%s', type)
     }
   }
 

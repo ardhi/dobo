@@ -132,7 +132,7 @@ async function memoryDriverFactory () {
     }
 
     async findAllRecord (model, filter = {}, options = {}) {
-      const { sort } = await model.preparePagination(filter)
+      const { sort } = model.preparePagination(filter)
       const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)
       if (sort) cursor.sort(sort)
@@ -145,6 +145,18 @@ async function memoryDriverFactory () {
       const cursor = this._getCursor(model, filter)
       const data = cursor.all().length
       return { data }
+    }
+
+    async createAggregate (model, filter = {}, params = {}, options = {}) {
+      const item = await this.findAllRecord(model, filter, options)
+      const result = this.app.dobo.calcAggregate({ data: item.data, ...params })
+      return { data: result }
+    }
+
+    async createHistogram (model, filter = {}, params = {}, options = {}) {
+      const item = await this.findAllRecord(model, filter, options)
+      const result = this.app.dobo.calcHistogram({ data: item.data, ...params })
+      return { data: result }
     }
 
     _getCursor (model, filter) {

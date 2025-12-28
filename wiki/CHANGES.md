@@ -1,5 +1,11 @@
 # Changes
 
+## 2025-12-28
+
+- [2.2.0] Add ```calcAggregate()``` & ```calcHistogram()``` for array of data objects
+- [2.2.0] Implement ```createAggregate()``` & ```createHistogram()``` to the built-in memory database driver
+- [2.2.0] If no ```default``` connection found, all models automatically bound to ```memory``` connection
+
 ## 2025-12-22
 
 - [2.2.0] Introduce Action class that enables you to work on models with chainable methods

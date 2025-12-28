@@ -61,7 +61,7 @@ async function modelRebuild (path, ...args) {
       spin.succeed('modelCreated%s', model.name)
       result.succed++
     } catch (err) {
-      if (this.app.bajo.config.log.applet && this.app.bajo.config.log.level === 'trace') console.error(err)
+      if (this.app.bajo.config.log.applet) console.error(err)
       spin.fail('errorCreatingModel%s%s', model.name, err.message)
       result.failed++
     }
@@ -80,7 +80,7 @@ async function modelRebuild (path, ...args) {
       spin.succeed('fixtureAdded%s%s%s', model.name, fixture.success, fixture.failed)
       result.succed++
     } catch (err) {
-      if (this.app.bajo.config.log.applet && this.app.bajo.config.log.level === 'trace') console.error(err)
+      if (this.app.bajo.config.log.applet) console.error(err)
       spin.fail('errorAddingFixture%s%s', model.name, err.message)
       result.failed++
     }
