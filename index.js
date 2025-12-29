@@ -353,7 +353,9 @@ async function factory (pkgName) {
      * @retuns {Model} Returns model instance or ```undefined``` if silent is ```true```
      */
     getModel = (name, silent) => {
-      const model = find(this.models, { name })
+      const { pascalCase } = this.app.lib.aneka
+      let model = find(this.models, { name })
+      if (!model) model = find(this.models, { name: pascalCase(name) })
       if (!model && !silent) throw this.error('unknown%s%s', this.t('model'), name)
       return model
     }

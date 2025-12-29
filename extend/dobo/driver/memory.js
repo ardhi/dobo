@@ -132,7 +132,7 @@ async function memoryDriverFactory () {
     }
 
     async findAllRecord (model, filter = {}, options = {}) {
-      const { sort } = model.preparePagination(filter)
+      const { sort } = filter
       const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)
       if (sort) cursor.sort(sort)
