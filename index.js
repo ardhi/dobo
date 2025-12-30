@@ -264,10 +264,14 @@ async function factory (pkgName) {
      * @async
      */
     init = async () => {
+      const { getPluginDataDir } = this.app.bajo
+      const { fs } = this.app.lib
       await collectDrivers.call(this)
       await collectConnections.call(this)
       await collectFeatures.call(this)
       await collectModels.call(this)
+      const attDir = `${getPluginDataDir('dobo')}/attachment`
+      fs.ensureDirSync(attDir)
     }
 
     /**
