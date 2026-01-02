@@ -201,7 +201,8 @@
     "cycle": "Cycle",
     "default": "Default",
     "type": "Tipe",
-    "model": "Model"
+    "model": "Model",
+    "age": "Usia"
   },
   "validationError": "Kesalahan Validasi",
   "validation": {
