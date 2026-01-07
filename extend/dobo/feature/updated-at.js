@@ -1,6 +1,7 @@
 async function updatedAt (opts = {}) {
+  const { isSet } = this.app.lib.aneka
   opts.fieldName = opts.fieldName ?? 'updatedAt'
-  opts.overwrite = opts.overwrite ?? true
+  opts.noOverwrite = opts.noOverwrite ?? false
   return {
     properties: {
       name: opts.fieldName,
@@ -10,16 +11,14 @@ async function updatedAt (opts = {}) {
     hooks: [{
       name: 'beforeCreateRecord',
       handler: async function (body, options) {
-        const { isSet } = this.app.lib.aneka
-        const now = new Date()
-        if (opts.overwrite || !isSet(body[opts.fieldName])) body[opts.fieldName] = now
+        if (opts.noOverwrite) body[opts.fieldName] = new Date()
+        else if (!isSet(body[opts.fieldName])) body[opts.fieldName] = new Date()
       }
     }, {
       name: 'beforeUpdateRecord',
       handler: async function (id, body, options) {
-        const { isSet } = this.app.lib.aneka
-        const now = new Date()
-        if (opts.overwrite || !isSet(body[opts.fieldName])) body[opts.fieldName] = now
+        if (opts.noOverwrite) body[opts.fieldName] = new Date()
+        else if (!isSet(body[opts.fieldName])) body[opts.fieldName] = new Date()
       }
     }]
   }

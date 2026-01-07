@@ -98,6 +98,8 @@ const propertyType = {
   }
 }
 
+const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default']
+
 /**
  * @typedef {Object} TBaseClass
  * @property {Object} Connection - Connection class
@@ -230,7 +232,7 @@ async function factory (pkgName) {
      * @returns {string[]}
      */
     getPropertyKeysByType = (type) => {
-      const keys = ['name', 'type', 'required', 'rules', 'validator']
+      const keys = [...commonPropertyTypes]
       if (['string'].includes(type)) keys.push('minLength', 'maxLength', 'values')
       if (['text'].includes(type)) keys.push('textType')
       if (['smallint', 'integer'].includes(type)) keys.push('autoInc', 'values')
@@ -246,7 +248,7 @@ async function factory (pkgName) {
 
     getAllPropertyKeys = (driver) => {
       const { uniq, isEmpty } = this.app.lib._
-      const keys = ['name', 'type', 'required', 'ref', 'default']
+      const keys = [...commonPropertyTypes]
       for (const type in propertyType) {
         keys.push(...Object.keys(propertyType[type]))
       }

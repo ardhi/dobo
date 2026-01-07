@@ -140,6 +140,7 @@
   "allowedPropType%s%s": "Allowed property type for field '%s': %s",
   "invalidIdType%s%s": "Invalid ID type for '%s'. Please only use one of these: %s",
   "noDefaultConnection": "No default connection found. All models will use the built-in memory database instead",
+  "recordImmutable%s%s": "Record with ID: '%s' & model: '%s' is immutable and can't be modified or deleted",
   "field": {
     "id": "ID",
     "code": "Kode",
@@ -203,7 +204,8 @@
     "default": "Default",
     "type": "Type",
     "model": "Model",
-    "age": "Age"
+    "age": "Age",
+    "provider": "Provider"
   },
   "validationError": "Validation Error",
   "validation": {

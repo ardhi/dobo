@@ -1,5 +1,10 @@
 # Changes
 
+## 2025-01-07
+
+- [2.2.0] Add ```immutable``` feature
+- [2.2.0] Lots of bug fixes
+
 ## 2025-12-28
 
 - [2.2.0] Add ```calcAggregate()``` & ```calcHistogram()``` for array of data objects

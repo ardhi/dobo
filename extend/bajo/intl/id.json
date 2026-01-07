@@ -139,6 +139,7 @@
   "allowedPropType%s%s": "Allowed property type for field '%s': %s",
   "invalidIdType%s%s": "Invalid ID type for '%s'. Please only use one of these: %s",
   "noDefaultConnection": "No default connection found. All models will use the built-in memory database instead",
+  "recordImmutable%s%s": "Data dengan ID: '%s' & model: '%s' adalah immutable dan tidak bisa diubah atau dihapus",
   "field": {
     "id": "ID",
     "code": "Kode",
@@ -202,7 +203,8 @@
     "default": "Default",
     "type": "Tipe",
     "model": "Model",
-    "age": "Usia"
+    "age": "Usia",
+    "provider": "Penyedia"
   },
   "validationError": "Kesalahan Validasi",
   "validation": {

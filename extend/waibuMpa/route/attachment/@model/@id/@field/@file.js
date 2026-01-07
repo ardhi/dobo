@@ -5,12 +5,8 @@ async function attachment (req, reply) {
   const { pascalCase } = this.app.lib.aneka
   const { routePath } = this.app.waibu
   const { fs } = this.app.lib
-  const items = await this.listAttachments({
-    model: req.params.model,
-    id: req.params.id,
-    field: req.params.field,
-    file: '*'
-  })
+  const mdl = this.app.dobo.getModel(req.params.model)
+  const items = await mdl.listAttachments(req.params.id, req.params.field, '*')
   let item = req.params.file === '_first' ? items[0] : undefined
   if (!item) {
     item = find(items, i => {

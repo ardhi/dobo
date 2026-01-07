@@ -67,7 +67,6 @@ async function memoryDriverFactory () {
     async _getOldRecord (model, id, options = {}) {
       const idx = findIndex(this.storage[model.name], { _id: id })
       const oldData = this.storage[model.name][idx]
-      if (idx === -1) throw this.plugin.error('notFound%s%s', this.plugin.t('record'), `${id}@${model.name}`)
       return { idx, oldData }
     }
 
@@ -90,8 +89,6 @@ async function memoryDriverFactory () {
     }
 
     async createRecord (model, body = {}, options = {}) {
-      const idx = findIndex(this.storage[model.name], { _id: body._id })
-      if (idx > -1) throw this.plugin.error('exist%s%s', this.plugin.t('record'), `${body._id}@${model.name}`)
       this.storage[model.name].push(body)
       return { data: body }
     }

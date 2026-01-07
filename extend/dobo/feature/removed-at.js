@@ -20,12 +20,13 @@ async function beforeCreateRecord ({ body = {} }, opts) {
 }
 
 async function removedAt (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'removedAt'
+  opts.fieldName = opts.fieldName ?? '_removedAt'
   return {
     properties: {
       name: opts.fieldName,
       type: 'datetime',
-      index: true
+      index: true,
+      hidden: true
     },
     hooks: [{
       name: 'beforeFindRecord',
@@ -52,7 +53,7 @@ async function removedAt (opts = {}) {
       handler: async function (id, options) {
         const { set } = this.app.lib._
         const body = set({}, opts.fieldName, new Date())
-        const record = await this.driver.recordUpdate(this, id, body)
+        const record = await this.driver.recordUpdate(this, id, body, { noResult: false })
         options.record = { oldData: record.oldData }
       }
     }]
