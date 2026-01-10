@@ -3,11 +3,6 @@ import collectDrivers from './lib/collect-drivers.js'
 import collectFeatures from './lib/collect-features.js'
 import collectModels from './lib/collect-models.js'
 
-import connectionFactory from './lib/factory/connection.js'
-import featureFactory from './lib/factory/feature.js'
-import { driverFactory } from './lib/factory/driver.js'
-import modelFactory from './lib/factory/model.js'
-
 /**
  * @typedef {Object} TPropertyType
  * @property {Object} integer
@@ -101,15 +96,6 @@ const propertyType = {
 const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default']
 
 /**
- * @typedef {Object} TBaseClass
- * @property {Object} Connection - Connection class
- * @property {Object} Feature - Feature class
- * @property {Object} Driver - Driver class
- * @property {Object} Model - Model class
-*/
-const baseClass = {}
-
-/**
  * Plugin factory
  *
  * @param {string} pkgName - NPM package name
@@ -119,10 +105,6 @@ async function factory (pkgName) {
   const me = this
   const { breakNsPath } = this.app.bajo
 
-  baseClass.Connection = await connectionFactory.call(this)
-  baseClass.Feature = await featureFactory.call(this)
-  baseClass.Driver = await driverFactory.call(this)
-  baseClass.Model = await modelFactory.call(this)
   const { find, filter, isString, map, pick, groupBy, isEmpty } = this.app.lib._
 
   /**
@@ -133,13 +115,6 @@ async function factory (pkgName) {
    * @class
    */
   class Dobo extends this.app.baseClass.Base {
-    /**
-     * @constant {string}
-     * @memberof Dobo
-     * @default 'db'
-     */
-    static alias = 'db'
-
     /**
      * @constant {string[]}
      * @memberof Dobo
@@ -218,11 +193,6 @@ async function factory (pkgName) {
        * @type {Object[]}
        */
       this.models = []
-
-      /**
-       * @type {Object}
-       */
-      this.baseClass = baseClass
     }
 
     /**

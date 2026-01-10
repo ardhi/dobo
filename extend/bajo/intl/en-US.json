@@ -141,6 +141,7 @@
   "invalidIdType%s%s": "Invalid ID type for '%s'. Please only use one of these: %s",
   "noDefaultConnection": "No default connection found. All models will use the built-in memory database instead",
   "recordImmutable%s%s": "Record with ID: '%s' & model: '%s' is immutable and can't be modified or deleted",
+  "notSupported%s%s%s": "%s|upperFirst '%s' is not supported by driver '%s'",
   "field": {
     "id": "ID",
     "code": "Kode",

@@ -9,7 +9,9 @@
   },
   "type": "module",
   "bajo": {
-    "type": "plugin"
+    "type": "plugin",
+    "alias": "db",
+    "bootorder": 50
   },
   "repository": {
     "type": "git",
