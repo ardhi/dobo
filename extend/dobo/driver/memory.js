@@ -6,8 +6,8 @@ async function memoryDriverFactory () {
   const { defaultsDeep } = this.app.lib.aneka
 
   class DoboMemoryDriver extends DoboDriver {
-    constructor (plugin, options) {
-      super(plugin)
+    constructor (plugin, name, options) {
+      super(plugin, name, options)
       this.idGenerator = 'ulid'
       this.saving = true
       this.autoSave = []
