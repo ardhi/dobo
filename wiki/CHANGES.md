@@ -4,6 +4,7 @@
 
 - [2.2.0] Any driver that support memory DB can now declare itself as in-memory DB and be handled as such
 - [2.2.0] ```driver.init()``` is removed, and driver should solely use ```driver.createClient()``` instead
+- [2.2.0] Bug fixes
 
 ## 2026-01-07
 

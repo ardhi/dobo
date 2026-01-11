@@ -295,12 +295,12 @@ async function factory (pkgName) {
         if (driver) return driver
         driver = filter(this.drivers, d => d.plugin.ns === name)
         if (driver.length === 1) return driver[0]
-        if (!silent) throw this.error('unknown%s%s', this.plugin.t('driver'), name)
+        if (!silent) throw this.error('unknown%s%s', this.t('driver'), name)
         return
       }
       const { ns, path } = breakNsPath(name)
       driver = find(this.drivers, d => d.name === path && d.plugin.ns === ns)
-      if (!driver && !silent) throw this.error('unknown%s%s', this.plugin.t('driver'), name)
+      if (!driver && !silent) throw this.error('unknown%s%s', this.t('driver'), name)
       return driver
     }
 
@@ -316,7 +316,7 @@ async function factory (pkgName) {
       if (!name.includes(':')) return find(this.features, { name })
       const { ns, path } = breakNsPath(name)
       const feat = find(this.features, d => d.name === path && d.plugin.ns === ns)
-      if (!feat) throw this.error('unknown%s%s', this.plugin.t('feature'), name)
+      if (!feat) throw this.error('unknown%s%s', this.t('feature'), name)
       return feat
     }
 
