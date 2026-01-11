@@ -35,7 +35,7 @@ async function modelRebuild (path, ...args) {
   for (const s of names) {
     const model = this.getModel(s)
     const spin = this.print.spinner().start('rebuilding%s', model.name)
-    if (model.connection.memory) {
+    if (model.driver.memory) {
       spin.warn('memoryDbSkipped%s', model.name)
       continue
     }

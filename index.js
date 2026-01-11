@@ -260,7 +260,6 @@ async function factory (pkgName) {
       else conns = map(conns, c => find(this.connections, { name: c }))
       this.log.debug('dbInit')
       for (const connection of conns) {
-        await connection.driver.init()
         await connection.connect(noRebuild)
         this.log.trace('dbInit%s%s%s', connection.driver.plugin.ns, connection.driver.name, connection.name)
       }

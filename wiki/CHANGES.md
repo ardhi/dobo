@@ -1,6 +1,11 @@
 # Changes
 
-## 2025-01-07
+## 2026-01-11
+
+- [2.2.0] Any driver that support memory DB can now declare itself as in-memory DB and be handled as such
+- [2.2.0] ```driver.init()``` is removed, and driver should solely use ```driver.createClient()``` instead
+
+## 2026-01-07
 
 - [2.2.0] Add ```immutable``` feature
 - [2.2.0] Lots of bug fixes

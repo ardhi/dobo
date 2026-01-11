@@ -140,6 +140,9 @@
   "invalidIdType%s%s": "Invalid ID type for '%s'. Please only use one of these: %s",
   "noDefaultConnection": "No default connection found. All models will use the built-in memory database instead",
   "recordImmutable%s%s": "Data dengan ID: '%s' & model: '%s' adalah immutable dan tidak bisa diubah atau dihapus",
+  "inMemoryDb%s%s": "'%s' adalah database in-memory, %s tidak diizinkan",
+  "buildOp": "operasi 'build'",
+  "dropOp": "operasi 'drop'",
   "field": {
     "id": "ID",
     "code": "Kode",

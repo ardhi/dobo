@@ -142,6 +142,9 @@
   "noDefaultConnection": "No default connection found. All models will use the built-in memory database instead",
   "recordImmutable%s%s": "Record with ID: '%s' & model: '%s' is immutable and can't be modified or deleted",
   "notSupported%s%s%s": "%s|upperFirst '%s' is not supported by driver '%s'",
+  "inMemoryDb%s%s": "'%s' is an in-memory database, %s is not allowed",
+  "buildOp": "'build' operation",
+  "dropOp": "'drop' operation",
   "field": {
     "id": "ID",
     "code": "Kode",

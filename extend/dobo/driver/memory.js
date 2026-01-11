@@ -10,6 +10,7 @@ async function memoryDriverFactory () {
       super(plugin, name, options)
       this.idGenerator = 'ulid'
       this.saving = true
+      this.memory = true
       this.autoSave = []
       this.storage = {}
       this.support = {
@@ -38,8 +39,7 @@ async function memoryDriverFactory () {
       conn.memory = true
     }
 
-    async init () {
-      await super.init()
+    async createClient () {
       const conn = this.plugin.getConnection('memory')
       const models = this.plugin.getModelsByConnection(conn.name)
       const { getPluginDataDir } = this.app.bajo
