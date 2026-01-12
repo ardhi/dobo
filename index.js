@@ -252,7 +252,7 @@ async function factory (pkgName) {
      * @method
      * @async
      * @param {(string|Array)} [conns=all] - Which connections should be run on start
-     * @param {boolean} [noRebuild=false] - Set ```true``` to ALWAYS rebuild model on start. Yes, only set it to ```true``` if you REALLY know what you're doing!!!
+     * @param {boolean} [noRebuild=true] - Set ```false``` to not rebuild model on start. Yes, only set it to ```false``` if you REALLY know what you're doing!!!
      */
     start = async (conns = 'all', noRebuild = true) => {
       if (conns === 'all') conns = this.connections

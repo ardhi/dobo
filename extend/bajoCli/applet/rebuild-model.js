@@ -71,7 +71,7 @@ async function modelRebuild (path, ...args) {
   for (const s of without(names, ...skipped)) {
     const model = this.getModel(s)
     const spin = this.print.spinner().start('addingFixture%s', model.name)
-    if (model.connection.memory) {
+    if (model.driver.memory) {
       spin.warn('memoryDbSkipped%s', model.name)
       continue
     }

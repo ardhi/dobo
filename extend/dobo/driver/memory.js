@@ -39,7 +39,7 @@ async function memoryDriverFactory () {
       conn.memory = true
     }
 
-    async createClient () {
+    async connect (connection, noRebuild) {
       const conn = this.plugin.getConnection('memory')
       const models = this.plugin.getModelsByConnection(conn.name)
       const { getPluginDataDir } = this.app.bajo
@@ -50,7 +50,7 @@ async function memoryDriverFactory () {
       for (const model of models) {
         this.storage[model.name] = this.storage[model.name] ?? [] // init empty model
         if (conn.autoSave.includes(model.name)) await this._loadFromFile(model, pdir)
-        else await model.loadFixtures()
+        await model.loadFixtures()
       }
       if (conn.autoSave.length === 0) return
       setInterval(() => {
