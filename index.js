@@ -67,20 +67,8 @@ const propertyType = {
     validator: 'boolean',
     rules: []
   },
-  date: {
-    validator: 'date',
-    rules: []
-  },
   datetime: {
     validator: 'date',
-    rules: []
-  },
-  time: {
-    validator: 'date',
-    rules: []
-  },
-  timestamp: {
-    validator: 'timestamp',
     rules: []
   },
   object: {

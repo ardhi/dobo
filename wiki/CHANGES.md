@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-01-16
+
+- [2.2.1] Bug fix on model references
+
 ## 2026-01-11
 
 - [2.2.0] Any driver that support memory DB can now declare itself as in-memory DB and be handled as such
