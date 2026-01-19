@@ -3,6 +3,7 @@
 ## 2026-01-18
 
 - [2.2.2] Revert back to ```mingo@6.5.1``` because of bugs in ```skip``` operation
+- [2.2.3] Bug fix on driver's ```sanitizeBody()```
 
 ## 2026-01-16
 
