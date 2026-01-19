@@ -1,6 +1,6 @@
 {
   "name": "dobo",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "DBMS for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -34,7 +34,7 @@
   "dependencies": {
     "@tryghost/nql": "^0.12.7",
     "joi": "^18.0.2",
-    "mingo": "^7.1.0",
+    "mingo": "^6.5.1",
     "ulid": "^3.0.2",
     "uuid": "^13.0.0"
   },

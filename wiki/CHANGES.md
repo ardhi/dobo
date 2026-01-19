@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-01-18
+
+- [2.2.2] Revert back to ```mingo@6.5.1``` because of bugs in ```skip``` operation
+
 ## 2026-01-16
 
 - [2.2.1] Bug fix on model references
