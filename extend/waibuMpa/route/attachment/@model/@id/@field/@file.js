@@ -6,7 +6,7 @@ async function attachment (req, reply) {
   const { routePath } = this.app.waibu
   const { fs } = this.app.lib
   const mdl = this.app.dobo.getModel(req.params.model)
-  const items = await mdl.listAttachments(req.params.id, req.params.field, '*')
+  const items = await mdl.listAttachments({ id: req.params.id, fieldName: req.params.field, file: '*' })
   let item = req.params.file === '_first' ? items[0] : undefined
   if (!item) {
     item = find(items, i => {

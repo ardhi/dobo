@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-01-19
+
+- [2.2.4] Bug fix on route ```dobo:/attachment/...```
+
 ## 2026-01-18
 
 - [2.2.2] Revert back to ```mingo@6.5.1``` because of bugs in ```skip``` operation
