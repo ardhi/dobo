@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-01-21
+
+- [2.2.5] Add ```proto``` to ```connection.options```
+
 ## 2026-01-19
 
 - [2.2.4] Bug fix on route ```dobo:/attachment/...```
