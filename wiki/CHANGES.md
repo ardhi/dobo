@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-01-24
+
+- [2.3.0] Add ```dynHooks``` to model's options
+- [2.3.0] Add ```dobo:unique``` feature
+- [2.3.0] Add ```noWait``` handler for model's hook
+
 ## 2026-01-21
 
 - [2.2.5] Add ```proto``` to ```connection.options```
