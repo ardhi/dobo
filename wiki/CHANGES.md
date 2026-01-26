@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-01-26
+
+- [2.3.1] Bug fix if reference model isn't loaded only yield warning
+- [2.3.1] Bug fix on fetching multi references
+
 ## 2026-01-24
 
 - [2.3.0] Add ```dynHooks``` to model's options
