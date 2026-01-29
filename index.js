@@ -480,6 +480,15 @@ async function factory (pkgName) {
       if (isEmpty(type)) throw this.error('histogramTypeMissing')
       if (!this.constructor.histogramTypes.includes(type)) throw this.error('unsupportedHistogramType%s', type)
     }
+
+    execModelHook = async (model, hookName, ...args) => {
+      const { orderBy } = this.app.lib._
+      const hooks = orderBy(model.hooks.filter(hook => hook.name === hookName), ['level'])
+      for (const hook of hooks) {
+        if (hook.noWait) hook.handler.call(model, ...args)
+        else await hook.handler.call(model, ...args)
+      }
+    }
   }
 
   return Dobo

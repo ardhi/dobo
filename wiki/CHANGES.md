@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-01-29
+
+- [2.4.0] Add ```bulkCreateRecords()``` on model & driver
+- [2.4.0] Add ```execModelHook()```
+- [2.4.0] Bug fix on models collection
+- [2.4.0] Add ```DoboAction``` to the ```app.baseClass```
+- [2.4.0] ```findAllRecord()``` can't be called as action
+
 ## 2026-01-26
 
 - [2.3.1] Bug fix if reference model isn't loaded only yield warning
