@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-01-30
+
+- [2.5.0] Add feature to push custom ```options._data```. If provided, this will be used instead of auto generated one.
+- [2.5.0] Remove ```silent``` in ```options``` object
+
 ## 2026-01-29
 
 - [2.4.0] Add ```bulkCreateRecords()``` on model & driver
