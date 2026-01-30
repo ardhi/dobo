@@ -4,6 +4,8 @@
 
 - [2.5.0] Add feature to push custom ```options._data```. If provided, this will be used instead of auto generated one.
 - [2.5.0] Remove ```silent``` in ```options``` object
+- [2.5.1] Driver now support ```this.useUtc``` for database that store values in UTC string
+- [2.5.1] Bug fix on ```driver.sanitizeRecord()```
 
 ## 2026-01-29
 
