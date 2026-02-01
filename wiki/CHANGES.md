@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-02
+
+- [2.6.2] Bug fix on query & search resolver: Do not remove old query/search, should always copied to oldQuery/oldSearch
+
 ## 2026-02-01
 
 - [2.6.0] Add ```model.scanables``` for fields that can participate in table scans if necessary
