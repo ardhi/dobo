@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-02-01
+
+- [2.6.0] Add ```model.scans``` for fields that can participate in table scans if necessary
+- [2.6.0] Add ```driver.support.search``` for driver's fulltext search support
+- [2.6.0] Add model hooks ```before/afterBuildQuery/Search```
+
 ## 2026-01-30
 
 - [2.5.0] Add feature to push custom ```options._data```. If provided, this will be used instead of auto generated one.
