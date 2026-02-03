@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-03
+
+- [2.6.3] Bug fix on ```model.sanitizeRecord()```
+
 ## 2026-02-02
 
 - [2.6.2] Bug fix on query & search resolver: Do not remove old query/search, should always copied to oldQuery/oldSearch
