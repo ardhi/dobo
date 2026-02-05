@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-05
+
+- [2.6.5] Bug fix on driver options, ```noCheckUnique``` must be perform in ```create```, ```update``` and ```upsert```
+
 ## 2026-02-03
 
 - [2.6.3] Bug fix on ```model.sanitizeRecord()```
