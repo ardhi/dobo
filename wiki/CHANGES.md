@@ -4,6 +4,7 @@
 
 - [2.6.5] Bug fix on model extender
 - [2.6.5] Bug fix on trace logging
+- [2.6.6] Bug fix on extender indexes
 
 ## 2026-02-05
 
