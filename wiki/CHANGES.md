@@ -1,8 +1,13 @@
 # Changes
 
+## 2026-02-17
+
+- [2.6.5] Bug fix on model extender
+- [2.6.5] Bug fix on trace logging
+
 ## 2026-02-05
 
-- [2.6.5] Bug fix on driver options, ```noCheckUnique``` must be perform in ```create```, ```update``` and ```upsert```
+- [2.6.4] Bug fix on driver options, ```noCheckUnique``` must be perform in ```create```, ```update``` and ```upsert```
 
 ## 2026-02-03
 
