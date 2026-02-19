@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-02-20
+
+- [2.7.0] Add ```prop.values``` support
+- [2.7.0] Add ```prop.rulesMsg``` support
+- [2.7.0] Change ```buildFromDbModel()``` on validation to async function
+
 ## 2026-02-17
 
 - [2.6.5] Bug fix on model extender
