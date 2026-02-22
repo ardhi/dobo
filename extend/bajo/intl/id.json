@@ -143,6 +143,9 @@
   "inMemoryDb%s%s": "'%s' adalah database in-memory, %s tidak diizinkan",
   "buildOp": "operasi 'build'",
   "dropOp": "operasi 'drop'",
+  "maxLimitWarning%s": "Data per halaman (%s baris) melampaui batas yang diijinkan (%s baris)",
+  "hardLimitWarning%s": "Maksimum data yang dihasilkan (%s baris) melampaui batas yang diijinkan (%s baris)",
+  "maxPageError%s%s": "Nomor halaman (%s) melampaui batas yang diijinkan (%s)",
   "field": {
     "id": "ID",
     "code": "Kode",

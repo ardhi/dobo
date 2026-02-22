@@ -145,6 +145,9 @@
   "inMemoryDb%s%s": "'%s' is an in-memory database, %s is not allowed",
   "buildOp": "'build' operation",
   "dropOp": "'drop' operation",
+  "maxLimitWarning%s%s": "Records per page (%s rows) above the allowed threshold (%s rows)",
+  "hardLimitWarning%s%s": "Max records returned (%s rows) above the allowed threshold (%s rows)",
+  "maxPageError%s%s": "Page number (%s) above the allowed threshold (%s)",
   "field": {
     "id": "ID",
     "code": "Kode",

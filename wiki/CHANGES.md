@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-02-22
+
+- [2.8.0] Add ```warnings``` to response object
+- [2.8.0] Throw error if ```page``` above the allowed threshold
+
 ## 2026-02-20
 
 - [2.7.0] Add ```prop.values``` support
