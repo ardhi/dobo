@@ -159,7 +159,7 @@ async function memoryDriverFactory () {
     _getCursor (model, filter) {
       const criteria = filter.query ?? {}
       const q = new Query(criteria, { idKey: '_id' })
-      return q.find(this.storage[model.name])
+      return q.find(this.storage[model.name] ?? [])
     }
   }
 

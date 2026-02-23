@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-02-23
+
+- [2.8.1] Bug fix on ```memory._getCursor()```
+- [2.8.1] Bug fix on ```model.upsertRecord()```
+
 ## 2026-02-22
 
 - [2.8.0] Add ```warnings``` to response object
