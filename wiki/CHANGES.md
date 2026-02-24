@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-02-24
+
+- [2.8.2] Bug fix on field type ```textType```
+- [2.8.2] Bug fix on ```collect-models.js``` when empty model is returned
+
 ## 2026-02-23
 
 - [2.8.1] Bug fix on ```memory._getCursor()```

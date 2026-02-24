@@ -46,7 +46,7 @@ const propertyType = {
   text: {
     validator: 'string',
     textType: 'text',
-    values: ['text', 'mediumtext', 'longtext'],
+    // values: ['text', 'mediumtext', 'longtext'], TODO: should check against textType, NOT value
     rules: []
   },
   string: {
