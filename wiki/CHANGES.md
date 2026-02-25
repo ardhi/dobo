@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-02-25
+
+- [2.8.3] Bug fix on attachment route
+
 ## 2026-02-24
 
 - [2.8.2] Bug fix on field type ```textType```
