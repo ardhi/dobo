@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-03-05
+
+- [2.9.0] Add transaction support with ```model.transaction()``` wrapper
+- [2.9.0] Add property ```driver.support.transaction``` to indicate a driver is fully support transaction or not
+- [2.9.0] Add property ```connection.options.connName```
+
 ## 2026-02-25
 
 - [2.8.3] Bug fix on attachment route
