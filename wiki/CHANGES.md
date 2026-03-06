@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-06
+
+- [2.9.1] Bug fix on ```model.sanitizeBody()```
+
 ## 2026-03-05
 
 - [2.9.0] Add transaction support with ```model.transaction()``` wrapper
