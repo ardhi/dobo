@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-03-07
+
+- [2.9.2] Bug fix on ```model.loadFixtures()```
+- [2.9.2] Bug fix on ```collect-connections.js```
+
 ## 2026-03-06
 
 - [2.9.1] Bug fix on ```model.sanitizeBody()```
