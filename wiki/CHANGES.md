@@ -1,13 +1,17 @@
 # Changes
 
+## 2026-03-09
+
+- [2.9.3] Bug fix in ```findAllRecord```
+
 ## 2026-03-07
 
-- [2.9.2] Bug fix on ```model.loadFixtures()```
-- [2.9.2] Bug fix on ```collect-connections.js```
+- [2.9.2] Bug fix in ```model.loadFixtures()```
+- [2.9.2] Bug fix in ```collect-connections.js```
 
 ## 2026-03-06
 
-- [2.9.1] Bug fix on ```model.sanitizeBody()```
+- [2.9.1] Bug fix in ```model.sanitizeBody()```
 
 ## 2026-03-05
 
@@ -17,17 +21,17 @@
 
 ## 2026-02-25
 
-- [2.8.3] Bug fix on attachment route
+- [2.8.3] Bug fix in attachment route
 
 ## 2026-02-24
 
-- [2.8.2] Bug fix on field type ```textType```
-- [2.8.2] Bug fix on ```collect-models.js``` when empty model is returned
+- [2.8.2] Bug fix in field type ```textType```
+- [2.8.2] Bug fix in ```collect-models.js``` when empty model is returned
 
 ## 2026-02-23
 
-- [2.8.1] Bug fix on ```memory._getCursor()```
-- [2.8.1] Bug fix on ```model.upsertRecord()```
+- [2.8.1] Bug fix in ```memory._getCursor()```
+- [2.8.1] Bug fix in ```model.upsertRecord()```
 
 ## 2026-02-22
 
@@ -42,21 +46,21 @@
 
 ## 2026-02-17
 
-- [2.6.5] Bug fix on model extender
-- [2.6.5] Bug fix on trace logging
-- [2.6.6] Bug fix on extender indexes
+- [2.6.5] Bug fix in model extender
+- [2.6.5] Bug fix in trace logging
+- [2.6.6] Bug fix in extender indexes
 
 ## 2026-02-05
 
-- [2.6.4] Bug fix on driver options, ```noCheckUnique``` must be perform in ```create```, ```update``` and ```upsert```
+- [2.6.4] Bug fix in driver options, ```noCheckUnique``` must be perform in ```create```, ```update``` and ```upsert```
 
 ## 2026-02-03
 
-- [2.6.3] Bug fix on ```model.sanitizeRecord()```
+- [2.6.3] Bug fix in ```model.sanitizeRecord()```
 
 ## 2026-02-02
 
-- [2.6.2] Bug fix on query & search resolver: Do not remove old query/search, should always copied to oldQuery/oldSearch
+- [2.6.2] Bug fix in query & search resolver: Do not remove old query/search, should always copied to oldQuery/oldSearch
 
 ## 2026-02-01
 
@@ -69,20 +73,20 @@
 - [2.5.0] Add feature to push custom ```options._data```. If provided, this will be used instead of auto generated one.
 - [2.5.0] Remove ```silent``` in ```options``` object
 - [2.5.1] Driver now support ```this.useUtc``` for database that store values in UTC string
-- [2.5.1] Bug fix on ```driver.sanitizeRecord()```
+- [2.5.1] Bug fix in ```driver.sanitizeRecord()```
 
 ## 2026-01-29
 
 - [2.4.0] Add ```bulkCreateRecords()``` on model & driver
 - [2.4.0] Add ```execModelHook()```
-- [2.4.0] Bug fix on models collection
+- [2.4.0] Bug fix in models collection
 - [2.4.0] Add ```DoboAction``` to the ```app.baseClass```
 - [2.4.0] ```findAllRecord()``` can't be called as action
 
 ## 2026-01-26
 
 - [2.3.1] Bug fix if reference model isn't loaded only yield warning
-- [2.3.1] Bug fix on fetching multi references
+- [2.3.1] Bug fix in fetching multi references
 
 ## 2026-01-24
 
@@ -96,16 +100,16 @@
 
 ## 2026-01-19
 
-- [2.2.4] Bug fix on route ```dobo:/attachment/...```
+- [2.2.4] Bug fix in route ```dobo:/attachment/...```
 
 ## 2026-01-18
 
 - [2.2.2] Revert back to ```mingo@6.5.1``` because of bugs in ```skip``` operation
-- [2.2.3] Bug fix on driver's ```sanitizeBody()```
+- [2.2.3] Bug fix in driver's ```sanitizeBody()```
 
 ## 2026-01-16
 
-- [2.2.1] Bug fix on model references
+- [2.2.1] Bug fix in model references
 
 ## 2026-01-11
 
