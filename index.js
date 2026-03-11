@@ -81,7 +81,7 @@ const propertyType = {
   }
 }
 
-const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default', 'values', 'rulesMsg']
+const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default', 'values', 'rulesMsg', 'immutable', 'feature']
 
 /**
  * Plugin factory

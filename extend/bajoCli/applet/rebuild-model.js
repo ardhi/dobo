@@ -57,7 +57,7 @@ async function modelRebuild (path, ...args) {
       }
     }
     try {
-      await model.build({ spinner: spin })
+      await model.build()
       spin.succeed('modelCreated%s', model.name)
       result.succed++
     } catch (err) {

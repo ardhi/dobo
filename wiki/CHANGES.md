@@ -1,8 +1,16 @@
 # Changes
 
+## 2026-03-11
+
+- [2.10.0] Add ```immutable``` and ```feature``` to the list of allowed property keys
+- [2.10.0] Set ```property.feature``` to the name of feature name if property is build using ```feature```
+- [2.10.0] Add ```model._simpleLookup()```
+- [2.10.0] Refactor ```model.loadFixtures()```
+- [2.10.0] Add ```property.immutable``` for property that can't be updated
+
 ## 2026-03-09
 
-- [2.9.3] Bug fix in ```findAllRecord```
+- [2.9.3] Bug fix in ```model.findAllRecord```
 
 ## 2026-03-07
 
