@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-12
+
+- [2.10.1] Bug fix in ```model._simpleLookup()``` should return ```null``` if query results empty value
+
 ## 2026-03-11
 
 - [2.10.0] Add ```immutable``` and ```feature``` to the list of allowed property keys
