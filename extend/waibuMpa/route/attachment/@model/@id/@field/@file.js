@@ -1,13 +1,16 @@
 import path from 'path'
 
 async function attachment (req, reply) {
-  const { isString, isEmpty, find } = this.app.lib._
+  const { isString, isEmpty, find, last } = this.app.lib._
   const { pascalCase } = this.app.lib.aneka
   const { routePath } = this.app.waibu
   const { fs } = this.app.lib
   const mdl = this.app.dobo.getModel(req.params.model)
-  const items = (await mdl.listAttachments({ id: req.params.id, fieldName: req.params.field, file: '*' })) ?? []
-  let item = req.params.file === '_first' ? items[0] : undefined
+  const type = req.query.type
+  const items = (await mdl.listAttachments({ id: req.params.id, fieldName: req.params.field, file: '*', type })) ?? []
+  let item
+  if (req.params.file === '_first') item = items[0]
+  else if (req.params.file === '_last') item = last(items)
   if (!item) {
     item = find(items, i => {
       const [, model, id, field, file] = i.fullPath.split('/')

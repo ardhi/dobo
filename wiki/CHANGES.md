@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-03-16
+
+- [2.11.0] Attachment can now listed by its type (```image```, ```video```, etc)
+- [2.11.0] Add ```_last``` to autodetect last item in list in ```@id.js```
+
 ## 2026-03-12
 
 - [2.10.1] Bug fix in ```model._simpleLookup()``` should return ```null``` if query results empty value
