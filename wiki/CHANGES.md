@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-17
+
+- [2.11.1] Bug fix on ```model.validate()```: if ```partial``` is true, set ```fields``` from ```body``` keys
+
 ## 2026-03-16
 
 - [2.11.0] Attachment can now listed by its type (```image```, ```video```, etc)
