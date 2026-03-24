@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-25
+
+- [2.11.2] Bug fix in result sets cache
+
 ## 2026-03-17
 
 - [2.11.1] Bug fix on ```model.validate()```: if ```partial``` is true, set ```fields``` from ```body``` keys

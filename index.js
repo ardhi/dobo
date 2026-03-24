@@ -153,6 +153,9 @@ async function factory (pkgName) {
             hardLimit: 10000,
             maxPage: 50,
             sort: ['dt:-1', 'updatedAt:-1', 'updated_at:-1', 'createdAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
+          },
+          cache: {
+            ttlDur: '10s'
           }
         },
         memDb: {
