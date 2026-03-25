@@ -3,6 +3,7 @@
 ## 2026-03-25
 
 - [2.11.2] Bug fix in result sets cache
+- [2.11.3] Bug fix in cache handling if ```bajoCache``` isn't loaded
 
 ## 2026-03-17
 
