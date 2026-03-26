@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-03-26
+
+- [2.11.4] Exceptions thrown in ```getSingleRef()``` && ```getMultiRefs()``` will be catched and are ignored
+
 ## 2026-03-25
 
 - [2.11.2] Bug fix in result sets cache
