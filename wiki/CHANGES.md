@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-03-30
+
+- [2.12.0] Add ```.bootorder``` level 10
+- [2.12.0] Bug fix in ```model._simpleLookup()```
+- [2.12.0] Add model name in validation error's payload
+
 ## 2026-03-26
 
 - [2.11.4] Exceptions thrown in ```getSingleRef()``` && ```getMultiRefs()``` will be catched and are ignored
