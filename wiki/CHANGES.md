@@ -5,6 +5,7 @@
 - [2.12.0] Add ```.bootorder``` level 10
 - [2.12.0] Bug fix in ```model._simpleLookup()```
 - [2.12.0] Add model name in validation error's payload
+- [2.13.0] Add ```hardCap``` support
 
 ## 2026-03-26
 

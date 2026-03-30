@@ -148,10 +148,10 @@ async function factory (pkgName) {
         },
         default: {
           filter: {
-            limit: 25,
-            maxLimit: 200,
-            hardLimit: 10000,
-            maxPage: 50,
+            limit: 25, // num of records per page
+            maxLimit: 200, // max num of records per page
+            hardCap: 10000, // max returned records
+            maxPage: 50, // max allowed page number
             sort: ['dt:-1', 'updatedAt:-1', 'updated_at:-1', 'createdAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
           },
           cache: {
@@ -491,6 +491,29 @@ async function factory (pkgName) {
       for (const hook of hooks) {
         if (hook.noWait) hook.handler.call(model, ...args)
         else await hook.handler.call(model, ...args)
+      }
+    }
+
+    getDefaultValues = (options = {}) => {
+      const { get } = this.app.lib._
+      const config = this.app.dobo.config
+      const limit = get(options, 'req.site.setting.dobo.default.limit', config.default.filter.limit)
+      const maxLimit = get(options, 'req.site.setting.dobo.default.maxLimit', config.default.filter.maxLimit)
+      const hardCap = get(options, 'req.site.setting.dobo.default.hardCap', config.default.filter.hardCap)
+      const maxPage = get(options, 'req.site.setting.dobo.default.maxPage', config.default.filter.maxPage)
+      const t = options.req ? options.req.t : this.t
+      return { limit, maxLimit, hardCap, maxPage, t }
+    }
+
+    handleLastPage = (params = {}, options = {}) => {
+      const { count, limit, page } = params
+      const { hardCap } = this.getDefaultValues(options)
+      if (count > hardCap) {
+        const lastPage = Math.floor(hardCap / limit)
+        if (page > lastPage) {
+          const warnings = [this.t('hardCapWarning%s%s', count, hardCap)]
+          return { data: [], count: hardCap, warnings }
+        }
       }
     }
   }
