@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-01
+
+- [2.14.0] Add ```between``` as custom query, since it doesn't exists in NQL
+
 ## 2026-03-30
 
 - [2.12.0] Add ```.bootorder``` level 10
