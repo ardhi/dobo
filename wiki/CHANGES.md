@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-04-02
+
+- [2.14.1] Bug fix in ```hardCapp```
+- [2.14.1] ```warnings``` now can be turned off through ```config``` or site settings
+
 ## 2026-04-01
 
 - [2.14.0] Add ```between``` as custom query, since it doesn't exists in NQL

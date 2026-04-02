@@ -150,13 +150,14 @@ async function factory (pkgName) {
           filter: {
             limit: 25, // num of records per page
             maxLimit: 200, // max num of records per page
-            hardCap: 10000, // max returned records
             maxPage: 50, // max allowed page number
             sort: ['dt:-1', 'updatedAt:-1', 'updated_at:-1', 'createdAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
           },
           cache: {
             ttlDur: '10s'
-          }
+          },
+          hardCap: 10000, // max returned records
+          warnings: true
         },
         memDb: {
           autoSaveDur: '1s'
@@ -497,12 +498,13 @@ async function factory (pkgName) {
     getDefaultValues = (options = {}) => {
       const { get } = this.app.lib._
       const config = this.app.dobo.config
-      const limit = get(options, 'req.site.setting.dobo.default.limit', config.default.filter.limit)
-      const maxLimit = get(options, 'req.site.setting.dobo.default.maxLimit', config.default.filter.maxLimit)
-      const hardCap = get(options, 'req.site.setting.dobo.default.hardCap', config.default.filter.hardCap)
-      const maxPage = get(options, 'req.site.setting.dobo.default.maxPage', config.default.filter.maxPage)
+      const limit = get(options, 'req.site.setting.dobo.default.filter.limit', config.default.filter.limit)
+      const maxLimit = get(options, 'req.site.setting.dobo.default.filter.maxLimit', config.default.filter.maxLimit)
+      const maxPage = get(options, 'req.site.setting.dobo.default.filter.maxPage', config.default.filter.maxPage)
+      const hardCap = get(options, 'req.site.setting.dobo.default.hardCap', config.default.hardCap)
+      const warnings = get(options, 'req.site.setting.dobo.default.warnings', config.default.warnings)
       const t = options.req ? options.req.t : this.t
-      return { limit, maxLimit, hardCap, maxPage, t }
+      return { limit, maxLimit, hardCap, maxPage, warnings, t }
     }
 
     handleLastPage = (params = {}, options = {}) => {
