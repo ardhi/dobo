@@ -1,8 +1,8 @@
 async function dt (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'dt'
+  opts.field = opts.field ?? 'dt'
   return {
     properties: [{
-      name: opts.fieldName ?? 'dt',
+      name: opts.field ?? 'dt',
       type: 'datetime',
       required: opts.required ?? true,
       index: opts.index ?? true

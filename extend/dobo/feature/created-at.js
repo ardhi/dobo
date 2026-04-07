@@ -1,9 +1,9 @@
 async function createdAt (opts = {}) {
-  opts.fieldName = opts.fieldName ?? 'createdAt'
+  opts.field = opts.field ?? 'createdAt'
   opts.noOverwrite = opts.noOverwrite ?? false
   return {
     properties: [{
-      name: opts.fieldName,
+      name: opts.field,
       type: 'datetime',
       index: true
     }],
@@ -11,8 +11,8 @@ async function createdAt (opts = {}) {
       name: 'beforeCreateRecord',
       handler: async function (body, options) {
         const { isSet } = this.app.lib.aneka
-        if (opts.noOverwrite) body[opts.fieldName] = new Date()
-        else if (!isSet(body[opts.fieldName])) body[opts.fieldName] = new Date()
+        if (opts.noOverwrite) body[opts.field] = new Date()
+        else if (!isSet(body[opts.field])) body[opts.field] = new Date()
       }
     }]
   }

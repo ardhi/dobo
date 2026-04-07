@@ -1,6 +1,6 @@
 {
   "name": "dobo",
-  "version": "2.14.1",
+  "version": "2.15.0",
   "description": "DBMS for Bajo Framework",
   "main": "index.js",
   "scripts": {

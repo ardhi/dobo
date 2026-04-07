@@ -1,3 +1,4 @@
+import nql from '@tryghost/nql'
 import collectConnections from './lib/collect-connections.js'
 import collectDrivers from './lib/collect-drivers.js'
 import collectFeatures from './lib/collect-features.js'
@@ -150,8 +151,8 @@ async function factory (pkgName) {
           filter: {
             limit: 25, // num of records per page
             maxLimit: 200, // max num of records per page
-            maxPage: 50, // max allowed page number
-            sort: ['dt:-1', 'updatedAt:-1', 'updated_at:-1', 'createdAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
+            maxPage: 400, // max allowed page number
+            sort: ['dt:-1', 'updatedAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
           },
           cache: {
             ttlDur: '10s'
@@ -517,6 +518,63 @@ async function factory (pkgName) {
           return { data: [], count: hardCap, warnings }
         }
       }
+    }
+
+    parseNql = (text) => {
+      const sanitized = text.split('+').map(item => {
+        const [key, ...rest] = item.split(':').map(i => i.trim())
+        let value = rest.join(':')
+        const neg = value[1] === '-' ? '-' : ''
+        if ((value[0] === '{' || value[1] === '{') && value[value.length - 1] === '}') {
+          if (value[0] === '-') value = value.slice(1)
+          const items = value.slice(1, -1).split(',')
+          value = `${neg}>=${items[0]}+${key}:${neg}<=${items[1]}`
+        }
+        return `${key}:${value}`
+      }).join('+')
+      return nql(sanitized).parse()
+    }
+
+    parseQuery = (query, silent = true) => {
+      const { isPlainObject, trim } = this.app.lib._
+      let result = {}
+      if (isPlainObject(query)) result = query
+      else {
+        query = trim(query)
+        try {
+          if (query.startsWith('{')) result = JSON.parse(query)
+          else result = this.parseNql(query)
+        } catch (err) {
+          if (silent) return {}
+          throw err
+        }
+      }
+      try {
+        const text = JSON.stringify(result)
+        if (text.includes('["__REGEXP__",')) result = this.reviveRegexInJson(text)
+      } catch (err) {}
+      return result
+    }
+
+    replaceRegexInJson = (input = {}, returnString = true) => {
+      const { isString } = this.app.lib._
+      if (isString(input)) input = JSON.parse(input) ?? {}
+      const result = JSON.stringify(input, (key, value) => {
+        if (value instanceof RegExp) return ['__REGEXP__', value.source, value.flags]
+        return value
+      })
+      if (returnString) return result
+      return JSON.parse(result)
+    }
+
+    reviveRegexInJson = (input, returnObject = true) => {
+      const { isPlainObject } = this.app.lib._
+      if (isPlainObject(input)) input = JSON.stringify(input)
+      const result = JSON.parse(input, (key, value) => {
+        if (Array.isArray(value) && value[0] === '__REGEXP__') return { $regex: new RegExp(value[1], value[2]) }
+        return value
+      })
+      return returnObject ? result : JSON.stringify(result)
     }
   }
 

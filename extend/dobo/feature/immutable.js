@@ -1,15 +1,15 @@
 async function beforeRemoveRecord (id, opts) {
   const { get } = this.app.lib._
   const record = await this.driver.getRecord(this, id)
-  const immutable = get(record.data, opts.fieldName)
+  const immutable = get(record.data, opts.field)
   if (immutable) throw this.plugin.error('recordImmutable%s%s', id, this.name, { statusCode: 423 })
 }
 
 async function immutable (opts = {}) {
-  opts.fieldName = opts.fieldName ?? '_immutable'
+  opts.field = opts.field ?? '_immutable'
   return {
     properties: {
-      name: opts.fieldName,
+      name: opts.field,
       type: 'boolean',
       hidden: true
     },

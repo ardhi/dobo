@@ -6,24 +6,24 @@ async function beforeFindRecord ({ filter = {} }, opts) {
     if (filter.query.$and) q.$and.push(...filter.query.$and)
     else q.$and.push(filter.query)
   }
-  q.$and.push(set({}, opts.fieldName, null))
+  q.$and.push(set({}, opts.field, null))
   filter.query = q
 }
 
 async function afterGetRecord ({ id, record = {} }, opts) {
   const { isEmpty } = this.app.lib._
-  if (!isEmpty(record.data[opts.fieldName])) throw this.error('recordNotFound%s%s', id, this.name, { statusCode: 404 })
+  if (!isEmpty(record.data[opts.field])) throw this.error('recordNotFound%s%s', id, this.name, { statusCode: 404 })
 }
 
 async function beforeCreateRecord ({ body = {} }, opts) {
-  delete body[opts.fieldName]
+  delete body[opts.field]
 }
 
 async function removedAt (opts = {}) {
-  opts.fieldName = opts.fieldName ?? '_removedAt'
+  opts.field = opts.field ?? '_removedAt'
   return {
     properties: {
-      name: opts.fieldName,
+      name: opts.field,
       type: 'datetime',
       index: true,
       hidden: true
@@ -52,7 +52,7 @@ async function removedAt (opts = {}) {
       name: 'beforeRemoveRecord',
       handler: async function (id, options) {
         const { set } = this.app.lib._
-        const body = set({}, opts.fieldName, new Date())
+        const body = set({}, opts.field, new Date())
         const record = await this.driver.recordUpdate(this, id, body, { noResult: false })
         options.record = { oldData: record.oldData }
       }

@@ -1,8 +1,20 @@
 # Changes
 
+## 2026-04-07
+
+- [2.15.0] Add ```parseNql()```
+- [2.15.0] Add ```parseQuery()```
+- [2.15.0] Add ```replaceRegexInJson()```
+- [2.15.0] Add ```reviveRegexInJson()```
+- [2.15.0] Change all ```opts.fieldName``` to ```opts.field``` in features
+- [2.15.0] Add ```ref.searchField``` in model reference
+- [2.15.0] Add ```ref.labelField``` in model reference
+- [2.15.0] Add ```ref.valueField``` in model reference
+- [2.15.0] change ```ref.propName``` to ```ref.field``` in model reference
+
 ## 2026-04-02
 
-- [2.14.1] Bug fix in ```hardCapp```
+- [2.14.1] Bug fix in ```hardCap```
 - [2.14.1] ```warnings``` now can be turned off through ```config``` or site settings
 
 ## 2026-04-01
