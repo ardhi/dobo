@@ -82,7 +82,7 @@ const propertyType = {
   }
 }
 
-const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default', 'values', 'rulesMsg', 'immutable', 'feature']
+const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default', 'values', 'rulesMsg', 'immutable', 'feature', 'format']
 
 /**
  * Plugin factory
@@ -497,13 +497,10 @@ async function factory (pkgName) {
     }
 
     getDefaultValues = (options = {}) => {
-      const { get } = this.app.lib._
-      const config = this.app.dobo.config
-      const limit = get(options, 'req.site.setting.dobo.default.filter.limit', config.default.filter.limit)
-      const maxLimit = get(options, 'req.site.setting.dobo.default.filter.maxLimit', config.default.filter.maxLimit)
-      const maxPage = get(options, 'req.site.setting.dobo.default.filter.maxPage', config.default.filter.maxPage)
-      const hardCap = get(options, 'req.site.setting.dobo.default.hardCap', config.default.hardCap)
-      const warnings = get(options, 'req.site.setting.dobo.default.warnings', config.default.warnings)
+      const key = 'default.filter'
+      let config = this.app.dobo.getConfig(key)
+      if (options.req) config = options.req.getSetting(`dobo:${key}`, config)
+      const { limit, maxLimit, maxPage, hardCap, warnings } = config
       const t = options.req ? options.req.t : this.t
       return { limit, maxLimit, hardCap, maxPage, warnings, t }
     }

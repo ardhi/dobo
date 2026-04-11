@@ -1,5 +1,15 @@
 # Changes
 
+## 2026-04-11
+
+- [2.16.0] Add ```format``` as new model's property key
+- [2.16.0] Rewrite ```getDefaultValues()``` to base on ```req.getSetting()```
+- [2.16.0] All inter site admins are now exempts from ```immutable``` row
+- [2.16.0] Bug fix in ```collect-models.js```
+- [2.16.0] Bug fix in ```getSingleRef()``` and ```getMultiRefs()```
+- [2.16.0] Add feature to return formatted row(s) with ```options.formatValue```
+- [2.16.0] If row is formatted, add feature to save original row in ```_orig``` with ```options.retainOriginalValue```
+
 ## 2026-04-07
 
 - [2.15.0] Add ```parseNql()```
