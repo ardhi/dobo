@@ -390,17 +390,21 @@ async function factory (pkgName) {
       return parseInt(value) || null
     }
 
-    sanitizeObject = (value) => {
+    sanitizeObject = (value, { strict = false } = {}) => {
       const { isString } = this.app.lib._
       let result = null
       if (isString(value)) {
         try {
           result = JSON.parse(value)
-        } catch (err) {}
+        } catch (err) {
+          if (strict) throw err
+        }
       } else {
         try {
           result = JSON.parse(JSON.stringify(value))
-        } catch (err) {}
+        } catch (err) {
+          if (strict) throw err
+        }
       }
       return result
     }

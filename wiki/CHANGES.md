@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-13
+
+- [2.17.0] Add ```{ strict }``` as parameter to ```sanitizeObject()```
+
 ## 2026-04-11
 
 - [2.16.0] Add ```format``` as new model's property key
