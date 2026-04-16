@@ -147,6 +147,7 @@
   "hardCapWarning%s%s": "Maksimum data yang dihasilkan (%s baris) melampaui batas yang diijinkan (%s baris)",
   "maxPageError%s%s": "Nomor halaman (%s) melampaui batas yang diijinkan (%s)",
   "duplicateRefKeys%s%s": "Ditemukan kunci referensi duplikat di '%s' (%s)",
+  "sanitizeBodyError": "Kesalahan saat sanitasi body",
   "field": {
     "id": "ID",
     "code": "Kode",

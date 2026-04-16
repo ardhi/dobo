@@ -1,5 +1,15 @@
 # Changes
 
+## 2026-04-16
+
+- [2.18.0] Add parameter options to ```sanitizeObject()```
+- [2.18.0] Rewrite ```dobo:dt``` feature to support customization
+- [2.18.0] Bug fix in ```model.createRecord()```
+- [2.18.0] Changes in ```model.sanitizeBody()``` to throw error with payload details
+- [2.18.0] Changes in ```model.sanitizeRecord()``` to support ```options.retainOriginalValue```
+- [2.18.0] Bug fix in ```model.updateRecord()```
+- [2.18.0] Bug fix in ```model.upsertRecord()```
+
 ## 2026-04-13
 
 - [2.17.0] Add ```{ strict }``` as parameter to ```sanitizeObject()```

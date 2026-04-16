@@ -149,6 +149,7 @@
   "hardCapWarning%s%s": "Max records returned (%s rows) above the allowed threshold (%s rows)",
   "maxPageError%s%s": "Page number (%s) above the allowed threshold (%s)",
   "duplicateRefKeys%s%s": "Duplicate reference keys found in '%s' (%s)",
+  "sanitizeBodyError": "Error sanitizing body",
   "field": {
     "id": "ID",
     "code": "Kode",

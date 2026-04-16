@@ -390,7 +390,7 @@ async function factory (pkgName) {
       return parseInt(value) || null
     }
 
-    sanitizeObject = (value, { strict = false } = {}) => {
+    sanitizeObject = (value, { strict = false, action, model } = {}) => {
       const { isString } = this.app.lib._
       let result = null
       if (isString(value)) {
