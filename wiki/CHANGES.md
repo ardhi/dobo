@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-04-17
+
+- [2.18.1] Bug fix in ```model.createAttachment()```
+- [2.18.1] Bug fix in ```model.sanitizeBody()```
+- [2.18.1] Bug fix in ```model.sanitizeRecord()```
+
 ## 2026-04-16
 
 - [2.18.0] Add parameter options to ```sanitizeObject()```
