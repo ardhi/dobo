@@ -501,9 +501,12 @@ async function factory (pkgName) {
     }
 
     getDefaultValues = (options = {}) => {
+      const { defaultsDeep } = this.app.lib.aneka
       const key = 'default.filter'
-      let config = this.app.dobo.getConfig(key)
-      if (options.req) config = options.req.getSetting(`dobo:${key}`, config)
+      let config = this.getConfig(key)
+      config.hardCap = this.config.default.hardCap
+      config.warnings = this.config.default.warnings
+      if (options.req) config = defaultsDeep({}, options.req.getSetting('dobo:default'), config)
       const { limit, maxLimit, maxPage, hardCap, warnings } = config
       const t = options.req ? options.req.t : this.t
       return { limit, maxLimit, hardCap, maxPage, warnings, t }

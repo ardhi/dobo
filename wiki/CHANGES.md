@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-04-18
+
+- [2.18.2] Bug fix in ```config``` object
+- [2.18.2] Bug fix in ```getDefaultValues```
+- [2.18.2] Bug fix in ```sanitizeProp()``` in ```collect-models.js```
+- [2.18.2] Bug fix in ```sanitizeRecord()``` for prop with ```format``` set to ```false```
+
 ## 2026-04-17
 
 - [2.18.1] Bug fix in ```model.createAttachment()```
