@@ -539,23 +539,47 @@ async function factory (pkgName) {
       return nql(sanitized).parse()
     }
 
-    parseQuery = (query, silent = true) => {
-      const { isPlainObject, trim } = this.app.lib._
+    parseAny = (query, model) => {
+      const { isEmpty } = this.app.lib._
+      let q = {}
+      if (!model) throw this.error('invalidQuery')
+      let scanables = [...model.scanables]
+      if (scanables.length === 0) scanables = [...model.sortables]
+      const fields = scanables.filter(f => {
+        const field = find(model.properties, { name: f, type: 'string' })
+        return !!field
+      })
+      const parts = fields.map(f => {
+        if (query[0] === '*') return `${f}:~$'${query.replaceAll('*', '')}'`
+        if (query[query.length - 1] === '*') return `${f}:~^'${query.replaceAll('*', '')}'`
+        return `${f}:~'${query.replaceAll('*', '')}'`
+      })
+      if (parts.length === 1) q = this.parseNql(parts[0])
+      else if (parts.length > 1) q = this.parseNql(parts.join(','))
+      if (isEmpty(q)) throw this.error('invalidQuery')
+      return q
+    }
+
+    parseQuery = (query, model, silent = true) => {
+      const { isEmpty, isPlainObject, trim } = this.app.lib._
       let result = {}
       if (isPlainObject(query)) result = query
       else {
         query = trim(query)
+        if (isEmpty(query)) return result
         try {
           if (query.startsWith('{')) result = JSON.parse(query)
-          else result = this.parseNql(query)
+          else if (query.includes(':')) result = this.parseNql(query)
+          else result = this.parseAny(query, model)
         } catch (err) {
           if (silent) return {}
           throw err
         }
       }
+      let strQ = this.replaceRegexInJson(result)
+      if (model && model.driver.idField.name !== 'id') strQ = strQ.replaceAll('"id"', `"${model.driver.idField.name}"`)
       try {
-        const text = JSON.stringify(result)
-        if (text.includes('["__REGEXP__",')) result = this.reviveRegexInJson(text)
+        result = this.reviveRegexInJson(strQ)
       } catch (err) {}
       return result
     }
@@ -575,7 +599,7 @@ async function factory (pkgName) {
       const { isPlainObject } = this.app.lib._
       if (isPlainObject(input)) input = JSON.stringify(input)
       const result = JSON.parse(input, (key, value) => {
-        if (Array.isArray(value) && value[0] === '__REGEXP__') return { $regex: new RegExp(value[1], value[2]) }
+        if (Array.isArray(value) && value[0] === '__REGEXP__') return new RegExp(value[1], value[2])
         return value
       })
       return returnObject ? result : JSON.stringify(result)

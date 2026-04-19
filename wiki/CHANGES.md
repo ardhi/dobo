@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-04-19
+
+- [2.19.0] Add ```queryAny()``` for query using model's scanables fields
+- [2.19.0] Bug fix in ```reviveRegexInJson()```
+- [2.19.0] Bug fix in query sanitizing especially for regex existance
+- [2.19.0] Remove ```replaceIdInQuerySearch()``` in ```_util.js``` as it isn't needed anymore
+
 ## 2026-04-18
 
 - [2.18.2] Bug fix in ```config``` object
