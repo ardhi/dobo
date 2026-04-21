@@ -2,9 +2,10 @@
 
 ## 2026-04-21
 
-- [2.5.1] Bug fix in ```collect-models.js```, now values are sanitized with ```parseObject()```
-- [2.5.1] Bug fix in ```options.dataOnly``` on all model methods
-- [2.5.1] Add ```options.noMagic```
+- [2.19.1] Bug fix in ```collect-models.js```, now values are sanitized with ```parseObject()```
+- [2.19.1] Bug fix in ```options.dataOnly``` on all model methods
+- [2.19.1] Add ```options.noMagic```
+- [2.20.0] Revert back to NOT using hooks for caching
 
 ## 2026-04-19
 
