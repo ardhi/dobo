@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-04-21
+
+- [2.5.1] Bug fix in ```collect-models.js```, now values are sanitized with ```parseObject()```
+- [2.5.1] Bug fix in ```options.dataOnly``` on all model methods
+- [2.5.1] Add ```options.noMagic```
+
 ## 2026-04-19
 
 - [2.19.0] Add ```queryAny()``` for query using model's scanables fields
