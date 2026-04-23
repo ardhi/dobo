@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-04-23
+
+- [2.20.1] Bug fix in ```collect-models.js```, now with deep merge in advance
+
 ## 2026-04-21
 
 - [2.19.1] Bug fix in ```collect-models.js```, now values are sanitized with ```parseObject()```
