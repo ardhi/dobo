@@ -1,5 +1,18 @@
 # Changes
 
+## 2026-04-25
+
+- [2.21.0] Change ```options.formatValue``` to ```options.fmt```
+- [2.21.0] Remove ```options.retainOriginalValue``` since it is not needed anymore
+- [2.21.0] Remove ```formatValue``` altogether
+- [2.21.0] Remove ```record._orig```, in exchange switch the formatted value to ```record._fmt```
+- [2.21.0] Add ```property.virtual``` to set property is a virtual/calculated property
+- [2.21.0] Add necessary safe guards for virtual property
+- [2.21.0] Add ```model.getProperties()```
+- [2.21.0] Add ```model.getIndexes()```
+- [2.21.0] Add ```model.getVirtualPropertties()```
+- [2.21.0] Activate transaction on ```loadFixtures()```
+
 ## 2026-04-23
 
 - [2.20.1] Bug fix in ```collect-models.js```, now with deep merge in advance

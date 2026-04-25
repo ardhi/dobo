@@ -150,6 +150,7 @@
   "maxPageError%s%s": "Page number (%s) above the allowed threshold (%s)",
   "duplicateRefKeys%s%s": "Duplicate reference keys found in '%s' (%s)",
   "sanitizeBodyError": "Error sanitizing body",
+  "virtualFieldIn%s%s": "Virtual field can't be used in '%s' on %s",
   "field": {
     "id": "ID",
     "code": "Kode",
