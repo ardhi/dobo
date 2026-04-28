@@ -148,7 +148,7 @@
   "maxPageError%s%s": "Nomor halaman (%s) melampaui batas yang diijinkan (%s)",
   "duplicateRefKeys%s%s": "Ditemukan kunci referensi duplikat di '%s' (%s)",
   "sanitizeBodyError": "Kesalahan saat sanitasi body",
-  "virtualFieldIn%s%s": "Kolom virtual tidak bisa digunakan di '%s' pada %s",
+  "virtualFieldIn%s%s%s": "Kolom virtual '%s' tidak bisa digunakan di '%s' pada %s",
   "field": {
     "id": "ID",
     "code": "Kode",

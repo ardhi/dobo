@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-04-28
+
+- [2.21.1] Bug fix in ```collect-models.js```
+- [2.21.1] Bug fix in ```driver._updateRecord()```
+- [2.21.1] Bug fix in ```util.getMultiRef()```
+- [2.21.1] Bug fix in setting references
+- [2.21.1] Bug fix in ```model.sanitizeRecord()```
+
 ## 2026-04-25
 
 - [2.21.0] Change ```options.formatValue``` to ```options.fmt```
