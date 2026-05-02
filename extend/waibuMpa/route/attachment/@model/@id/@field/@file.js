@@ -1,9 +1,18 @@
 import path from 'path'
 
-async function attachment (req, reply) {
-  const { isString, isEmpty, find, last } = this.app.lib._
-  const { pascalCase } = this.app.lib.aneka
+async function handleNotFound (req, reply) {
+  const { isEmpty, isString } = this.app.lib._
   const { routePath } = this.app.waibu
+  if (!req.query.notfound) throw this.error('_notFound', { noContent: true })
+  const ext = path.extname(req.params.file)
+  const replacer = isString(req.query.notfound) ? req.query.notfound : `waibuStatic.asset:/not-found${isEmpty(ext) ? '.png' : ext}`
+  return reply.redirectTo(routePath(replacer))
+}
+
+async function attachment (req, reply) {
+  const { isEmpty, find, last } = this.app.lib._
+  const { pascalCase } = this.app.lib.aneka
+  const { createThumbnail } = this.app.bajoExtra ?? {}
   const { fs } = this.app.lib
   const mdl = this.app.dobo.getModel(req.params.model)
   const type = req.query.type
@@ -20,11 +29,24 @@ async function attachment (req, reply) {
         file === decodeURI(req.params.file)
     })
   }
-  if (!item) {
-    if (!req.query.notfound) throw this.error('_notFound', { noContent: true })
-    const ext = path.extname(req.params.file)
-    const replacer = isString(req.query.notfound) ? req.query.notfound : `waibuStatic.asset:/not-found${isEmpty(ext) ? '.png' : ext}`
-    return reply.redirectTo(routePath(replacer))
+  if (!item) return await handleNotFound.call(this, req, reply)
+  if (req.query.thumbnail) {
+    const dir = path.dirname(item.file)
+    const ext = path.extname(item.file)
+    const base = path.basename(item.file, ext)
+    const dest = `${dir}/_tn/${base}-${req.query.thumbnail}.png`
+    if (createThumbnail && !fs.existsSync(dest)) {
+      const opts = {
+        dir: `${dir}/_tn`,
+        size: req.query.thumbnail,
+        silent: true,
+        format: '.png'
+      }
+      await createThumbnail(item.file, opts)
+    }
+    if (!fs.existsSync(dest)) await handleNotFound.call(this, req, reply)
+    item.mimeType = 'image/png'
+    item.file = dest
   }
   if (!isEmpty(item.mimeType)) reply.header('Content-Type', item.mimeType)
   const stream = fs.createReadStream(item.file)

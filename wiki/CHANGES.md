@@ -1,5 +1,16 @@
 # Changes
 
+## 2026-05-02
+
+- [2.22.0] Add auto thumbnail creation when image attachment is uploaded
+- [2.22.0] Add feature to get the thumbnail instead of attachment file in attachment route
+- [2.22.0] Add ```dobo:image``` feature
+- [2.22.0] Bug fix in ```model.createRecord()```
+- [2.22.0] Bug fix in ```model.updateRecord()```
+- [2.22.0] Bug fix in ```model.upsertRecord()```
+- [2.22.0] Bug fix in ```model.removeRecord()```
+- [2.22.0] Remove attachment now also remove corresponding thumbnails
+
 ## 2026-04-28
 
 - [2.21.1] Bug fix in ```collect-models.js```

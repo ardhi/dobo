@@ -213,7 +213,9 @@
     "type": "Tipe",
     "model": "Model",
     "age": "Usia",
-    "provider": "Penyedia"
+    "provider": "Penyedia",
+    "image": "Gambar",
+    "attachment": "Lampiran"
   },
   "validationError": "Kesalahan Validasi",
   "validation": {

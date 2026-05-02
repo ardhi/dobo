@@ -158,7 +158,10 @@ async function factory (pkgName) {
             ttlDur: '10s'
           },
           hardCap: 10000, // max returned records
-          warnings: true
+          warnings: true,
+          attachment: {
+            thumbSizes: ['s', 'm', 'l']
+          }
         },
         memDb: {
           autoSaveDur: '1s'

@@ -215,7 +215,9 @@
     "type": "Type",
     "model": "Model",
     "age": "Age",
-    "provider": "Provider"
+    "provider": "Provider",
+    "image": "Image",
+    "attachment": "Attachment"
   },
   "validationError": "Validation Error",
   "validation": {
