@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-05-03
+
+- [2.22.1] Bug fix in ```dobo:image``` feature
+
 ## 2026-05-02
 
 - [2.22.0] Add auto thumbnail creation when image attachment is uploaded
