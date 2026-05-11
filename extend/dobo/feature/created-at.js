@@ -1,3 +1,9 @@
+async function handler (body, options, opts) {
+  const { isSet } = this.app.lib.aneka
+  if (opts.noOverwrite) body[opts.field] = new Date()
+  else if (!isSet(body[opts.field])) body[opts.field] = new Date()
+}
+
 async function createdAt (opts = {}) {
   opts.field = opts.field ?? 'createdAt'
   opts.noOverwrite = opts.noOverwrite ?? false
@@ -10,9 +16,14 @@ async function createdAt (opts = {}) {
     hooks: [{
       name: 'beforeCreateRecord',
       handler: async function (body, options) {
-        const { isSet } = this.app.lib.aneka
-        if (opts.noOverwrite) body[opts.field] = new Date()
-        else if (!isSet(body[opts.field])) body[opts.field] = new Date()
+        await handler.call(this, body, options, opts)
+      }
+    }, {
+      name: 'beforeBulkCreateRecord',
+      handler: async function (bodies, options) {
+        for (const body of bodies) {
+          await handler.call(this, body, options, opts)
+        }
       }
     }]
   }

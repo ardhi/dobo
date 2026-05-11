@@ -11,26 +11,12 @@ async function memoryDriverFactory () {
       this.idGenerator = 'ulid'
       this.saving = true
       this.memory = true
-      this.autoSave = []
       this.storage = {}
       this.support = {
         propType: {
           object: true,
           array: true
         }
-      }
-    }
-
-    async _loadFromFile (model, dir) {
-      const { fs } = this.app.lib
-      this.autoSave.push(model.name)
-      const file = `${dir}/${model.name}.json`
-      if (!fs.existsSync(file)) return
-      try {
-        const data = fs.readFileSync(file, 'utf8')
-        this.storage[model.name] = JSON.parse(data)
-      } catch (err) {
-        this.fatal('cantLoad%s%s', model.name, err.message)
       }
     }
 
@@ -41,27 +27,42 @@ async function memoryDriverFactory () {
 
     async connect (connection, noRebuild) {
       const conn = this.plugin.getConnection('memory')
-      const models = this.plugin.getModelsByConnection(conn.name)
       const { getPluginDataDir } = this.app.bajo
       const { fs } = this.app.lib
-      const pdir = `${getPluginDataDir(this.plugin.ns)}/memDb/data` // persistence dir
-      fs.ensureDirSync(pdir)
-      conn.autoSave = conn.autoSave ?? []
+      const dir = `${getPluginDataDir(this.plugin.ns)}/memDb/data` // persistence dir
+      fs.ensureDirSync(dir)
+      conn.persistences = conn.persistences ?? []
+
+      const models = this.plugin.getModelsByConnection(conn.name).map(model => {
+        if (conn.persistences.includes(model.name)) model.options.persistence = true
+        return model
+      })
+
       for (const model of models) {
         this.storage[model.name] = this.storage[model.name] ?? [] // init empty model
-        if (conn.autoSave.includes(model.name)) await this._loadFromFile(model, pdir)
-        await model.loadFixtures()
+        if (model.options.persistence) {
+          const file = `${dir}/${model.name}.json`
+          let data = []
+          if (fs.existsSync(file)) {
+            try {
+              data = JSON.parse(fs.readFileSync(file, 'utf8'))
+            } catch (err) {}
+          }
+          if (data.length === 0) await model.loadFixtures({ ignoreError: false })
+          else this.storage[model.name] = data
+        } else await model.loadFixtures({ ignoreError: false })
       }
-      if (conn.autoSave.length === 0) return
       setInterval(() => {
         if (!this.saving) return
         this.saving = true
-        for (const item of conn.autoSave) {
-          const data = this.storage[item]
-          fs.writeFileSync(`${pdir}/${item}.json`, JSON.stringify(data), 'utf8')
+        for (const model of models) {
+          if (!model.options.persistence) continue
+          try {
+            fs.writeFileSync(`${dir}/${model.name}.json`, JSON.stringify(this.storage[model.name], null, 2), 'utf8')
+          } catch (err) {}
         }
         this.saving = false
-      }, this.plugin.config.memDb.autoSaveDur)
+      }, this.plugin.config.memDb.persistenceDur)
     }
 
     async _getOldRecord (model, id, options = {}) {

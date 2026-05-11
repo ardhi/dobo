@@ -1,5 +1,23 @@
 # Changes
 
+## 2026-05-11
+
+- [2.23.0] Add ```beforeBulkCreate``` model hook on ```dobo:unique``` feature
+- [2.23.0] Add ```beforeBulkCreate``` model hook on ```dobo:updatedAt``` feature
+- [2.23.0] Add ```beforeBulkCreate``` model hook on ```dobo:unique``` feature
+- [2.23.0] Add ```connection.initDriver()```
+- [2.23.0] Move ```model.file``` in model definition to ```model.options.file```
+- [2.23.0] Move ```model.attachment``` in model definition to ```model.options.attachment```
+- [2.23.0] Add ```model.buildStart()``` and ```model.buildEnd()``` in model definition
+- [2.23.0] Add ```null``` driver
+- [2.23.0] Add ```model.syncIdField()```
+- [2.23.0] Rename method to ```model.bulkCreateRecord``` instead ```bulkCreateRecords```. The later name now serve only as alias
+- [2.23.0] Remove ```getSingleRef()``` and ```getMultiRefs()```, use ```getRefs()``` instead
+- [2.23.0] Add reference support for ```array``` column type
+- [2.23.0] Bug fix in ```model.findAllRecord()```, now use correctly hook names
+- [2.23.0] Bug fix in ```model.sanitizeBody()```
+- [2.23.0] Bug fix in ```model.sanitizeRecord()```
+
 ## 2026-05-03
 
 - [2.22.1] Bug fix in ```dobo:image``` feature
@@ -87,7 +105,7 @@
 - [2.16.0] Rewrite ```getDefaultValues()``` to base on ```req.getSetting()```
 - [2.16.0] All inter site admins are now exempts from ```immutable``` row
 - [2.16.0] Bug fix in ```collect-models.js```
-- [2.16.0] Bug fix in ```getSingleRef()``` and ```getMultiRefs()```
+- [2.16.0] Bug fix in ```getRefs()``` and ```getRefs()```
 - [2.16.0] Add feature to return formatted row(s) with ```options.formatValue```
 - [2.16.0] If row is formatted, add feature to save original row in ```_orig``` with ```options.retainOriginalValue```
 
@@ -121,7 +139,7 @@
 
 ## 2026-03-26
 
-- [2.11.4] Exceptions thrown in ```getSingleRef()``` && ```getMultiRefs()``` will be catched and are ignored
+- [2.11.4] Exceptions thrown in ```getRefs()``` && ```getRefs()``` will be catched and are ignored
 
 ## 2026-03-25
 
@@ -226,7 +244,7 @@
 
 ## 2026-01-29
 
-- [2.4.0] Add ```bulkCreateRecords()``` on model & driver
+- [2.4.0] Add ```bulkCreateRecord()``` on model & driver
 - [2.4.0] Add ```execModelHook()```
 - [2.4.0] Bug fix in models collection
 - [2.4.0] Add ```DoboAction``` to the ```app.baseClass```

@@ -44,6 +44,13 @@ async function removedAt (opts = {}) {
         await beforeCreateRecord.call(this, { body }, opts)
       }
     }, {
+      name: 'beforeBulkCreateRecord',
+      handler: async function (bodies, options) {
+        for (const body of bodies) {
+          await beforeCreateRecord.call(this, { body }, opts)
+        }
+      }
+    }, {
       name: 'beforeUpdateRecord',
       handler: async function (id, body, options) {
         await beforeCreateRecord.call(this, { body }, opts)

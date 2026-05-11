@@ -164,7 +164,7 @@ async function factory (pkgName) {
           }
         },
         memDb: {
-          autoSaveDur: '1s'
+          persistenceDur: '1s'
         },
         applet: {
           confirmation: false
