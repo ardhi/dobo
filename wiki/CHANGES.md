@@ -1,5 +1,17 @@
 # Changes
 
+## 2026-05-16
+
+- [2.24.0] Change ```dobo:immutable``` feature, field no longer hidden
+- [2.24.0] Add ```dobo:[before|after]Driver<Action>``` hook
+- [2.24.0] Add ```dobo.<modelName>:[before|after]Driver<Action>``` hook
+- [2.24.0] Change ```model._simpleLookup()```
+- [2.24.0] Remove ```dobo:[before|after]Build[Query|Search]``` hook
+- [2.24.0] Change ```model.loadFixtures()```
+- [2.24.0] Bugfix in ```model.sanitizeBody()```
+- [2.24.0] Add ```dobo:afterTransaction``` hook
+- [2.24.0] Add ```dobo.<modelName>:afterTransaction``` hook
+
 ## 2026-05-11
 
 - [2.23.0] Add ```beforeBulkCreate``` model hook on ```dobo:unique``` feature

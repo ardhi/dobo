@@ -11,8 +11,7 @@ async function immutable (opts = {}) {
   return {
     properties: {
       name: opts.field,
-      type: 'boolean',
-      hidden: true
+      type: 'boolean'
     },
     hooks: [{
       name: 'beforeUpdateRecord',
