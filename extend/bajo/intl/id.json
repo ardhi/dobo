@@ -224,6 +224,9 @@
       "required": "Harus diisi/dipilih",
       "only": "Harus sesuai dengan %(ref)s"
     },
+    "array": {
+      "base": "Required"
+    },
     "string": {
       "alphanum": "Harus berupa alfa numerik karakter saja",
       "base": "Harus berupa string",

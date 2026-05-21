@@ -225,6 +225,9 @@
       "required": "Required",
       "only": "Must match with %(ref)s"
     },
+    "array": {
+      "base": "Required"
+    },
     "string": {
       "alphanum": "Must only contain alpha-numeric characters",
       "base": "Must be a string",

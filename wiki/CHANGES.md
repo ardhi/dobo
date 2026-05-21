@@ -1,5 +1,13 @@
 # Changes
 
+## 2026-05-22
+
+- [2.25.0] Add ```array``` & ```object``` validator handling
+- [2.25.0] Change ```interSite``` definition to ```xSite```
+- [2.25.0] Add ```model.getNonVirtualProperties()```
+- [2.25.0] Bug fix in ```model.loadFixtures()```
+- [2.25.0] Handle ```array``` validation schema
+
 ## 2026-05-16
 
 - [2.24.0] Change ```dobo:immutable``` feature, field no longer hidden

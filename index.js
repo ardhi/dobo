@@ -73,11 +73,11 @@ const propertyType = {
     rules: []
   },
   object: {
-    validator: null,
+    validator: 'object',
     rules: []
   },
   array: {
-    validator: null,
+    validator: 'array',
     rules: []
   }
 }
