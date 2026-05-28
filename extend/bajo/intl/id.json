@@ -150,6 +150,7 @@
   "duplicateRefKeys%s%s": "Ditemukan kunci referensi duplikat di '%s' (%s)",
   "sanitizeBodyError": "Kesalahan saat sanitasi body",
   "virtualFieldIn%s%s%s": "Kolom virtual '%s' tidak bisa digunakan di '%s' pada %s",
+  "noFunctionAllowed%s%s": "Gunakan nama handler, bukan fungsi di '%s.%s'",
   "field": {
     "id": "ID",
     "code": "Kode",

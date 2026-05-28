@@ -151,6 +151,7 @@
   "duplicateRefKeys%s%s": "Duplicate reference keys found in '%s' (%s)",
   "sanitizeBodyError": "Error sanitizing body",
   "virtualFieldIn%s%s%s": "Virtual field '%s' can't be used in '%s' on %s",
+  "noFunctionAllowed%s%s": "Use name handler instead of function in '%s.%s'",
   "field": {
     "id": "ID",
     "code": "Kode",

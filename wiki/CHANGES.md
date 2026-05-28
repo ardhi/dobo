@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-05-26
+
+- [2.26.0] Add loading multiple model schema as in one ```model.js``` file
+- [2.26.0] Remove caching feature of model schema
+- [2.26.0] Change driver hook name with this syntax: ```dobo.driver:<action>```
+
 ## 2026-05-22
 
 - [2.25.0] Add ```array``` & ```object``` validator handling
