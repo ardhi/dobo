@@ -129,12 +129,6 @@ async function memoryDriverFactory () {
       return result
     }
 
-    async findOneRecord (model, filter = {}, options = {}) {
-      filter.limit = 1
-      const result = await this.findRecord(model, filter, options)
-      return { data: result.data[0] }
-    }
-
     async findAllRecord (model, filter = {}, options = {}) {
       const { sort } = filter
       const { data: count = 0 } = await this.countRecord(model, filter, options)
