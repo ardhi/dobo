@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-05-30
+
+- [2.27.0] Bug fix in ```model.transaction()```
+- [2.27.0] Add ```model:[before|after]RecordValidation``` model hooks
+- [2.27.0] Bug fix in ```model.countRecord()```
+- [2.27.0] Bug fix in ```model.loadFixtures()```
+
 ## 2026-05-29
 
 - [2.26.1] Bug fix in ```model.createRecord()```
