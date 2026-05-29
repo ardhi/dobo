@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-05-29
+
+- [2.26.1] Bug fix in ```model.createRecord()```
+- [2.26.1] Bug fix in ```model.updateRecord()```
+- [2.26.1] Bug fix in ```model.upsertRecord()```
+- [2.26.1] Bug fix in ```model.removeRecord()```
+
 ## 2026-05-26
 
 - [2.26.0] Add loading multiple model schema as in one ```model.js``` file
