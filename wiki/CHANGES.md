@@ -6,6 +6,7 @@
 - [2.26.1] Bug fix in ```model.updateRecord()```
 - [2.26.1] Bug fix in ```model.upsertRecord()```
 - [2.26.1] Bug fix in ```model.removeRecord()```
+- [2.26.4] Bug fix in ```model.listAttachment()```
 
 ## 2026-05-26
 
