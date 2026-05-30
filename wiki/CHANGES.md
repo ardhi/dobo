@@ -7,6 +7,7 @@
 - [2.27.0] Bug fix in ```model.countRecord()```
 - [2.27.0] Bug fix in ```model.loadFixtures()```
 - [2.27.1] Bug fix in ```model.sanitizeRecord()```
+- [2.27.2] Bug fix in ```collect-models.js```
 
 ## 2026-05-29
 
