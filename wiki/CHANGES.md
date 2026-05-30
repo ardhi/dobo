@@ -6,6 +6,7 @@
 - [2.27.0] Add ```model:[before|after]RecordValidation``` model hooks
 - [2.27.0] Bug fix in ```model.countRecord()```
 - [2.27.0] Bug fix in ```model.loadFixtures()```
+- [2.27.1] Bug fix in ```model.sanitizeRecord()```
 
 ## 2026-05-29
 
