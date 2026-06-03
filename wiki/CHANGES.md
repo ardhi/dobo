@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-06-03
+
+- [2.28.0] Property ```values``` can now accept a function that will be called dynamically upon used
+- [2.28.0] ```_util.buildPropValues()``` now become a new model method
+- [2.28.0] Bug fix in ```model.sanitizeRecord()```
+- [2.28.0] Bug fix in ```model.validate()```
+
 ## 2026-05-30
 
 - [2.27.0] Bug fix in ```model.transaction()```
