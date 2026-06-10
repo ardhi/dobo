@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-06-11
+
+- [2.29.1] Bug fix in ```model.sanitizeBody()```
+
 ## 2026-06-10
 
 - [2.29.0] Feature ```dobo:immutable``` now using array instead of boolean
