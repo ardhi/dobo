@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-06-10
+
+- [2.29.0] Feature ```dobo:immutable``` now using array instead of boolean
+- [2.29.0] Add ```model.sanitizeFixture()```
+- [2.29.0] Options ```noMagic``` no without touching ```noModelHook```
+- [2.29.0] Add ```array``` validator type
+
 ## 2026-06-03
 
 - [2.28.0] Property ```values``` can now accept a function that will be called dynamically upon used
