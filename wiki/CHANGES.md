@@ -3,6 +3,7 @@
 ## 2026-06-11
 
 - [2.29.1] Bug fix in ```model.sanitizeBody()```
+- [2.29.2] Bug fix in ```model.sanitizeBody()```
 
 ## 2026-06-10
 
