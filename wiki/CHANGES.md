@@ -6,6 +6,7 @@
 - [2.30.0] Add ```sanitizeByType()```
 - [2.30.0] Add ```error._abortAction``` to abort an action in driver level
 - [2.30.0] Refactor ```model.sanitizeBody()``` to use shared sanitizing function
+- [2.30.1] Bug fix in ```model.sanitizeBody()```
 
 ## 2026-06-11
 
