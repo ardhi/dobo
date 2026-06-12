@@ -233,13 +233,12 @@ async function factory (pkgName) {
      * @async
      */
     init = async () => {
-      const { getPluginDataDir } = this.app.bajo
       const { fs } = this.app.lib
       await collectDrivers.call(this)
       await collectConnections.call(this)
       await collectFeatures.call(this)
       await collectModels.call(this)
-      const attDir = `${getPluginDataDir('dobo')}/attachment`
+      const attDir = `${this.app.getPluginDataDir('dobo')}/attachment`
       fs.ensureDirSync(attDir)
     }
 
@@ -369,7 +368,6 @@ async function factory (pkgName) {
     sanitizeDate = (value, { inputFormat, outputFormat, silent = true } = {}) => {
       const { dayjs } = this.app.lib
       if (value === 0) return null
-      if (!outputFormat) outputFormat = inputFormat
       const dt = dayjs(value, inputFormat)
       if (!dt.isValid()) {
         if (silent) return null
@@ -426,6 +424,19 @@ async function factory (pkgName) {
 
     sanitizeString = (value) => {
       return value + ''
+    }
+
+    sanitizeByType = (value, type, opts = {}) => {
+      const { isNaN } = this.app.lib._
+      let result = value
+      if (['object', 'array'].includes(type)) result = this.sanitizeObject(value, opts)
+      else if (type === 'boolean') result = this.sanitizeBoolean(value)
+      else if (['float', 'double'].includes(type)) result = this.sanitizeFloat(value, opts)
+      else if (['integer', 'smallint'].includes(type)) result = this.sanitizeInt(value, opts)
+      else if (['string', 'text'].includes(type)) result = this.sanitizeString(result, opts)
+      else if (['datetime'].includes(type)) result = this.sanitizeDate(result, opts)
+      if (!opts.strict && isNaN(result)) result = null
+      return result
     }
 
     _calcStats = (items, field, aggregates) => {

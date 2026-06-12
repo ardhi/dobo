@@ -27,9 +27,8 @@ async function memoryDriverFactory () {
 
     async connect (connection, noRebuild) {
       const conn = this.plugin.getConnection('memory')
-      const { getPluginDataDir } = this.app.bajo
       const { fs } = this.app.lib
-      const dir = `${getPluginDataDir(this.plugin.ns)}/memDb/data` // persistence dir
+      const dir = `${this.app.getPluginDataDir(this.plugin.ns)}/memDb/data` // persistence dir
       fs.ensureDirSync(dir)
       conn.persistences = conn.persistences ?? []
 

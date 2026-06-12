@@ -1,5 +1,12 @@
 # Changes
 
+## 2026-06-12
+
+- [2.30.0] Necessary updates to ```bajo@2.18.0``` specs
+- [2.30.0] Add ```sanitizeByType()```
+- [2.30.0] Add ```error._abortAction``` to abort an action in driver level
+- [2.30.0] Refactor ```model.sanitizeBody()``` to use shared sanitizing function
+
 ## 2026-06-11
 
 - [2.29.1] Bug fix in ```model.sanitizeBody()```
