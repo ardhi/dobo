@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-06-13
+
+- [2.30.2] Bug fix in ```model.findAllRecord()```
+- [2.30.2] Bug fix in ```memory.findAllRecord()```
+- [2.30.2] Bug fix in ```collect-models.js```
+
 ## 2026-06-12
 
 - [2.30.0] Necessary updates to ```bajo@2.18.0``` specs

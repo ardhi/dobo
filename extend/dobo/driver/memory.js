@@ -122,20 +122,22 @@ async function memoryDriverFactory () {
       const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)
       if (sort) cursor.sort(sort)
-      if (!options.noLimit) cursor.skip(skip).limit(limit)
+      if (limit && skip) cursor.skip(skip).limit(limit)
       let result = { data: cursor.all(), page, limit, count, pages: Math.ceil(count / limit) }
       if (!options.count) result = omit(result, ['count', 'pages'])
       return result
     }
 
     async findAllRecord (model, filter = {}, options = {}) {
+      const { hardCap } = this.app.dobo.getDefaultValues(options)
+      filter.limit = hardCap
+      delete filter.skip
+      delete filter.page
       const { sort } = filter
-      const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)
+      cursor.limit(filter.limit)
       if (sort) cursor.sort(sort)
-      let result = { data: cursor.all(), count }
-      if (!options.count) result = omit(result, ['count'])
-      return result
+      return { data: cursor.all(), hardCapped: true }
     }
 
     async countRecord (model, filter = {}, options = {}) {
