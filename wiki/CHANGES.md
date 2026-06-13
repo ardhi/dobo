@@ -5,6 +5,7 @@
 - [2.30.2] Bug fix in ```model.findAllRecord()```
 - [2.30.2] Bug fix in ```memory.findAllRecord()```
 - [2.30.2] Bug fix in ```collect-models.js```
+- [2.30.3] Bug fix in ```memory.findRecord()```
 
 ## 2026-06-12
 

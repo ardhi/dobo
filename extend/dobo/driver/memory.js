@@ -122,7 +122,7 @@ async function memoryDriverFactory () {
       const { data: count = 0 } = await this.countRecord(model, filter, options)
       const cursor = this._getCursor(model, filter)
       if (sort) cursor.sort(sort)
-      if (limit && skip) cursor.skip(skip).limit(limit)
+      cursor.skip(skip).limit(limit)
       let result = { data: cursor.all(), page, limit, count, pages: Math.ceil(count / limit) }
       if (!options.count) result = omit(result, ['count', 'pages'])
       return result
