@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-16
+
+- [2.30.4] Bug fix in ```model.sanitizeBody()```
+- [2.30.4] Bug fix in ```model._prepBodyForCreate()```
+
 ## 2026-06-13
 
 - [2.30.2] Bug fix in ```model.findAllRecord()```
