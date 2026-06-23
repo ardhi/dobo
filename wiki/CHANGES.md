@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-06-24
+
+- [2.30.5] Bug fix in ```model.sanitizeBody()```
+- [2.30.5] Bug fix in ```model.sanitizeRecord()```
+
 ## 2026-06-16
 
 - [2.30.4] Bug fix in ```model.sanitizeBody()```
