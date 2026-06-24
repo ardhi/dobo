@@ -4,6 +4,7 @@
 
 - [2.30.5] Bug fix in ```model.sanitizeBody()```
 - [2.30.5] Bug fix in ```model.sanitizeRecord()```
+- [2.30.6] Bug fix in ```driver.sanitizeRecord()```
 
 ## 2026-06-16
 
