@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-06-29
+
+- [2.31.0] Add ```dobo.driver:{before|after}Any```
+
 ## 2026-06-24
 
 - [2.30.5] Bug fix in ```model.sanitizeBody()```
