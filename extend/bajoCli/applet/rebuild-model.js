@@ -35,7 +35,7 @@ async function modelRebuild (path, ...args) {
   for (const s of names) {
     const model = this.getModel(s)
     const spin = this.print.spinner().start('rebuilding%s', model.name)
-    if (model.driver.memory) {
+    if (model.adapter.memory) {
       spin.warn('memoryDbSkipped%s', model.name)
       continue
     }
@@ -71,7 +71,7 @@ async function modelRebuild (path, ...args) {
   for (const s of without(names, ...skipped)) {
     const model = this.getModel(s)
     const spin = this.print.spinner().start('addingFixture%s', model.name)
-    if (model.driver.memory) {
+    if (model.adapter.memory) {
       spin.warn('memoryDbSkipped%s', model.name)
       continue
     }

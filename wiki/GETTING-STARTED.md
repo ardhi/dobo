@@ -11,15 +11,15 @@ Here is some basic knowledge about Dobo you need to be familiar with:
 - There are two main groups of methods to be familiar with:
   - ```dobo.model{Action}``` methods manage everything related to model management, such as table creation or deletion.
   - ```dobo.record{Action}``` methods handle record manipulation.
-- A record in Bajo always needs to have an ID. The ID can be alphanumeric characters or an integer, and it is defined by the underlying driver used by the model.
+- A record in Bajo always needs to have an ID. The ID can be alphanumeric characters or an integer, and it is defined by the underlying adapter used by the model.
 
 For more info about Dobo, please [click here](https://ardhi.github.io/dobo).
 
 ### Installation
 
-As you might have guessed, Dobo and its drivers are normal Bajo plugins. Although [many drivers](https://github.com/ardhi/dobo/tutorials/drivers.md) exist, for this tutorial, we'll only use SQLite 3, which is provided by the dobo-knex driver.
+As you might have guessed, Dobo and its adapters are normal Bajo plugins. Although [many adapters](https://github.com/ardhi/dobo/tutorials/adapters.md) exist, for this tutorial, we'll only use SQLite 3, which is provided by the dobo-knex adapter.
 
-Now, please install the required plugins and SQLite drivers first:
+Now, please install the required plugins and SQLite adapters first:
 
 ```bash
 $ npm install dobo dobo-knex sqlite3

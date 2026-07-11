@@ -2,13 +2,13 @@
 
 ## 2026-06-29
 
-- [2.31.0] Add ```dobo.driver:{before|after}Any```
+- [2.31.0] Add ```dobo.adapter:{before|after}Any```
 
 ## 2026-06-24
 
 - [2.30.5] Bug fix in ```model.sanitizeBody()```
 - [2.30.5] Bug fix in ```model.sanitizeRecord()```
-- [2.30.6] Bug fix in ```driver.sanitizeRecord()```
+- [2.30.6] Bug fix in ```adapter.sanitizeRecord()```
 - [2.30.7] Bug fix in ```util.getRefs()```
 - [2.30.7] Bug fix in ```model.sanitizeBody()```
 - [2.30.7] Bug fix in ```model.sanitizeRecord()```
@@ -29,7 +29,7 @@
 
 - [2.30.0] Necessary updates to ```bajo@2.18.0``` specs
 - [2.30.0] Add ```sanitizeByType()```
-- [2.30.0] Add ```error._abortAction``` to abort an action in driver level
+- [2.30.0] Add ```error._abortAction``` to abort an action in adapter level
 - [2.30.0] Refactor ```model.sanitizeBody()``` to use shared sanitizing function
 - [2.30.1] Bug fix in ```model.sanitizeBody()```
 
@@ -73,9 +73,9 @@
 
 - [2.26.0] Add loading multiple model schema as in one ```model.js``` file
 - [2.26.0] Remove caching feature of model schema
-- [2.26.0] Change driver hook name with this syntax: ```dobo.driver:<action>```
+- [2.26.0] Change adapter hook name with this syntax: ```dobo.adapter:<action>```
 - [2.26.1] Bug fix in ```memory.js```
-- [2.26.2] Bug fix in ```driver.js```
+- [2.26.2] Bug fix in ```adapter.js```
 
 ## 2026-05-22
 
@@ -88,8 +88,8 @@
 ## 2026-05-16
 
 - [2.24.0] Change ```dobo:immutable``` feature, field no longer hidden
-- [2.24.0] Add ```dobo:[before|after]Driver<Action>``` hook
-- [2.24.0] Add ```dobo.<modelName>:[before|after]Driver<Action>``` hook
+- [2.24.0] Add ```dobo:[before|after]Adapter<Action>``` hook
+- [2.24.0] Add ```dobo.<modelName>:[before|after]Adapter<Action>``` hook
 - [2.24.0] Change ```model._simpleLookup()```
 - [2.24.0] Remove ```dobo:[before|after]Build[Query|Search]``` hook
 - [2.24.0] Change ```model.loadFixtures()```
@@ -102,11 +102,11 @@
 - [2.23.0] Add ```beforeBulkCreate``` model hook on ```dobo:unique``` feature
 - [2.23.0] Add ```beforeBulkCreate``` model hook on ```dobo:updatedAt``` feature
 - [2.23.0] Add ```beforeBulkCreate``` model hook on ```dobo:unique``` feature
-- [2.23.0] Add ```connection.initDriver()```
+- [2.23.0] Add ```connection.initAdapter()```
 - [2.23.0] Move ```model.file``` in model definition to ```model.options.file```
 - [2.23.0] Move ```model.attachment``` in model definition to ```model.options.attachment```
 - [2.23.0] Add ```model.buildStart()``` and ```model.buildEnd()``` in model definition
-- [2.23.0] Add ```null``` driver
+- [2.23.0] Add ```null``` adapter
 - [2.23.0] Add ```model.syncIdField()```
 - [2.23.0] Rename method to ```model.bulkCreateRecord``` instead ```bulkCreateRecords```. The later name now serve only as alias
 - [2.23.0] Remove ```getSingleRef()``` and ```getMultiRefs()```, use ```getRefs()``` instead
@@ -133,7 +133,7 @@
 ## 2026-04-28
 
 - [2.21.1] Bug fix in ```collect-models.js```
-- [2.21.1] Bug fix in ```driver._updateRecord()```
+- [2.21.1] Bug fix in ```adapter._updateRecord()```
 - [2.21.1] Bug fix in ```util.getMultiRef()```
 - [2.21.1] Bug fix in setting references
 - [2.21.1] Bug fix in ```model.sanitizeRecord()```
@@ -280,7 +280,7 @@
 ## 2026-03-05
 
 - [2.9.0] Add transaction support with ```model.transaction()``` wrapper
-- [2.9.0] Add property ```driver.support.transaction``` to indicate a driver is fully support transaction or not
+- [2.9.0] Add property ```adapter.support.transaction``` to indicate a adapter is fully support transaction or not
 - [2.9.0] Add property ```connection.options.connName```
 
 ## 2026-02-25
@@ -316,7 +316,7 @@
 
 ## 2026-02-05
 
-- [2.6.4] Bug fix in driver options, ```noCheckUnique``` must be perform in ```create```, ```update``` and ```upsert```
+- [2.6.4] Bug fix in adapter options, ```noCheckUnique``` must be perform in ```create```, ```update``` and ```upsert```
 
 ## 2026-02-03
 
@@ -329,19 +329,19 @@
 ## 2026-02-01
 
 - [2.6.0] Add ```model.scanables``` for fields that can participate in table scans if necessary
-- [2.6.0] Add ```driver.support.search``` for driver's fulltext search support
+- [2.6.0] Add ```adapter.support.search``` for adapter's fulltext search support
 - [2.6.0] Add model hooks ```before/afterBuildQuery/Search```
 
 ## 2026-01-30
 
 - [2.5.0] Add feature to push custom ```options._data```. If provided, this will be used instead of auto generated one.
 - [2.5.0] Remove ```silent``` in ```options``` object
-- [2.5.1] Driver now support ```this.useUtc``` for database that store values in UTC string
-- [2.5.1] Bug fix in ```driver.sanitizeRecord()```
+- [2.5.1] Adapter now support ```this.useUtc``` for database that store values in UTC string
+- [2.5.1] Bug fix in ```adapter.sanitizeRecord()```
 
 ## 2026-01-29
 
-- [2.4.0] Add ```bulkCreateRecord()``` on model & driver
+- [2.4.0] Add ```bulkCreateRecord()``` on model & adapter
 - [2.4.0] Add ```execModelHook()```
 - [2.4.0] Bug fix in models collection
 - [2.4.0] Add ```DoboAction``` to the ```app.baseClass```
@@ -369,7 +369,7 @@
 ## 2026-01-18
 
 - [2.2.2] Revert back to ```mingo@6.5.1``` because of bugs in ```skip``` operation
-- [2.2.3] Bug fix in driver's ```sanitizeBody()```
+- [2.2.3] Bug fix in adapter's ```sanitizeBody()```
 
 ## 2026-01-16
 
@@ -377,8 +377,8 @@
 
 ## 2026-01-11
 
-- [2.2.0] Any driver that support memory DB can now declare itself as in-memory DB and be handled as such
-- [2.2.0] ```driver.init()``` is removed, and driver should solely use ```driver.createClient()``` instead
+- [2.2.0] Any adapter that support memory DB can now declare itself as in-memory DB and be handled as such
+- [2.2.0] ```adapter.init()``` is removed, and adapter should solely use ```adapter.createClient()``` instead
 - [2.2.0] Bug fixes
 
 ## 2026-01-07
@@ -389,7 +389,7 @@
 ## 2025-12-28
 
 - [2.2.0] Add ```calcAggregate()``` & ```calcHistogram()``` for array of data objects
-- [2.2.0] Implement ```createAggregate()``` & ```createHistogram()``` to the built-in memory database driver
+- [2.2.0] Implement ```createAggregate()``` & ```createHistogram()``` to the built-in memory database adapter
 - [2.2.0] If no ```default``` connection found, all models automatically bound to ```memory``` connection
 
 ## 2025-12-22
@@ -407,7 +407,7 @@
 
 ## 2025-12-10
 
-- [2.2.0] Rewrite the whole thing into class based modules: Connection, Driver, Feature, Model. Dobo will solely serve as DB Manager in the future
+- [2.2.0] Rewrite the whole thing into class based modules: Connection, Adapter, Feature, Model. Dobo will solely serve as DB Manager in the future
 
 ## 2025-12-05
 - [2.2.0] Connection now saved in ```this.connections``` as ```Connection``` instance
@@ -417,5 +417,5 @@
 - [2.1.0] Upgrade joi to 18.0.2
 - [2.1.0] Upgrade mingo to 7.0.2
 - [2.1.0] Feature now saved in ```this.features``` as ```Feature``` instance
-- [2.1.0] Driver now saved in ```this.drivers``` as ```Driver``` instance
-- [2.1.0] Add ```this.getDriver()```. Accept short name or NsPath format
+- [2.1.0] Adapter now saved in ```this.adapters``` as ```Adapter``` instance
+- [2.1.0] Add ```this.getAdapter()```. Accept short name or NsPath format

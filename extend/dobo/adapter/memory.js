@@ -1,11 +1,11 @@
 import { Query } from 'mingo'
 
-async function memoryDriverFactory () {
-  const { DoboDriver } = this.app.baseClass
+async function memoryAdapterFactory () {
+  const { DoboAdapter } = this.app.baseClass
   const { findIndex, pullAt, omit, has } = this.app.lib._
   const { defaultsDeep } = this.app.lib.aneka
 
-  class DoboMemoryDriver extends DoboDriver {
+  class DoboMemoryAdapter extends DoboAdapter {
     constructor (plugin, name, options) {
       super(plugin, name, options)
       this.idGenerator = 'ulid'
@@ -165,8 +165,8 @@ async function memoryDriverFactory () {
     }
   }
 
-  this.app.baseClass.DoboMemoryDriver = DoboMemoryDriver
-  return DoboMemoryDriver
+  this.app.baseClass.DoboMemoryAdapter = DoboMemoryAdapter
+  return DoboMemoryAdapter
 }
 
-export default memoryDriverFactory
+export default memoryAdapterFactory

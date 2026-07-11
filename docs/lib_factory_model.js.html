@@ -1,0 +1,503 @@
+<!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source: lib/factory/model.js</title><!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="light"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Dobo API</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Dobo.html">Dobo</a></div><div class="sidebar-section-children"><a href="DoboAction.html">DoboAction</a></div><div class="sidebar-section-children"><a href="DoboAdapter.html">DoboAdapter</a></div><div class="sidebar-section-children"><a href="DoboConnection.html">DoboConnection</a></div><div class="sidebar-section-children"><a href="DoboFeature.html">DoboFeature</a></div><div class="sidebar-section-children"><a href="DoboModel.html">DoboModel</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-Helper.html">Helper</a></div><div class="sidebar-section-children"><a href="module-Helper_Model.html">Helper/Model</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-externals"><div>Externals</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="external-Tools.html">Tools</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#actionFactory">actionFactory</a></div><div class="sidebar-section-children"><a href="global.html#adapterFactory">adapterFactory</a></div><div class="sidebar-section-children"><a href="global.html#connectionFactory">connectionFactory</a></div><div class="sidebar-section-children"><a href="global.html#featureFactory">featureFactory</a></div><div class="sidebar-section-children"><a href="global.html#modelFactory">modelFactory</a></div><div class="sidebar-section-children"><a href="global.html#pluginFactory">pluginFactory</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/dobo" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/dobo" target="">Github</a></div><div class="navbar-item"><a id="" href="https://dobo.bajo.app/" target="">Dobo</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">lib_factory_model.js</h1></header><article><pre class="prettyprint source lang-js"><code>import { sanitizeAll, sanitizeRef } from '../helper.js'
+import clearRecord from './model/clear-record.js'
+import countRecord from './model/count-record.js'
+import createRecord from './model/create-record.js'
+import drop from './model/drop.js'
+import findAllRecord from './model/find-all-record.js'
+import findOneRecord from './model/find-one-record.js'
+import findRecord from './model/find-record.js'
+import getRecord from './model/get-record.js'
+import createHistogram from './model/create-histogram.js'
+import createAggregate from './model/create-aggregate.js'
+import exists from './model/exists.js'
+import build from './model/build.js'
+import loadFixtures from './model/load-fixtures.js'
+import removeRecord from './model/remove-record.js'
+import updateRecord from './model/update-record.js'
+import createAttachment from './model/create-attachment.js'
+import updateAttachment from './model/update-attachment.js'
+import getAttachment from './model/get-attachment.js'
+import removeAttachment from './model/remove-attachment.js'
+import findAttachment from './model/find-attachment.js'
+import sanitizeBody from './model/sanitize-body.js'
+import sanitizeRecord from './model/sanitize-record.js'
+import sanitizeFixture from './model/sanitize-fixture.js'
+import upsertRecord from './model/upsert-record.js'
+import bulkCreateRecord from './model/bulk-create-record.js'
+import listAttachment from './model/list-attachment.js'
+import transaction from './model/transaction.js'
+import validate from './model/validate.js'
+
+/**
+ * @typedef {Object} TOptions
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {boolean} [noHook=false] - If `true`, no model's hook will be executed
+ * @property {boolean} [noModelHook=false] - If `true`, no model's hook will be executed
+ * @property {boolean} [noDynHook=false] - If `true`, no dynamic hook will be executed
+ * @property {boolean} [noValidation=false] - If `true`, no validation of data payload performed
+ * @property {boolean} [noCheckUnique=false] - If `true`, no unique validation for ID performed
+ * @property {boolean} [noBodySanitizer=false] - If `true`, accept data payload as is without sanitization
+ * @property {boolean} [noRecordSanitizer=false] - If `true`, accept result payload as is without sanitization
+ * @property {boolean} [noResult=false] - If `true`, returns nothing
+ * @property {boolean} [truncateString=true] - If `true` (default), string is truncated to its model's `maxLength`
+ * @property {boolean} [partial] - If `true`, only updated values are saved. Otherwise replace all existing values with given payload. Defaults to `true` for `updateRecord`
+ * @property {boolean} [dataOnly=true] - If `true` (default) returns only record's object. Otherwise {@link DoboModel.TResult}
+ */
+
+/**
+ * Sort order key used in pagination and sorting of records. It can be either:
+ * - `1` for ascending order (the default, if none is provided) or
+ * - `-1` for descending order.
+ * @typedef {string} TSortOrder
+ * @memberof DoboModel
+ */
+
+/**
+ * Key value pairs used as sort order in pagination and sorting of records. It is an object where:
+ * - Key represents model's field name
+ * - Value represents its sort order
+ *
+ * @typedef {Object.&lt;string, DoboModel.TSortOrder>} TSort
+ * @memberof DoboModel
+ * @example
+ * // to sort by firstName (ascending) and lastName (descending)
+ * const sort = {
+ *   firstName: 1,
+ *   lastName: -1
+ * }
+ */
+
+/**
+ * @typedef {Object} TPagination
+ * @memberof DoboModel
+ * @property {number} limit - Number of records per page
+ * @property {number} page - Page number
+ * @property {number} [skip] - Records to skip. If not provided, it will be calculated based on `limit` and `page`
+ */
+
+/**
+ * Property value type definition. Used for building property `values` in a model which is an array of this object type.
+ * @typedef TPropertyValue
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {string} value - The actual value of the property
+ * @property {string} text - The display text for the property value, which can be translated based on the request context
+ */
+
+/**
+ * Formatted version of a record's property values. It is an object where:
+ * - Key represents the property name
+ * - Value represents its formatted value according to the property's data type or formatting function. Data type is ALWAYS in string.
+ *
+ * This record is then wrapped in a `_fmt` property.
+ * @typedef TRecordFormatted
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {Object} [_fmt={}] - Wrapper
+ * @example
+ * {
+ *   _fmt: {
+ *     id: "1",
+ *     item: "Laptop",
+ *     createdAt: "Jan 1, 2024, 12:00 AM",
+ *     isActive: "True",
+ *     price: "2,500.00"
+ *   }
+ * }
+ */
+
+/**
+ * Reference record related to a record's result. It is an object where:
+ * - Key represents the name of the referenced record. Normally, it is the referenced model's name in camelCase format.
+ * - Value represents its reference record. It can be an object or an array of objects, depending on the relationship type.
+ *
+ * This record is then wrapped in a `_ref` property in the result object.
+ * @typedef TRecordRef
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {Object} [_ref={}] - Wrapper
+ * @property {Object|Array} [_ref.&lt;string>.&lt;DoboModel.TRecord>] - Reference record
+ * @example
+ * {
+ *   _ref: {
+ *     user: {
+ *       id: 1,
+ *       name: "John Doe"
+ *     },
+ *     posts: [
+ *       {
+ *         id: 1,
+ *         title: "Post Title"
+ *       },
+ *       {
+ *         id: 2,
+ *         title: "Another Post Title"
+ *       }
+ *     ]
+ *   }
+ * }
+ */
+
+/**
+ * The record returned from a model's action. It is an object where:
+ * - Key represents the property name
+ * - Value represents its value according to the property's data type
+ *
+ * This record is then merged with {@link DoboModel.TRecordFormatted} and {@link DoboModel.TRecordRef} to form the final record returned from a model's action.
+ * @typedef TRecord
+ * @memberof DoboModel
+ * @type {Object &amp; DoboModel.TRecordFormatted &amp; DoboModel.TRecordRef}
+ * @example
+ * {
+ *   id: 1,
+ *   item: "Laptop",
+ *   createdAt: "2024-01-01T00:00:00.000Z",
+ *   isActive: true,
+ *   price: 2500.00,
+ *   _fmt: {
+ *     id: "1",
+ *     item: "Laptop",
+ *     createdAt: "Jan 1, 2024, 12:00 AM",
+ *     isActive: "True",
+ *     price: "2,500.00"
+ *   },
+ *   _ref: {
+ *     user: {
+ *       id: 1,
+ *       name: "John Doe"
+ *     }
+ *   }
+ * }
+ */
+
+/**
+ * The result returned from a model's action other than `find*`, `{create|update|remove}Record` if `dataOnly` is set to `false`.
+ * @typedef TResultRecord
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {Array&lt;DoboModel.TRecord>} data - The data returned from the action
+ */
+
+/**
+ * The result returned from a model's `find*` actions if `dataOnly` is set to `false`.
+ * @typedef TResultFindRecord
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {Array&lt;DoboModel.TRecord>} data - The data returned from the action
+ * @property {number} [count] - The total number of records found, if applicable
+ * @property {boolean} [cached] - Indicates if the result was retrieved from cache, if applicable. Only available if `bajoCache` is used
+ * @property {Array} [warnings] - Any warnings generated during the action, if applicable
+ */
+
+/**
+ * The result returned from a model's `getRecord` action if `dataOnly` is set to `false`.
+ * @typedef TResultGetRecord
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {DoboModel.TRecord} data - The data returned from the action
+ */
+
+/**
+ * The result returned from a model's `createRecord` action if `dataOnly` is set to `false`.
+ * @typedef TResultCreateRecord
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {DoboModel.TRecord} data - The data returned from the action
+ */
+
+/**
+ * The result returned from a model's `updateRecord` action if `dataOnly` is set to `false`.
+ * @typedef TResultUpdateRecord
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {DoboModel.TRecord} data - The updated data returned from the action
+ * @property {DoboModel.TRecord} oldData - The previous data before the update
+ */
+
+/**
+ * The result returned from a model's `removeRecord` action if `dataOnly` is set to `false`.
+ * @typedef TResultRemoveRecord
+ * @memberof DoboModel
+ * @type {Object}
+ * @property {DoboModel.TRecord} oldData - The removed data returned from the action
+ */
+
+/**
+ * Model factory.
+ *
+ * @async
+ * @returns {Promise&lt;void>} Returns nothing
+ */
+async function modelFactory () {
+  const { Tools } = this.app.baseClass
+  const { defaults } = this.app.lib._
+
+  /**
+   * Model class defintion.
+   *
+   * @class
+   */
+  class DoboModel extends Tools {
+    /**
+     * Constructor
+     */
+    constructor (plugin, options) {
+      super(plugin)
+
+      defaults(this, options)
+
+      /**
+       * Model's adapter name
+       * @type {string}
+       */
+      this.adapter = this.connection.adapter
+    }
+
+    /**
+     * Invoke a model's action. It will create a new instance of {@link DoboAction} and return it.
+     * @method
+     * @memberof DoboModel
+     * @param {string} name - The name of the action to invoke
+     * @param  {...any} args - Arguments to pass to the action
+     * @returns {DoboAction} Returns an instance of {@link DoboAction}
+     */
+    action = (name, ...args) => {
+      const action = new this.app.baseClass.DoboAction(this, name, ...args)
+      return action
+    }
+
+    sanitizeObjectDef = async (obj) => {
+      await sanitizeAll.call(this.app.dobo, obj)
+    }
+
+    /**
+     * Sanitize a reference object based on the model's properties and rules.
+     * @method
+     * @memberof DoboModel
+     * @async
+     * @param {*} obj - The reference object to sanitize
+     * @param {boolean} [fatal=true] - Whether to throw an error if sanitization fails
+     */
+    sanitizeRef = async (obj, fatal = true) => {
+      await sanitizeRef.call(this.app.dobo, obj, this.app.dobo.models, fatal)
+    }
+
+    /**
+     * Sanitize the given ID based on the model's properties.
+     * @method
+     * @memberof DoboModel
+     * @param {string|number} id - The ID to sanitize
+     * @returns {string|number} Returns the sanitized ID
+     */
+    sanitizeId = (id) => {
+      const prop = this.properties.find(p => p.name === 'id')
+      if (prop.type === 'integer') id = parseInt(id)
+      return id
+    }
+
+    /**
+     * Get a property by its name.
+     * @method
+     * @memberof DoboModel
+     * @param {string} name - The name of the property to retrieve
+     * @returns {Object|null} Returns the property object if found, otherwise `undefined`
+     */
+    getProperty = (name) => {
+      return this.properties.find(prop => prop.name === name)
+    }
+
+    /**
+     * Get the model's properties based on the given options.
+     * @method
+     * @memberof DoboModel
+     * @param {Object} [options={}] - Options object
+     * @param {boolean} [options.noVirtual=false] - If `true`, exclude virtual properties
+     * @param {boolean} [options.namesOnly=false] - If `true`, return only property names instead of full property objects
+     * @returns {Array&lt;object|string>} Returns an array of properties or property names based on the options
+     */
+    getProperties = (options = {}) => {
+      const { noVirtual, namesOnly } = options
+      const items = noVirtual ? this.properties.filter(prop => !prop.virtual) : this.properties
+      return namesOnly ? items.map(item => item.name) : items
+    }
+
+    /**
+     * Get the model's virtual properties.
+     * @method
+     * @memberof DoboModel
+     * @param {boolean} [namesOnly=false] - If `true`, return only property names instead of full property objects
+     * @returns {Array&lt;object|string>} Returns an array of virtual properties or property names based on the `namesOnly` option
+     */
+    getVirtualProperties = (namesOnly) => {
+      const items = this.properties.filter(prop => prop.virtual)
+      return namesOnly ? items.map(item => item.name) : items
+    }
+
+    /**
+     * Get the model's non-virtual properties.
+     * @method
+     * @memberof DoboModel
+     * @param {boolean} [namesOnly=false] - If `true`, return only property names instead of full property objects
+     * @returns {Array&lt;object|string>} Returns an array of non-virtual properties or property names based on the `namesOnly` option
+     */
+    getNonVirtualProperties = (namesOnly) => {
+      const items = this.properties.filter(prop => !prop.virtual)
+      return namesOnly ? items.map(item => item.name) : items
+    }
+
+    /**
+     * Returns the model's indexes.
+     * @method
+     * @memberof DoboModel
+     * @returns {Array&lt;object>} Returns an array of index objects defined in the model
+     */
+    getIndexes = () => {
+      return this.indexes
+    }
+
+    /**
+     * Checks if the model has a property with the given name.
+     * @method
+     * @memberof DoboModel
+     * @param {string} name - The name of the property to check
+     * @returns {boolean} Returns `true` if the property exists, otherwise `false`
+     */
+    hasProperty = (name) => {
+      return !!this.getProperty(name)
+    }
+
+    syncIdField = (idField) => {
+      const { cloneDeep, findIndex } = this.app.lib._
+      if (!this.adapter) return
+      if (!idField) idField = cloneDeep(this.adapter.idField)
+      const idx = findIndex(this.properties, { name: 'id' })
+      if (idx === -1) return
+      this.properties.splice(idx, 1)
+      this.properties.unshift(idField)
+    }
+
+    /**
+     * Internal method to perform a simple lookup based on the provided value and lookupValue.
+     * @method
+     * @internal
+     * @memberof DoboModel
+     * @async
+     * @param {string|object|Array} value - The value to look up
+     * @param {object} lookupValue - The lookup values to replace in the query
+     * @param {object} [options={}] - Additional options for the lookup
+     * @returns {*|null|undefined} Returns the result of the lookup or `null` if not found or `undefined` if the value is not a string, object, or array
+     */
+    _simpleLookup = async (value, lookupValue, options = {}) => {
+      const { get, isEmpty, isString, isPlainObject, isArray } = this.app.lib._
+      let model
+      let field
+      let query
+      if (isString(value)) {
+        [model, field, ...query] = value.split(':')
+        query = query.join(':')
+      } else if (isPlainObject(value)) ({ model, field, query } = value)
+      else if (isArray(value)) [model, field, query] = value
+      else return
+      for (const key in lookupValue) {
+        query = query.replaceAll(`{${key}}`, lookupValue[key])
+      }
+      if (isEmpty(field)) field = 'id'
+      const { getModel } = this.app.dobo
+      const ref = getModel(model)
+      const opts = { ...options, noCache: true, noMagic: true }
+      opts.dataOnly = true
+      const rec = await ref.findOneRecord({ query }, opts)
+      return get(rec, field, null)
+    }
+
+    /**
+     * Builds the values for a given property if `prop.values` is set:
+     * - If a string, it will be treated as a handler and executed to get the values.
+     * - If a function, it will be executed to get the values.
+     * - If an array, it will be used as is.
+     *
+     * Values are returned as an array of {@link DoboModel.TPropertyValues}.
+     * If a request object is provided in the options, the `text` will be translated using
+     * the request's translation function.
+     * @async
+     * @method
+     * @memberof DoboModel
+     * @param {object} prop - The property definition
+     * @param {DoboModel.TOptions} opts - Additional options for building the property values
+     * @returns {Array&lt;DoboModel.TPropertyValue>} Returns an array of property values
+     */
+    buildPropValues = async (prop, opts) => {
+      const { isString, camelCase, isFunction } = this.app.lib._
+      const { callHandler } = this.app.bajo
+      const values = isString(prop.values) || isFunction(prop.values) ? await callHandler(this, prop.values, opts) : [...prop.values]
+      return values.map(v => {
+        if (isString(v)) v = { value: v, text: v }
+        if (opts.req) {
+          const key = camelCase(`${prop.name} ${v.text}`)
+          if (opts.req.te(key)) v.text = opts.req.t(key)
+        }
+        return v
+      })
+    }
+
+    build = build
+    exists = exists
+    drop = drop
+
+    createRecord = createRecord
+    getRecord = getRecord
+    updateRecord = updateRecord
+    upsertRecord = upsertRecord
+    removeRecord = removeRecord
+    clearRecord = clearRecord
+    findRecord = findRecord
+    findOneRecord = findOneRecord
+    findAllRecord = findAllRecord
+
+    transaction = transaction
+    bulkCreateRecord = bulkCreateRecord
+
+    createAggregate = createAggregate
+    createHistogram = createHistogram
+    countRecord = countRecord
+
+    createAttachment = createAttachment
+    getAttachment = getAttachment
+    updateAttachment = updateAttachment
+    removeAttachment = removeAttachment
+    findAttachment = findAttachment
+    listAttachment = listAttachment
+
+    loadFixtures = loadFixtures
+    sanitizeRecord = sanitizeRecord
+    sanitizeBody = sanitizeBody
+    sanitizeFixture = sanitizeFixture
+    validate = validate
+
+    // aliases
+    deleteRecord = removeRecord
+    clearRecords = clearRecord
+    countRecords = countRecord
+    findRecords = findRecord
+    findAllRecords = findAllRecord
+    listAttachments = listAttachment
+    bulkCreateRecords = bulkCreateRecord
+
+    getField = (name) => this.getProperty(name)
+    hasField = (name) => this.hasProperty(name)
+
+    dispose = async () => {
+      await super.dispose()
+      this.connection = null
+      this.adapter = null
+    }
+  }
+
+  this.app.baseClass.DoboModel = DoboModel
+}
+
+export default modelFactory
+</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Dobo API</a><div class="mobile-nav-links"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/dobo" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/dobo" target="">Github</a></div><div class="navbar-item"><a id="" href="https://dobo.bajo.app/" target="">Dobo</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Dobo.html">Dobo</a></div><div class="sidebar-section-children"><a href="DoboAction.html">DoboAction</a></div><div class="sidebar-section-children"><a href="DoboAdapter.html">DoboAdapter</a></div><div class="sidebar-section-children"><a href="DoboConnection.html">DoboConnection</a></div><div class="sidebar-section-children"><a href="DoboFeature.html">DoboFeature</a></div><div class="sidebar-section-children"><a href="DoboModel.html">DoboModel</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-Helper.html">Helper</a></div><div class="sidebar-section-children"><a href="module-Helper_Model.html">Helper/Model</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-externals"><div>Externals</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="external-Tools.html">Tools</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#actionFactory">actionFactory</a></div><div class="sidebar-section-children"><a href="global.html#adapterFactory">adapterFactory</a></div><div class="sidebar-section-children"><a href="global.html#connectionFactory">connectionFactory</a></div><div class="sidebar-section-children"><a href="global.html#featureFactory">featureFactory</a></div><div class="sidebar-section-children"><a href="global.html#modelFactory">modelFactory</a></div><div class="sidebar-section-children"><a href="global.html#pluginFactory">pluginFactory</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>

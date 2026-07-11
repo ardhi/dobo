@@ -1,11 +1,11 @@
 import nql from '@tryghost/nql'
-import collectConnections from './lib/collect-connections.js'
-import collectDrivers from './lib/collect-drivers.js'
-import collectFeatures from './lib/collect-features.js'
-import collectModels from './lib/collect-models.js'
+import {
+  collectConnections, collectAdapters, collectFeatures, collectModels
+} from './lib/helper.js'
 
 /**
  * @typedef {Object} TPropertyType
+ * @memberof DoboModel
  * @property {Object} integer
  * @property {string} [integer.validator=number]
  * @property {Object} smallint
@@ -87,6 +87,9 @@ const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', '
 /**
  * Plugin factory
  *
+ * @name pluginFactory
+ * @async
+ * @method
  * @param {string} pkgName - NPM package name
  * @returns {class}
  */
@@ -99,7 +102,7 @@ async function factory (pkgName) {
   /**
    * Dobo Database Framework for {@link https://github.com/ardhi/bajo|Bajo}.
    *
-   * See {@tutorial ecosystem} for available drivers & tools
+   * See {@tutorial ecosystem} for available adapters & tools
    *
    * @class
    */
@@ -174,7 +177,7 @@ async function factory (pkgName) {
       /**
        * @type {Object[]}
        */
-      this.drivers = []
+      this.adapters = []
 
       /**
        * @type {Object[]}
@@ -213,19 +216,19 @@ async function factory (pkgName) {
      * @returns {string[]}
      */
 
-    getAllPropertyKeys = (driver) => {
+    getAllPropertyKeys = (adapter) => {
       const { uniq, isEmpty } = this.app.lib._
       const keys = [...commonPropertyTypes]
       for (const type in propertyType) {
         keys.push(...Object.keys(propertyType[type]))
       }
-      if (driver && !isEmpty(driver.constructor.propertyKeys)) keys.push(...driver.constructor.propertyKeys)
+      if (adapter && !isEmpty(adapter.constructor.propertyKeys)) keys.push(...adapter.constructor.propertyKeys)
       return uniq(keys)
     }
 
     /**
      * Initialize plugin and performing the following tasks:
-     * - {@link module:Lib.collectDrivers|Collecting all drivers}
+     * - {@link module:Lib.collectAdapters|Collecting all adapters}
      * - {@link module:Lib.collectConnections|Collecting all connections}
      * - {@link module:Lib.collectFeatures|Collecting all features}
      * - {@link module:Lib.collectModels|Collecting all models}
@@ -234,7 +237,7 @@ async function factory (pkgName) {
      */
     init = async () => {
       const { fs } = this.app.lib
-      await collectDrivers.call(this)
+      await collectAdapters.call(this)
       await collectConnections.call(this)
       await collectFeatures.call(this)
       await collectModels.call(this)
@@ -257,7 +260,7 @@ async function factory (pkgName) {
       this.log.debug('dbInit')
       for (const connection of conns) {
         await connection.connect(noRebuild)
-        this.log.trace('dbInit%s%s%s', connection.driver.plugin.ns, connection.driver.name, connection.name)
+        this.log.trace('dbInit%s%s%s', connection.adapter.plugin.ns, connection.adapter.name, connection.name)
       }
     }
 
@@ -266,7 +269,7 @@ async function factory (pkgName) {
      *
      * @param {string} name - Connection name
      * @param {boolean} [silent] - If ```true``` and connection is not found, it won't throw error
-     * @returns {Driver} Return connection instance or ```undefined``` if silent is ```true```
+     * @returns {Adapter} Return connection instance or ```undefined``` if silent is ```true```
      */
     getConnection = (name, silent) => {
       const conn = find(this.connections, { name })
@@ -275,35 +278,35 @@ async function factory (pkgName) {
     }
 
     /**
-     * Get driver by name. It returns the first driver named after "{name}"
+     * Get adapter by name. It returns the first adapter named after "{name}"
      *
-     * Also support NsPath format for those who load the same named driver but from different provider/plugin.
+     * Also support NsPath format for those who load the same named adapter but from different provider/plugin.
      *
-     * @param {string} name - Driver name
-     * @param {boolean} [silent] - If ```true``` and driver is not found, it won't throw error
-     * @returns {Driver} Returns driver instance or ```undefined``` if silent is ```true```
+     * @param {string} name - Adapter name
+     * @param {boolean} [silent] - If ```true``` and adapter is not found, it won't throw error
+     * @returns {Adapter} Returns adapter instance or ```undefined``` if silent is ```true```
      */
-    getDriver = (name, silent) => {
+    getAdapter = (name, silent) => {
       const { breakNsPath } = this.app.bajo
-      let driver
+      let adapter
       if (!name.includes(':')) {
-        driver = find(this.drivers, { name })
-        if (driver) return driver
-        driver = filter(this.drivers, d => d.plugin.ns === name)
-        if (driver.length === 1) return driver[0]
-        if (!silent) throw this.error('unknown%s%s', this.t('driver'), name)
+        adapter = find(this.adapters, { name })
+        if (adapter) return adapter
+        adapter = filter(this.adapters, d => d.plugin.ns === name)
+        if (adapter.length === 1) return adapter[0]
+        if (!silent) throw this.error('unknown%s%s', this.t('adapter'), name)
         return
       }
       const { ns, path } = breakNsPath(name)
-      driver = find(this.drivers, d => d.name === path && d.plugin.ns === ns)
-      if (!driver && !silent) throw this.error('unknown%s%s', this.t('driver'), name)
-      return driver
+      adapter = find(this.adapters, d => d.name === path && d.plugin.ns === ns)
+      if (!adapter && !silent) throw this.error('unknown%s%s', this.t('adapter'), name)
+      return adapter
     }
 
     /**
-     * Get feature by name. It returns the first driver named after "{name}"
+     * Get feature by name. It returns the first adapter named after "{name}"
      *
-     * Also support NsPath format for those who load the same named driver but from different provider/plugin.
+     * Also support NsPath format for those who load the same named adapter but from different provider/plugin.
      *
      * @param {string} - Feature name
      * @returns {Feature} Return feature instance
@@ -591,7 +594,7 @@ async function factory (pkgName) {
         }
       }
       let strQ = this.replaceRegexInJson(result)
-      if (model && model.driver.idField.name !== 'id') strQ = strQ.replaceAll('"id"', `"${model.driver.idField.name}"`)
+      if (model && model.adapter.idField.name !== 'id') strQ = strQ.replaceAll('"id"', `"${model.adapter.idField.name}"`)
       try {
         result = this.reviveRegexInJson(strQ)
       } catch (err) {}

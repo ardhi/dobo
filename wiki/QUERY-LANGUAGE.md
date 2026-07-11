@@ -5,7 +5,7 @@ Since *dobo* use [Ghost QL](https://github.com/TryGhost/NQL) for its query langu
 - [NQL](https://github.com/TryGhost/NQL/tree/main/packages/nql)
 - [Mongo QL](https://www.mongodb.com/docs/manual/tutorial/query-documents/)
 
-Any NQL statements will be converted to MongoDB-like QL object first, this then passed down to the database's native QL provided by its driver.
+Any NQL statements will be converted to MongoDB-like QL object first, this then passed down to the database's native QL provided by its adapter.
 
 Examples from [NQL test suite](https://github.com/TryGhost/NQL/blob/main/packages/nql-lang/test/parser.test.js):
 

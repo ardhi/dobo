@@ -1,15 +1,15 @@
 # Ecosystem
 
-## Drivers
+## Adapters
 
 | Package | Docs | NS | Alias | Description |
 | ------- | ---- | -- | ----- | ----------- |
-| [dobo-couchdb](https://github.com/ardhi/dobo-couchdb) | [Docs](https://ardhi.github.io/dobo-couchdb) | doboCouchdb | dbcouch | CouchDB Driver |
-| [dobo-elasticsearch](https://github.com/ardhi/dobo-elasticsearch) | [Docs](https://ardhi.github.io/dobo-elasticsearch) | doboElasticsearch | dbes | Elasticsearch Driver |
-| [dobo-knex](https://github.com/ardhi/dobo-knex) | [Docs](https://ardhi.github.io/dobo-knex) | doboKnex | dbknex | Knex/SQL Driver |
-| [dobo-mongodb](https://github.com/ardhi/dobo-mongodb) | [Docs](https://ardhi.github.io/dobo-mongodb) | doboMongodb | dbmongo | MongoDB Driver |
-| [dobo-redis](https://github.com/ardhi/dobo-redis) | [Docs](https://ardhi.github.io/dobo-redis) | doboRedis | dbredis | Redis Driver |
-| [dobo-restproxy](https://github.com/ardhi/dobo-restproxy) | [Docs](https://ardhi.github.io/dobo-restproxy) | doboRestproxy | dbrpx | Restproxy Driver |
+| [dobo-couchdb](https://github.com/ardhi/dobo-couchdb) | [Docs](https://ardhi.github.io/dobo-couchdb) | doboCouchdb | dbcouch | CouchDB Adapter |
+| [dobo-elasticsearch](https://github.com/ardhi/dobo-elasticsearch) | [Docs](https://ardhi.github.io/dobo-elasticsearch) | doboElasticsearch | dbes | Elasticsearch Adapter |
+| [dobo-knex](https://github.com/ardhi/dobo-knex) | [Docs](https://ardhi.github.io/dobo-knex) | doboKnex | dbknex | Knex/SQL Adapter |
+| [dobo-mongodb](https://github.com/ardhi/dobo-mongodb) | [Docs](https://ardhi.github.io/dobo-mongodb) | doboMongodb | dbmongo | MongoDB Adapter |
+| [dobo-redis](https://github.com/ardhi/dobo-redis) | [Docs](https://ardhi.github.io/dobo-redis) | doboRedis | dbredis | Redis Adapter |
+| [dobo-restproxy](https://github.com/ardhi/dobo-restproxy) | [Docs](https://ardhi.github.io/dobo-restproxy) | doboRestproxy | dbrpx | Restproxy Adapter |
 | [dobo-restproxy-jsonserver](https://github.com/ardhi/dobo-restproxy-jsonserver) | [Docs](https://ardhi.github.io/dobo-restproxy-jsonserver) | doboResporoxyJsonserver | dbrpxjs |JsonServer Support for doboRestproxy |
 | [dobo-restproxy-ndut](https://github.com/ardhi/dobo-restproxy-ndut) | [Docs](https://ardhi.github.io/dobo-restproxy-ndut) | doboRestproxyNdut | dbrpxndut | NDUT Support for doboRestproxy |
 

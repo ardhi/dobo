@@ -60,7 +60,7 @@ async function removedAt (opts = {}) {
       handler: async function (id, options) {
         const { set } = this.app.lib._
         const body = set({}, opts.field, new Date())
-        const record = await this.driver.recordUpdate(this, id, body, { noResult: false })
+        const record = await this.adapter.recordUpdate(this, id, body, { noResult: false })
         options.record = { oldData: record.oldData }
       }
     }]

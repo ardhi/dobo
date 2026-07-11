@@ -1,44 +1,13 @@
 <!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source: index.js</title><!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="light"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Dobo API</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Dobo.html">Dobo</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-Lib.html">Lib</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#TPropType">TPropType</a></div><div class="sidebar-section-children"><a href="global.html#TRecordCountOptions">TRecordCountOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordCreateOptions">TRecordCreateOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordFilter">TRecordFilter</a></div><div class="sidebar-section-children"><a href="global.html#TRecordFindOptions">TRecordFindOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordFindResult">TRecordFindResult</a></div><div class="sidebar-section-children"><a href="global.html#TRecordGetOptions">TRecordGetOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordGetResult">TRecordGetResult</a></div><div class="sidebar-section-children"><a href="global.html#TRecordPagination">TRecordPagination</a></div><div class="sidebar-section-children"><a href="global.html#TRecordRemoveOptions">TRecordRemoveOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordSort">TRecordSort</a></div><div class="sidebar-section-children"><a href="global.html#TRecordSortKey">TRecordSortKey</a></div><div class="sidebar-section-children"><a href="global.html#TRecordUpdateOptions">TRecordUpdateOptions</a></div><div class="sidebar-section-children"><a href="global.html#TValidator">TValidator</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorBoolean">TValidatorBoolean</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorDate">TValidatorDate</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorNumber">TValidatorNumber</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorString">TValidatorString</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorTimestamp">TValidatorTimestamp</a></div><div class="sidebar-section-children"><a href="global.html#factory">factory</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/dobo" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/dobo" target="">Github</a></div><div class="navbar-item"><a id="" href="https://dobo.bajo.app/" target="">Dobo</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">index.js</h1></header><article><pre class="prettyprint source lang-js"><code>import collectConnections from './lib/collect-connections.js'
-import collectDrivers from './lib/collect-drivers.js'
-import collectFeatures from './lib/collect-features.js'
-import collectSchemas from './lib/collect-schemas.js'
-import memDbStart from './lib/mem-db/start.js'
-import memDbInstantiate from './lib/mem-db/instantiate.js'
-import nql from '@tryghost/nql'
-import path from 'path'
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="";baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body data-theme="light"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Dobo API</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Dobo.html">Dobo</a></div><div class="sidebar-section-children"><a href="DoboAction.html">DoboAction</a></div><div class="sidebar-section-children"><a href="DoboAdapter.html">DoboAdapter</a></div><div class="sidebar-section-children"><a href="DoboConnection.html">DoboConnection</a></div><div class="sidebar-section-children"><a href="DoboFeature.html">DoboFeature</a></div><div class="sidebar-section-children"><a href="DoboModel.html">DoboModel</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-Helper.html">Helper</a></div><div class="sidebar-section-children"><a href="module-Helper_Model.html">Helper/Model</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-externals"><div>Externals</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="external-Tools.html">Tools</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#actionFactory">actionFactory</a></div><div class="sidebar-section-children"><a href="global.html#adapterFactory">adapterFactory</a></div><div class="sidebar-section-children"><a href="global.html#connectionFactory">connectionFactory</a></div><div class="sidebar-section-children"><a href="global.html#featureFactory">featureFactory</a></div><div class="sidebar-section-children"><a href="global.html#modelFactory">modelFactory</a></div><div class="sidebar-section-children"><a href="global.html#pluginFactory">pluginFactory</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/dobo" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/dobo" target="">Github</a></div><div class="navbar-item"><a id="" href="https://dobo.bajo.app/" target="">Dobo</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">index.js</h1></header><article><pre class="prettyprint source lang-js"><code>import nql from '@tryghost/nql'
+import {
+  collectConnections, collectAdapters, collectFeatures, collectModels
+} from './lib/helper.js'
 
 /**
- * @typedef {string} TRecordSortKey
- */
-
-/**
- * Key value pairs used as sort information:
- * - Key represent model's field name
- * - value represent its sort order: ```1``` for ascending order, and ```-1``` for descending order
- *
- * Example: to sort by firstName (ascending) and lastName (descending)
- * ```javascript
- * const sort = {
- *   firstName: 1,
- *   lastName: -1
- * }
- * ```
- *
- * @typedef {Object.&lt;string, TRecordSortKey>} TRecordSort
- */
-
-/**
- * @typedef {Object} TRecordPagination
- * @property {number} limit - Number of records per page
- * @property {number} page - Page number
- * @property {number} skip - Records to skip
- * @property {TRecordSort} sort - Sort order
- */
-
-/**
- * @typedef {Object} TPropType
+ * @typedef {Object} TPropertyType
+ * @memberof DoboModel
  * @property {Object} integer
  * @property {string} [integer.validator=number]
  * @property {Object} smallint
@@ -68,83 +37,111 @@ import path from 'path'
  * @property {Object} object={}
  * @property {Object} array={}
  */
-const propType = {
+const propertyType = {
   integer: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   smallint: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   text: {
     validator: 'string',
     textType: 'text',
-    values: ['text', 'mediumtext', 'longtext']
+    // values: ['text', 'mediumtext', 'longtext'], TODO: should check against textType, NOT value
+    rules: []
   },
   string: {
     validator: 'string',
-    maxLength: 255,
-    minLength: 0
+    maxLength: 50,
+    minLength: 0,
+    rules: []
   },
   float: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   double: {
-    validator: 'number'
+    validator: 'number',
+    rules: []
   },
   boolean: {
-    validator: 'boolean'
-  },
-  date: {
-    validator: 'date'
+    validator: 'boolean',
+    rules: []
   },
   datetime: {
-    validator: 'date'
+    validator: 'date',
+    rules: []
   },
-  time: {
-    validator: 'date'
+  object: {
+    validator: 'object',
+    rules: []
   },
-  timestamp: {
-    validator: 'timestamp'
-  },
-  object: {},
-  array: {}
+  array: {
+    validator: 'array',
+    rules: []
+  }
 }
+
+const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default', 'values', 'rulesMsg', 'immutable', 'feature', 'format', 'getValue', 'virtual']
 
 /**
  * Plugin factory
  *
+ * @name pluginFactory
+ * @async
+ * @method
  * @param {string} pkgName - NPM package name
  * @returns {class}
  */
 async function factory (pkgName) {
   const me = this
+  const { breakNsPath } = this.app.bajo
+
+  const { find, filter, isString, map, pick, groupBy, isEmpty } = this.app.lib._
 
   /**
    * Dobo Database Framework for {@link https://github.com/ardhi/bajo|Bajo}.
    *
-   * See {@tutorial ecosystem} for available drivers &amp; tools
+   * See {@tutorial ecosystem} for available adapters &amp; tools
    *
    * @class
    */
-  class Dobo extends this.app.pluginClass.base {
-    /**
-     * @constant {string}
-     * @memberof Dobo
-     * @default 'db'
-     */
-    static alias = 'db'
-
+  class Dobo extends this.app.baseClass.Base {
     /**
      * @constant {string[]}
      * @memberof Dobo
      * @default ['count', 'avg', 'min', 'max', 'sum']
      */
     static aggregateTypes = ['count', 'avg', 'min', 'max', 'sum']
+
     /**
-     * @constant {TPropType}
+     * @constant {string[]}
+     * @memberof Dobo
+     * @default ['string', 'integer', 'smallint']
+     */
+    static idTypes = ['string', 'integer', 'smallint']
+
+    /**
+     * @constant {string[]}
+     * @memberof Dobo
+     * @default ['daily', 'monthly', 'annually']
+     */
+    static histogramTypes = ['daily', 'monthly', 'yearly']
+
+    /**
+     * @constant {TPropertyType}
      * @memberof Dobo
      */
-    static propType = propType
+    static propertyType = propertyType
+
+    /**
+     * @constant {string[]}
+     * @memberof Dobo
+     * @default ['index', 'unique', 'primary', 'fulltext']
+     */
+    static indexTypes = ['index', 'unique', 'primary', 'fulltext']
 
     constructor () {
       super(pkgName, me.app)
@@ -156,32 +153,23 @@ async function factory (pkgName) {
           allowUnknown: true
         },
         default: {
-          property: {
-            text: {
-              textType: 'text'
-            },
-            string: {
-              length: 50
-            }
-          },
           filter: {
-            limit: 25,
-            maxLimit: 200,
-            hardLimit: 10000,
-            sort: ['dt:-1', 'updatedAt:-1', 'updated_at:-1', 'createdAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
+            limit: 25, // num of records per page
+            maxLimit: 200, // max num of records per page
+            maxPage: 400, // max allowed page number
+            sort: ['dt:-1', 'updatedAt:-1', 'createdAt:-1', 'ts:-1', 'username', 'name']
           },
-          idField: {
-            type: 'string',
-            maxLength: 50,
-            required: true,
-            index: { type: 'primary' }
+          cache: {
+            ttlDur: '10s'
+          },
+          hardCap: 10000, // max returned records
+          warnings: true,
+          attachment: {
+            thumbSizes: ['s', 'm', 'l']
           }
         },
         memDb: {
-          createDefConnAtStart: true,
-          persistence: {
-            syncPeriodDur: '1s'
-          }
+          persistenceDur: '1s'
         },
         applet: {
           confirmation: false
@@ -191,7 +179,7 @@ async function factory (pkgName) {
       /**
        * @type {Object[]}
        */
-      this.drivers = []
+      this.adapters = []
 
       /**
        * @type {Object[]}
@@ -206,39 +194,57 @@ async function factory (pkgName) {
       /**
        * @type {Object[]}
        */
-      this.schemas = []
+      this.models = []
+    }
+
+    /**
+     * Get allowed property keys by field type
+     *
+     * @param {string} type
+     * @returns {string[]}
+     */
+    getPropertyKeysByType = (type) => {
+      const keys = [...commonPropertyTypes]
+      if (['string'].includes(type)) keys.push('minLength', 'maxLength', 'values')
+      if (['text'].includes(type)) keys.push('textType')
+      if (['smallint', 'integer'].includes(type)) keys.push('autoInc', 'values')
+      if (['float', 'double'].includes(type)) keys.push('values')
+      return keys
+    }
+
+    /**
+     * Get all allowed property keys
+     *
+     * @returns {string[]}
+     */
+
+    getAllPropertyKeys = (adapter) => {
+      const { uniq, isEmpty } = this.app.lib._
+      const keys = [...commonPropertyTypes]
+      for (const type in propertyType) {
+        keys.push(...Object.keys(propertyType[type]))
+      }
+      if (adapter &amp;&amp; !isEmpty(adapter.constructor.propertyKeys)) keys.push(...adapter.constructor.propertyKeys)
+      return uniq(keys)
     }
 
     /**
      * Initialize plugin and performing the following tasks:
-     * - {@link module:Lib.collectDrivers|Collecting all drivers}
+     * - {@link module:Lib.collectAdapters|Collecting all adapters}
      * - {@link module:Lib.collectConnections|Collecting all connections}
      * - {@link module:Lib.collectFeatures|Collecting all features}
-     * - {@link module:Lib.collectSchemas|Collecting all schemas}
+     * - {@link module:Lib.collectModels|Collecting all models}
      * @method
      * @async
      */
     init = async () => {
-      const { buildCollections } = this.app.bajo
       const { fs } = this.app.lib
-      const checkType = async (item, items) => {
-        const { filter } = this.app.lib._
-        const existing = filter(items, { type: 'dobo:memory' })
-        if (existing.length > 1) this.fatal('onlyOneConnType%s', item.type)
-      }
-
-      fs.ensureDirSync(`${this.dir.data}/attachment`)
-      await collectDrivers.call(this)
-      if (this.config.memDb.createDefConnAtStart) {
-        this.config.connections.push({
-          type: 'dobo:memory',
-          name: 'memory'
-        })
-      }
-      this.connections = await buildCollections({ ns: this.ns, container: 'connections', handler: collectConnections, dupChecks: ['name', checkType] })
-      if (this.connections.length === 0) this.log.warn('notFound%s', this.t('connection'))
+      await collectAdapters.call(this)
+      await collectConnections.call(this)
       await collectFeatures.call(this)
-      await collectSchemas.call(this)
+      await collectModels.call(this)
+      const attDir = `${this.app.getPluginDataDir('dobo')}/attachment`
+      fs.ensureDirSync(attDir)
     }
 
     /**
@@ -247,239 +253,98 @@ async function factory (pkgName) {
      * @method
      * @async
      * @param {(string|Array)} [conns=all] - Which connections should be run on start
-     * @param {boolean} [noRebuild=false] - Set ```true``` to ALWAYS rebuild model on start. Yes, only set it to ```true``` if you REALLY know what you're doing!!!
+     * @param {boolean} [noRebuild=true] - Set ```false``` to not rebuild model on start. Yes, only set it to ```false``` if you REALLY know what you're doing!!!
      */
     start = async (conns = 'all', noRebuild = true) => {
-      const { importModule, breakNsPath } = this.app.bajo
-      const { find, filter, isString, map } = this.app.lib._
       if (conns === 'all') conns = this.connections
       else if (isString(conns)) conns = filter(this.connections, { name: conns })
       else conns = map(conns, c => find(this.connections, { name: c }))
-      for (const c of conns) {
-        const { ns } = breakNsPath(c.type)
-        const schemas = filter(this.schemas, { connection: c.name })
-        const mod = c.type === 'dobo:memory' ? memDbInstantiate : await importModule(`${ns}:/extend/${this.ns}/boot/instantiate.js`)
-        await mod.call(this.app[ns], { connection: c, noRebuild, schemas })
-        this.log.trace('driverInstantiated%s%s', c.driver, c.name)
+      this.log.debug('dbInit')
+      for (const connection of conns) {
+        await connection.connect(noRebuild)
+        this.log.trace('dbInit%s%s%s', connection.adapter.plugin.ns, connection.adapter.name, connection.name)
       }
-      await memDbStart.call(this)
     }
 
     /**
-     * Pick only fields defined from a record
+     * Get connection by name. It returns the first connection named after "{name}"
      *
-     * @method
-     * @async
-     * @param {Object} [options={}] - Options object
-     * @param {Object} options.record - Record to pick fields from
-     * @param {Array} options.fields - Array of field names to be picked
-     * @param {Object} options.schema - Associated record's schema
-     * @param {Object} [options.hidden=[]] - Additional fields to be hidden in addition the one defined in schema
-     * @param {boolean} [options.forceNoHidden] - Force ALL fields to be picked, thus ignoring hidden fields
-     * @returns {Object}
+     * @param {string} name - Connection name
+     * @param {boolean} [silent] - If ```true``` and connection is not found, it won't throw error
+     * @returns {Adapter} Return connection instance or ```undefined``` if silent is ```true```
      */
-    pickRecord = async ({ record, fields, schema = {}, hidden = [], forceNoHidden } = {}) => {
-      const { isArray, pick, clone, isEmpty, omit } = this.app.lib._
-      const { dayjs } = this.app.lib
-
-      const transform = async ({ record, schema, hidden = [], forceNoHidden } = {}) => {
-        if (record._id) {
-          record.id = record._id
-          delete record._id
-        }
-        const defHidden = [...schema.hidden, ...hidden]
-        let result = {}
-        for (const p of schema.properties) {
-          if (!forceNoHidden &amp;&amp; defHidden.includes(p.name)) continue
-          result[p.name] = record[p.name] ?? null
-          if (record[p.name] === null) continue
-          switch (p.type) {
-            case 'boolean': result[p.name] = !!result[p.name]; break
-            case 'time': result[p.name] = dayjs(record[p.name]).format('HH:mm:ss'); break
-            case 'date': result[p.name] = dayjs(record[p.name]).format('YYYY-MM-DD'); break
-            case 'datetime': result[p.name] = dayjs(record[p.name]).toISOString(); break
-          }
-        }
-        result = await this.sanitizeBody({ body: result, schema, partial: true, ignoreNull: true })
-        if (record._rel) result._rel = record._rel
-        return result
-      }
-
-      if (isEmpty(record)) return record
-      if (hidden.length > 0) record = omit(record, hidden)
-      if (!isArray(fields)) return await transform.call(this, { record, schema, hidden, forceNoHidden })
-      const fl = clone(fields)
-      if (!fl.includes('id')) fl.unshift('id')
-      if (record._rel) fl.push('_rel')
-      return pick(await transform.call(this, { record, schema, hidden, forceNoHidden }), fl)
+    getConnection = (name, silent) => {
+      const conn = find(this.connections, { name })
+      if (!conn &amp;&amp; !silent) throw this.error('unknown%s%s', this.t('connection'), name)
+      return conn
     }
 
     /**
-     * Prepare records pagination:
-     * - making sure records limit is obeyed
-     * - making sure page is a positive value
-     * - if skip is given, recalculate limit to use skip instead of page number
-     * - Build sort info
+     * Get adapter by name. It returns the first adapter named after "{name}"
      *
-     * @method
-     * @async
-     * @param {Object} [filter={}] - Filter object
-     * @param {Object} schema - Model's schema
-     * @param {Object} options - Options
-     * @returns {TRecordPagination}
+     * Also support NsPath format for those who load the same named adapter but from different provider/plugin.
+     *
+     * @param {string} name - Adapter name
+     * @param {boolean} [silent] - If ```true``` and adapter is not found, it won't throw error
+     * @returns {Adapter} Returns adapter instance or ```undefined``` if silent is ```true```
      */
-    prepPagination = async (filter = {}, schema, options = {}) => {
-      const buildPageSkipLimit = (filter) => {
-        let limit = parseInt(filter.limit) || this.config.default.filter.limit
-        if (limit === -1) limit = this.config.default.filter.maxLimit
-        if (limit > this.config.default.filter.maxLimit) limit = this.config.default.filter.maxLimit
-        if (limit &lt; 1) limit = 1
-        let page = parseInt(filter.page) || 1
-        if (page &lt; 1) page = 1
-        let skip = (page - 1) * limit
-        if (filter.skip) {
-          skip = parseInt(filter.skip) || skip
-          page = undefined
-        }
-        if (skip &lt; 0) skip = 0
-        return { page, skip, limit }
+    getAdapter = (name, silent) => {
+      const { breakNsPath } = this.app.bajo
+      let adapter
+      if (!name.includes(':')) {
+        adapter = find(this.adapters, { name })
+        if (adapter) return adapter
+        adapter = filter(this.adapters, d => d.plugin.ns === name)
+        if (adapter.length === 1) return adapter[0]
+        if (!silent) throw this.error('unknown%s%s', this.t('adapter'), name)
+        return
       }
-
-      const buildSort = (input, schema, allowSortUnindexed) => {
-        const { isEmpty, map, each, isPlainObject, isString, trim, keys } = this.app.lib._
-        let sort
-        if (schema &amp;&amp; isEmpty(input)) {
-          const columns = map(schema.properties, 'name')
-          each(this.config.default.filter.sort, s => {
-            const [col] = s.split(':')
-            if (columns.includes(col)) {
-              input = s
-              return false
-            }
-          })
-        }
-        if (!isEmpty(input)) {
-          if (isPlainObject(input)) sort = input
-          else if (isString(input)) {
-            const item = {}
-            each(input.split('+'), text => {
-              let [col, dir] = map(trim(text).split(':'), i => trim(i))
-              dir = (dir ?? '').toUpperCase()
-              dir = dir === 'DESC' ? -1 : parseInt(dir) || 1
-              item[col] = dir / Math.abs(dir)
-            })
-            sort = item
-          }
-          if (schema) {
-            const items = keys(sort)
-            each(items, i => {
-              if (!schema.sortables.includes(i) &amp;&amp; !allowSortUnindexed) throw this.error('sortOnUnindexedField%s%s', i, schema.name)
-              // if (schema.fullText.fields.includes(i)) throw this.error('Can\'t sort on full-text index: \'%s@%s\'', i, schema.name)
-            })
-          }
-        }
-        return sort
-      }
-
-      const { page, skip, limit } = buildPageSkipLimit.call(this, filter)
-      let sortInput = filter.sort
-      try {
-        sortInput = JSON.parse(sortInput)
-      } catch (err) {}
-      const sort = buildSort.call(this, sortInput, schema, options.allowSortUnindexed)
-      return { limit, page, skip, sort }
+      const { ns, path } = breakNsPath(name)
+      adapter = find(this.adapters, d => d.name === path &amp;&amp; d.plugin.ns === ns)
+      if (!adapter &amp;&amp; !silent) throw this.error('unknown%s%s', this.t('adapter'), name)
+      return adapter
     }
 
-    buildMatch = ({ input = '', schema, options }) => {
-      const { isPlainObject, trim } = this.app.lib._
-      if (isPlainObject(input)) return input
-      const split = (value, schema) => {
-        let [field, val] = value.split(':').map(i => i.trim())
-        if (!val) {
-          val = field
-          field = '*'
-        }
-        return { field, value: val }
-      }
-      input = trim(input)
-      let items = {}
-      if (isPlainObject(input)) items = input
-      else if (input[0] === '{') items = JSON.parse(input)
-      else {
-        for (const item of input.split('+').map(i => i.trim())) {
-          const part = split(item, schema)
-          if (!items[part.field]) items[part.field] = []
-          items[part.field].push(...part.value.split(' ').filter(v => ![''].includes(v)))
-        }
-      }
-      const matcher = {}
-      for (const f of schema.fullText.fields) {
-        const value = []
-        if (typeof items[f] === 'string') items[f] = [items[f]]
-        if (Object.prototype.hasOwnProperty.call(items, f)) value.push(...items[f])
-        matcher[f] = value
-      }
-      if (Object.prototype.hasOwnProperty.call(items, '*')) matcher['*'] = items['*']
-      return matcher
+    /**
+     * Get feature by name. It returns the first adapter named after "{name}"
+     *
+     * Also support NsPath format for those who load the same named adapter but from different provider/plugin.
+     *
+     * @param {string} - Feature name
+     * @returns {Feature} Return feature instance
+     */
+    getFeature = name => {
+      if (!name.includes(':')) return find(this.features, { name })
+      const { ns, path } = breakNsPath(name)
+      const feat = find(this.features, d => d.name === path &amp;&amp; d.plugin.ns === ns)
+      if (!feat) throw this.error('unknown%s%s', this.t('feature'), name)
+      return feat
     }
 
-    buildQuery = ({ filter, schema, options = {} } = {}) => {
-      const { trim, find, isString, isPlainObject } = this.app.lib._
-      let query = {}
-      if (isString(filter.query)) {
-        try {
-          filter.query = trim(filter.query)
-          filter.orgQuery = filter.query
-          if (trim(filter.query).startsWith('{')) query = JSON.parse(filter.query)
-          else if (filter.query.includes(':')) query = nql(filter.query).parse()
-          else {
-            const fields = schema.sortables.filter(f => {
-              const field = find(schema.properties, { name: f, type: 'string' })
-              return !!field
-            })
-            const parts = fields.map(f => {
-              if (filter.query[0] === '*') return `${f}:~$'${filter.query.replaceAll('*', '')}'`
-              if (filter.query[filter.length - 1] === '*') return `${f}:~^'${filter.query.replaceAll('*', '')}'`
-              return `${f}:~'${filter.query.replaceAll('*', '')}'`
-            })
-            if (parts.length === 1) query = nql(parts[0]).parse()
-            else if (parts.length > 1) query = nql(parts.join(',')).parse()
-          }
-        } catch (err) {
-          this.error('invalidQuery', { orgMessage: err.message })
-        }
-      } else if (isPlainObject(filter.query)) query = filter.query
-      return this.sanitizeQuery(query, schema)
+    /**
+     * Get model by name
+     *
+     * @param {string} name - Model name
+     * @param {boolean} [silent] - If ```true``` and model is not found, it won't throw error
+     * @retuns {Model} Returns model instance or ```undefined``` if silent is ```true```
+     */
+    getModel = (name, silent) => {
+      const { pascalCase } = this.app.lib.aneka
+      let model = find(this.models, { name })
+      if (!model) model = find(this.models, { name: pascalCase(name) })
+      if (!model &amp;&amp; !silent) throw this.error('unknown%s%s', this.t('model'), name)
+      return model
     }
 
-    sanitizeQuery = (query, schema, parent) => {
-      const { cloneDeep, isPlainObject, isArray, find } = this.app.lib._
-      const { isSet } = this.app.lib.aneka
-      const { dayjs } = this.app.lib
-      const obj = cloneDeep(query)
-      const keys = Object.keys(obj)
-      const sanitize = (key, val, p) => {
-        if (!isSet(val)) return val
-        const prop = find(schema.properties, { name: key.startsWith('$') ? p : key })
-        if (!prop) return val
-        if (['datetime', 'date', 'time'].includes(prop.type)) {
-          const dt = dayjs(val)
-          return dt.isValid() ? dt.toDate() : val
-        } else if (['smallint', 'integer'].includes(prop.type)) return parseInt(val) || val
-        else if (['float', 'double'].includes(prop.type)) return parseFloat(val) || val
-        else if (['boolean'].includes(prop.type)) return !!val
-        return val
-      }
-      keys.forEach(k => {
-        const v = obj[k]
-        if (isPlainObject(v)) obj[k] = this.sanitizeQuery(v, schema, k)
-        else if (isArray(v)) {
-          v.forEach((i, idx) => {
-            if (isPlainObject(i)) obj[k][idx] = this.sanitizeQuery(i, schema, k)
-          })
-        } else obj[k] = sanitize(k, v, parent)
-      })
-      return obj
+    /**
+     * Get all models that bound to connection ```name```
+     *
+     * @param {string} name - Connection name
+     * @returns {Array}
+     */
+    getModelsByConnection = name => {
+      const conn = this.getConnection(name)
+      return this.models.filter(s => s.connection.name === conn.name)
     }
 
     validationErrorMessage = (err) => {
@@ -493,81 +358,270 @@ async function factory (pkgName) {
       return text
     }
 
-    getConnection = (name) => {
-      const { find } = this.app.lib._
-      return find(this.connections, { name })
+    /**
+     * Sanitize value as a date/time value. Parse/format string using {@link https://day.js.org/docs/en/display/format|dayjs format}
+     *
+     * @method
+     * @memberof Dobo
+     * @param {(number|string)} value - Value to sanitize
+     * @param {Object} [options={}] - Options object
+     * @param {boolean} [options.silent=true] - If ```true``` (default) and value isn't valid, returns empty
+     * @param {string} [options.inputFormat] - If provided, parse value using this option
+     * @param {string} [options.outputFormat] - If not provided or ```native```, returns Javascript Date. Otherwise returns formatted date/time string
+     * @returns {(string|Date)}
+     */
+    sanitizeDate = (value, { inputFormat, outputFormat, silent = true } = {}) => {
+      const { dayjs } = this.app.lib
+      if (value === 0) return null
+      const dt = dayjs(value, inputFormat)
+      if (!dt.isValid()) {
+        if (silent) return null
+        throw this.error('invalidDate')
+      }
+      if (outputFormat === 'native' || !outputFormat) return dt.toDate()
+      return dt.format(outputFormat)
     }
 
-    getInfo = (name) => {
-      const { breakNsPath } = this.app.bajo
-      const { find, map, isEmpty } = this.app.lib._
-      const schema = this.getSchema(name)
-      const conn = this.getConnection(schema.connection)
-      let { ns, path: type } = breakNsPath(conn.type)
-      if (isEmpty(type)) type = conn.type
-      const driver = find(this.drivers, { type, ns, driver: conn.driver })
-      const instance = find(this.app[driver.ns].instances, { name: schema.connection })
-      const opts = conn.type === 'mssql' ? { includeTriggerModifications: true } : undefined
-      const returning = [map(schema.properties, 'name'), opts]
-      return { instance, driver, connection: conn, returning, schema }
+    sanitizeFloat = (value, { strict = false } = {}) => {
+      const { isNumber } = this.app.lib._
+      if (isNumber(value)) return value
+      if (strict) return Number(value)
+      return parseFloat(value) || null
     }
 
-    getSchema = (input, cloned = true) => {
-      const { find, isPlainObject, cloneDeep } = this.app.lib._
-      const { pascalCase } = this.app.lib.aneka
-      let name = isPlainObject(input) ? input.name : input
-      name = pascalCase(name)
-      const schema = find(this.schemas, { name })
-      if (!schema) throw this.error('unknownModelSchema%s', name)
-      return cloned ? cloneDeep(schema) : schema
+    sanitizeInt = (value, { strict = false } = {}) => {
+      const { isNumber } = this.app.lib._
+      if (isNumber(value)) return value
+      if (strict) return Number(value)
+      return parseInt(value) || null
     }
 
-    getField = (name, model) => {
-      const { getInfo } = this.app.dobo
-      const { find } = this.app.lib._
-      const { schema } = getInfo(model)
-
-      return find(schema.properties, { name })
-    }
-
-    hasField = (name, model) => {
-      return !!this.getField(name, model)
-    }
-
-    getMemdbStorage = (name, fields = []) => {
-      const { map, pick } = this.app.lib._
-      const all = this.memDb.storage[name] ?? []
-      if (fields.length === 0) return all
-      return map(all, item => pick(item, fields))
-    }
-
-    listAttachments = async ({ model, id = '*', field = '*', file = '*' } = {}, { uriEncoded = true } = {}) => {
-      const { map, kebabCase } = this.app.lib._
-      const { pascalCase } = this.app.lib.aneka
-      const { importPkg, getPluginDataDir } = this.app.bajo
-      const mime = await importPkg('waibu:mime')
-      const { fastGlob } = this.app.lib
-      const root = `${getPluginDataDir('dobo')}/attachment`
-      model = pascalCase(model)
-      let pattern = `${root}/${model}/${id}/${field}/${file}`
-      if (uriEncoded) pattern = pattern.split('/').map(p => decodeURI(p)).join('/')
-      return map(await fastGlob(pattern), f => {
-        const mimeType = mime.getType(path.extname(f)) ?? ''
-        const fullPath = f.replace(root, '')
-        const row = {
-          file: f,
-          fileName: path.basename(fullPath),
-          fullPath,
-          mimeType,
-          params: { model, id, field, file }
+    sanitizeObject = (value, { strict = false, action, model } = {}) => {
+      const { isString } = this.app.lib._
+      let result = null
+      if (isString(value)) {
+        try {
+          result = JSON.parse(value)
+        } catch (err) {
+          if (strict) throw err
         }
-        if (this.app.waibuMpa) {
-          const { routePath } = this.app.waibu
-          const [, _model, _id, _field, _file] = fullPath.split('/')
-          row.url = routePath(`dobo:/attachment/${kebabCase(_model)}/${_id}/${_field}/${_file}`)
+      } else {
+        try {
+          result = JSON.parse(JSON.stringify(value))
+        } catch (err) {
+          if (strict) throw err
         }
-        return row
+      }
+      return result
+    }
+
+    sanitizeBoolean = (value) => {
+      return value === null ? null : (['true', true].includes(value))
+    }
+
+    sanitizeTimestamp = (value) => {
+      const { isNumber } = this.app.lib._
+      const { dayjs } = this.app.lib
+      if (!isNumber(value)) return -1
+      const dt = dayjs.unix(value)
+      return dt.isValid() ? dt.unix() : -1
+    }
+
+    sanitizeString = (value) => {
+      return value + ''
+    }
+
+    sanitizeByType = (value, type, opts = {}) => {
+      const { isNaN } = this.app.lib._
+      let result = value
+      if (['object', 'array'].includes(type)) result = this.sanitizeObject(value, opts)
+      else if (type === 'boolean') result = this.sanitizeBoolean(value)
+      else if (['float', 'double'].includes(type)) result = this.sanitizeFloat(value, opts)
+      else if (['integer', 'smallint'].includes(type)) result = this.sanitizeInt(value, opts)
+      else if (['string', 'text'].includes(type)) result = this.sanitizeString(result, opts)
+      else if (['datetime'].includes(type)) result = this.sanitizeDate(result, opts)
+      if (!opts.strict &amp;&amp; isNaN(result)) result = null
+      return result
+    }
+
+    _calcStats = (items, field, aggregates) => {
+      const { generateId, isSet } = this.app.lib.aneka
+      const result = { id: generateId, count: 0, avg: null, min: null, max: null }
+      let sum = 0
+      for (const item of items) {
+        const value = Number(item[field]) ?? 0
+        if (aggregates.includes('count')) result.count++
+        if (aggregates.includes('avg')) sum = sum + value
+        if (aggregates.includes('min') &amp;&amp; (!isSet(result.min) || value &lt; result.min)) result.min = value
+        if (aggregates.includes('max') &amp;&amp; (!isSet(result.max) || value > result.max)) result.max = value
+      }
+      result.avg = sum / items.length
+      return result
+    }
+
+    calcAggregate = ({ data = [], group = '', field = '', aggregates = ['count'] } = {}) => {
+      this.checkAggregateParams({ group, field, aggregates })
+      const { pick, groupBy } = this.app.lib._
+      const grouped = groupBy(data, group)
+      const all = []
+      for (const key in grouped) {
+        const items = grouped[key]
+        const result = this._calcStats(items, field, aggregates)
+        result[group] = key
+        all.push(pick(result, ['id', group, ...aggregates]))
+      }
+      return all
+    }
+
+    calcHistogram = ({ data = [], type = '', group = '', field = '', aggregates = ['count'] } = {}) => {
+      this.checkHistogramParams({ group, field, type, aggregates })
+      const { dayjs } = this.app.lib
+      const pattern = { daily: ['YYYY-MM-DD', 'date'], monthly: ['YYYY-MM', 'month'], yearly: ['YYYY', 'year'] }
+      for (const d of data) {
+        d._group = dayjs(d[group]).format(pattern[type][0])
+      }
+      const grouped = groupBy(data, '_group')
+      const all = []
+      for (const key in grouped) {
+        const items = grouped[key]
+        const result = this._calcStats(items, field, aggregates)
+        const title = pattern[type][1]
+        result[title] = key
+        all.push(pick(result, ['id', title, ...aggregates]))
+      }
+      return all
+    }
+
+    checkAggregateParams = (params = {}) => {
+      let { group, field, aggregates } = params
+      if (isString(aggregates)) aggregates = [aggregates]
+      params.aggregates = aggregates
+      if (isEmpty(group)) throw this.error('fieldGroupMissing')
+      if (isEmpty(field)) throw this.error('fieldCalcMissing')
+      for (const agg of aggregates) {
+        if (!this.constructor.aggregateTypes.includes(agg)) throw this.error('unsupportedAggregateType%s', agg)
+      }
+    }
+
+    checkHistogramParams = (params = {}) => {
+      this.checkAggregateParams(params)
+      const { type } = params
+      if (isEmpty(type)) throw this.error('histogramTypeMissing')
+      if (!this.constructor.histogramTypes.includes(type)) throw this.error('unsupportedHistogramType%s', type)
+    }
+
+    runModelHook = async (model, hookName, ...args) => {
+      const { orderBy } = this.app.lib._
+      const hooks = orderBy(model.hooks.filter(hook => hook.name === hookName), ['level'])
+      for (const hook of hooks) {
+        if (hook.noWait) hook.handler.call(model, ...args)
+        else await hook.handler.call(model, ...args)
+      }
+    }
+
+    getDefaultValues = (options = {}) => {
+      const { defaultsDeep } = this.app.lib.aneka
+      const key = 'default.filter'
+      let config = this.getConfig(key)
+      config.hardCap = this.config.default.hardCap
+      config.warnings = this.config.default.warnings
+      if (options.req) config = defaultsDeep({}, options.req.getSetting('dobo:default'), config)
+      const { limit, maxLimit, maxPage, hardCap, warnings } = config
+      const t = options.req ? options.req.t : this.t
+      return { limit, maxLimit, hardCap, maxPage, warnings, t }
+    }
+
+    handleLastPage = (params = {}, options = {}) => {
+      const { count, limit, page } = params
+      const { hardCap } = this.getDefaultValues(options)
+      if (count > hardCap) {
+        const lastPage = Math.floor(hardCap / limit)
+        if (page > lastPage) {
+          const warnings = [this.t('hardCapWarning%s%s', count, hardCap)]
+          return { data: [], count: hardCap, warnings }
+        }
+      }
+    }
+
+    parseNql = (text) => {
+      const sanitized = text.split('+').map(item => {
+        const [key, ...rest] = item.split(':').map(i => i.trim())
+        let value = rest.join(':')
+        const neg = value[1] === '-' ? '-' : ''
+        if ((value[0] === '{' || value[1] === '{') &amp;&amp; value[value.length - 1] === '}') {
+          if (value[0] === '-') value = value.slice(1)
+          const items = value.slice(1, -1).split(',')
+          value = `${neg}>=${items[0]}+${key}:${neg}&lt;=${items[1]}`
+        }
+        return `${key}:${value}`
+      }).join('+')
+      return nql(sanitized).parse()
+    }
+
+    parseAny = (query, model) => {
+      const { isEmpty } = this.app.lib._
+      let q = {}
+      if (!model) throw this.error('invalidQuery')
+      let scanables = [...model.scanables]
+      if (scanables.length === 0) scanables = [...model.sortables]
+      const fields = scanables.filter(f => {
+        const field = find(model.properties, { name: f, type: 'string' })
+        return !!field
       })
+      const parts = fields.map(f => {
+        if (query[0] === '*') return `${f}:~$'${query.replaceAll('*', '')}'`
+        if (query[query.length - 1] === '*') return `${f}:~^'${query.replaceAll('*', '')}'`
+        return `${f}:~'${query.replaceAll('*', '')}'`
+      })
+      if (parts.length === 1) q = this.parseNql(parts[0])
+      else if (parts.length > 1) q = this.parseNql(parts.join(','))
+      if (isEmpty(q)) throw this.error('invalidQuery')
+      return q
+    }
+
+    parseQuery = (query, model, silent = true) => {
+      const { isEmpty, isPlainObject, trim } = this.app.lib._
+      let result = {}
+      if (isPlainObject(query)) result = query
+      else {
+        query = trim(query)
+        if (isEmpty(query)) return result
+        try {
+          if (query.startsWith('{')) result = JSON.parse(query)
+          else if (query.includes(':')) result = this.parseNql(query)
+          else result = this.parseAny(query, model)
+        } catch (err) {
+          if (silent) return {}
+          throw err
+        }
+      }
+      let strQ = this.replaceRegexInJson(result)
+      if (model &amp;&amp; model.adapter.idField.name !== 'id') strQ = strQ.replaceAll('"id"', `"${model.adapter.idField.name}"`)
+      try {
+        result = this.reviveRegexInJson(strQ)
+      } catch (err) {}
+      return result
+    }
+
+    replaceRegexInJson = (input = {}, returnString = true) => {
+      const { isString } = this.app.lib._
+      if (isString(input)) input = JSON.parse(input) ?? {}
+      const result = JSON.stringify(input, (key, value) => {
+        if (value instanceof RegExp) return ['__REGEXP__', value.source, value.flags]
+        return value
+      })
+      if (returnString) return result
+      return JSON.parse(result)
+    }
+
+    reviveRegexInJson = (input, returnObject = true) => {
+      const { isPlainObject } = this.app.lib._
+      if (isPlainObject(input)) input = JSON.stringify(input)
+      const result = JSON.parse(input, (key, value) => {
+        if (Array.isArray(value) &amp;&amp; value[0] === '__REGEXP__') return new RegExp(value[1], value[2])
+        return value
+      })
+      return returnObject ? result : JSON.stringify(result)
     }
   }
 
@@ -575,4 +629,4 @@ async function factory (pkgName) {
 }
 
 export default factory
-</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Dobo API</a><div class="mobile-nav-links"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/dobo" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/dobo" target="">Github</a></div><div class="navbar-item"><a id="" href="https://dobo.bajo.app/" target="">Dobo</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Dobo.html">Dobo</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-Lib.html">Lib</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#TPropType">TPropType</a></div><div class="sidebar-section-children"><a href="global.html#TRecordCountOptions">TRecordCountOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordCreateOptions">TRecordCreateOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordFilter">TRecordFilter</a></div><div class="sidebar-section-children"><a href="global.html#TRecordFindOptions">TRecordFindOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordFindResult">TRecordFindResult</a></div><div class="sidebar-section-children"><a href="global.html#TRecordGetOptions">TRecordGetOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordGetResult">TRecordGetResult</a></div><div class="sidebar-section-children"><a href="global.html#TRecordPagination">TRecordPagination</a></div><div class="sidebar-section-children"><a href="global.html#TRecordRemoveOptions">TRecordRemoveOptions</a></div><div class="sidebar-section-children"><a href="global.html#TRecordSort">TRecordSort</a></div><div class="sidebar-section-children"><a href="global.html#TRecordSortKey">TRecordSortKey</a></div><div class="sidebar-section-children"><a href="global.html#TRecordUpdateOptions">TRecordUpdateOptions</a></div><div class="sidebar-section-children"><a href="global.html#TValidator">TValidator</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorBoolean">TValidatorBoolean</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorDate">TValidatorDate</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorNumber">TValidatorNumber</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorString">TValidatorString</a></div><div class="sidebar-section-children"><a href="global.html#TValidatorTimestamp">TValidatorTimestamp</a></div><div class="sidebar-section-children"><a href="global.html#factory">factory</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
+</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Dobo API</a><div class="mobile-nav-links"><div class="navbar-item"><a id="" href="https://www.npmjs.com/package/dobo" target="">NPM</a></div><div class="navbar-item"><a id="" href="https://github.com/ardhi/dobo" target="">Github</a></div><div class="navbar-item"><a id="" href="https://dobo.bajo.app/" target="">Dobo</a></div><div class="navbar-item"><a id="" href="https://bajo.app/" target="">Bajo</a></div></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-classes"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Dobo.html">Dobo</a></div><div class="sidebar-section-children"><a href="DoboAction.html">DoboAction</a></div><div class="sidebar-section-children"><a href="DoboAdapter.html">DoboAdapter</a></div><div class="sidebar-section-children"><a href="DoboConnection.html">DoboConnection</a></div><div class="sidebar-section-children"><a href="DoboFeature.html">DoboFeature</a></div><div class="sidebar-section-children"><a href="DoboModel.html">DoboModel</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-modules"><div>Modules</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="module-Helper.html">Helper</a></div><div class="sidebar-section-children"><a href="module-Helper_Model.html">Helper/Model</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-externals"><div>Externals</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="external-Tools.html">Tools</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="sidebar-global"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#actionFactory">actionFactory</a></div><div class="sidebar-section-children"><a href="global.html#adapterFactory">adapterFactory</a></div><div class="sidebar-section-children"><a href="global.html#connectionFactory">connectionFactory</a></div><div class="sidebar-section-children"><a href="global.html#featureFactory">featureFactory</a></div><div class="sidebar-section-children"><a href="global.html#modelFactory">modelFactory</a></div><div class="sidebar-section-children"><a href="global.html#pluginFactory">pluginFactory</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#dark-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
