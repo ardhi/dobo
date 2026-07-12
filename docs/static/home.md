@@ -1,6 +1,8 @@
 ![Dobo DBMS](static/logo.png)
 
-### Dobo Database Management System for [Bajo](https://github.com/ardhi/bajo)
+### Dobo DBMS Framework for [Bajo](https://github.com/ardhi/bajo)
+
+The database management system (DBMS) for Bajo Framework. It provides a simple and easy-to-use interface for managing databases, tables, and records. It supports multiple database engines and can be easily extended to support new ones.
 
 ## Hire Me
 
