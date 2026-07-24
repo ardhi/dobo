@@ -234,5 +234,3 @@
  * @param {DoboModel.TResultGetRecord} result - The result of the get operation
  * @param {DoboModel.TOptions} options - The options object
  */
-
-export default {}

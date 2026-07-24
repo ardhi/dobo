@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-07-24
+
+- [2.33.0] Change `selfBind` to `bindThis`
+
 ## 2026-07-12
 
 - [2.32.0] Change `driver` to `adapter`
