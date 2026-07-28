@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-07-28
+
+- [2.34.1] Bug fix in `adapter.sanitizeRecord()`
+
 ## 2026-07-26
 
 - [2.34.0] Add `options.i18n` to `model.sanitizeRecord()`
