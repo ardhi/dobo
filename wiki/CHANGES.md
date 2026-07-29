@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-07-29
+
+- [2.35.0] Add parameter `options` to `adapter.sanitizeRecord()` to allow passing additional options for sanitization
+- [2.35.0] Change `options.i18n` to `options.intl` in `adapter.sanitizeRecord()` for consistency with other methods
+
 ## 2026-07-28
 
 - [2.34.1] Bug fix in `adapter.sanitizeRecord()`
