@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-07-31
+
+- [2.36.0] Add test suite
+- [2.36.0] Add parameter `options` to `model.sanitizeRecord()`
+
 ## 2026-07-29
 
 - [2.35.0] Add parameter `options` to `adapter.sanitizeRecord()` to allow passing additional options for sanitization

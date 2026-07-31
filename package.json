@@ -1,11 +1,11 @@
 {
   "name": "dobo",
-  "version": "2.35.0",
+  "version": "2.36.0",
   "description": "DBMS for Bajo Framework",
   "main": "index.js",
   "scripts": {
     "build-doc": "jsdoc -c .jsdoc.conf.json",
-    "test": "mocha"
+    "test": "mocha --recursive"
   },
   "type": "module",
   "bajo": {
@@ -39,7 +39,9 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "chai": "^6.2.2",
     "clean-jsdoc-theme": "^4.3.0",
-    "jsdoc-plugin-intersection": "^1.0.4"
+    "jsdoc-plugin-intersection": "^1.0.4",
+    "mocha": "^11.7.6"
   }
 }
