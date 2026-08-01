@@ -4,6 +4,7 @@
 
 - [2.36.0] Add test suite
 - [2.36.0] Add parameter `options` to `model.sanitizeRecord()`
+- [2.36.1] Bug fix in `model.exists()`
 
 ## 2026-07-29
 
