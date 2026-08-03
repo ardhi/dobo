@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-08-03
+
+- [2.36.2] Bug fix in `model.rebuildModel()`
+
 ## 2026-07-31
 
 - [2.36.0] Add test suite

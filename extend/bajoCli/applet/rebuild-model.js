@@ -41,7 +41,7 @@ async function modelRebuild (path, ...args) {
     }
     const exists = await model.exists({ spinner: spin })
     if (exists) {
-      if (this.app.bajo.config.force) {
+      if (this.app.argv._.force) {
         try {
           await model.drop({ spinner: spin })
           spin.setText('modelDropped%s', model.name)
