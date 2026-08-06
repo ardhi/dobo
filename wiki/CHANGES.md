@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-08-06
+
+- [2.37.0] Update `memory.connect()` to use the new `app.lib.setInterval()`
+
 ## 2026-08-03
 
 - [2.36.2] Bug fix in `model.rebuildModel()`
