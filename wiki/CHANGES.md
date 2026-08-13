@@ -5,6 +5,7 @@
 - [2.37.1] Bug fix in `adapter.js` to pass options when calling `getRecord()`
 - [2.37.1] Bug fix in `model._simpleLookup()` to return `null` if query string is not right
 - [2.37.1] Bug fix in `model.sanitizeFixture()` to not sanitize value that is `null` or `undefined`
+- [2.37.2] Bug fix in `reviveRegexInJson()` when handling with regex
 
 ## 2026-08-06
 

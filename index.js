@@ -613,12 +613,33 @@ async function factory (pkgName) {
     }
 
     reviveRegexInJson = (input, returnObject = true) => {
-      const { isPlainObject } = this.app.lib._
+      const { isPlainObject, isArray } = this.app.lib._
       if (isPlainObject(input)) input = JSON.stringify(input)
       const result = JSON.parse(input, (key, value) => {
-        if (Array.isArray(value) && value[0] === '__REGEXP__') return new RegExp(value[1], value[2])
+        if (Array.isArray(value) && value[0] === '__REGEXP__') {
+          return { $regex: new RegExp(value[1], value[2]) }
+        }
         return value
       })
+
+      const cleanRegex = (obj) => {
+        const keys = Object.keys(obj)
+        keys.forEach(k => {
+          const v = obj[k]
+          if (isPlainObject(v)) {
+            if (k === '$regex' && isPlainObject(v) && v.$regex) obj[k] = v.$regex
+            else obj[k] = cleanRegex(v)
+          } else if (isArray(v)) {
+            v.forEach((i, idx) => {
+              if (isPlainObject(i) && i.$regex && i.$regex.$regex) obj[k][idx] = i.$regex.$regex
+              else obj[k][idx] = cleanRegex(i)
+            })
+          }
+        })
+        return obj
+      }
+      cleanRegex(result)
+
       return returnObject ? result : JSON.stringify(result)
     }
   }
