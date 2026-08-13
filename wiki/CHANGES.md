@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-08-13
+
+- [2.37.1] Bug fix in `adapter.js` to pass options when calling `getRecord()`
+- [2.37.1] Bug fix in `model._simpleLookup()` to return `null` if query string is not right
+- [2.37.1] Bug fix in `model.sanitizeFixture()` to not sanitize value that is `null` or `undefined`
+
 ## 2026-08-06
 
 - [2.37.0] Update `memory.connect()` to use the new `app.lib.setInterval()`
