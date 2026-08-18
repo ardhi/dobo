@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-08-18
+
+- [2.38.0] Change `createAggregate()` to `aggregate()`
+- [2.38.0] Change `createHistogram()` to `histogram()`
+
 ## 2026-08-13
 
 - [2.37.1] Bug fix in `adapter.js` to pass options when calling `getRecord()`

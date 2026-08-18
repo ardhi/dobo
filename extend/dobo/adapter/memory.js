@@ -149,13 +149,13 @@ async function memoryAdapterFactory () {
       return { data }
     }
 
-    async createAggregate (model, filter = {}, params = {}, options = {}) {
+    async aggregate (model, filter = {}, params = {}, options = {}) {
       const item = await this.findAllRecord(model, filter, options)
       const result = this.app.dobo.calcAggregate({ data: item.data, ...params })
       return { data: result }
     }
 
-    async createHistogram (model, filter = {}, params = {}, options = {}) {
+    async histogram (model, filter = {}, params = {}, options = {}) {
       const item = await this.findAllRecord(model, filter, options)
       const result = this.app.dobo.calcHistogram({ data: item.data, ...params })
       return { data: result }

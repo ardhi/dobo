@@ -1,6 +1,6 @@
 import postProcess from './lib/post-process.js'
 
-async function createHistogram (path, ...args) {
+async function aggregate (path, ...args) {
   const { importPkg } = this.app.bajo
   const { isEmpty, map } = this.app.lib._
   const { parseKvString } = this.app.lib.aneka
@@ -26,8 +26,8 @@ async function createHistogram (path, ...args) {
     })
   }
   params = isEmpty(params) ? {} : parseKvString(params)
-  await postProcess.call(this, { noConfirmation: true, handler: 'createHistogram', params: [model, filter, params, options], path, processMsg: 'Create histogram' })
+  await postProcess.call(this, { noConfirmation: true, handler: 'aggregate', params: [model, filter, params, options], path, processMsg: 'Create aggregate' })
   this.app.exit()
 }
 
-export default createHistogram
+export default aggregate
