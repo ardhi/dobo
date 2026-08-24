@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-08-24
+
+- [2.39.0] Now use the new `app.lib.startInterval()`
+
 ## 2026-08-18
 
 - [2.38.0] Change `createAggregate()` to `aggregate()`

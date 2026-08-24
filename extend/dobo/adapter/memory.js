@@ -28,7 +28,7 @@ async function memoryAdapterFactory () {
     async connect (connection, noRebuild) {
       const conn = this.plugin.getConnection('memory')
       const { fs } = this.app.lib
-      const { setInterval } = this.app.lib
+      const { startInterval } = this.app.lib
       const dir = `${this.app.getPluginDataDir(this.plugin.ns)}/memDb/data` // persistence dir
       fs.ensureDirSync(dir)
       conn.persistences = conn.persistences ?? []
@@ -52,7 +52,7 @@ async function memoryAdapterFactory () {
           else this.storage[model.name] = data
         } else await model.loadFixtures({ ignoreError: false })
       }
-      async function handler () {
+      const handler = async () => {
         if (!this.saving) return
         this.saving = true
         for (const model of models) {
@@ -64,7 +64,7 @@ async function memoryAdapterFactory () {
         this.saving = false
       }
 
-      await setInterval(handler, this.plugin.config.memDb.persistenceDur, { lockFile: 'memDbPersistence', scope: this })
+      startInterval(handler, this.plugin.config.memDb.persistenceDur, 'memDbPersistence')
     }
 
     async _getOldRecord (model, id, options = {}) {
