@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-09-06
+
+- [2.39.1] Bug fix in `helper.getRefs()`
+
 ## 2026-08-24
 
 - [2.39.0] Now use the new `app.lib.startInterval()`
