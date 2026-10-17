@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-10-17
+
+- [2.39.2] Bug fix in `helper.getRefs()`
+
 ## 2026-09-06
 
 - [2.39.1] Bug fix in `helper.getRefs()`
