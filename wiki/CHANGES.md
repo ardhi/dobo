@@ -1,5 +1,11 @@
 # Changes
 
+
+## 2026-10-21
+
+- [2.40.0] Add `helper.getAttachments()`
+- [2.40.0] Auto attach `_attachments` if `options.attachments` is true
+
 ## 2026-10-17
 
 - [2.39.2] Bug fix in `helper.getRefs()`
