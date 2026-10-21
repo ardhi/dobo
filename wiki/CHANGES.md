@@ -5,6 +5,7 @@
 
 - [2.40.0] Add `helper.getAttachments()`
 - [2.40.0] Auto attach `_attachments` if `options.attachments` is true
+- [2.40.1] Bug fix on returned `_attachments`
 
 ## 2026-10-17
 
