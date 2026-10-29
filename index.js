@@ -495,7 +495,8 @@ async function factory (pkgName) {
       if (isString(aggregates)) aggregates = [aggregates]
       params.aggregates = aggregates
       if (isEmpty(group)) throw this.error('fieldGroupMissing')
-      if (isEmpty(field)) throw this.error('fieldCalcMissing')
+      // if (isEmpty(field)) throw this.error('fieldCalcMissing')
+      if (isEmpty(field)) params.field = params.group
       for (const agg of aggregates) {
         if (!this.constructor.aggregateTypes.includes(agg)) throw this.error('unsupportedAggregateType%s', agg)
       }

@@ -1,5 +1,8 @@
 # Changes
 
+## 2026-10-29
+
+- [2.40.2] Bug fix in `checkAggregateParams()`
 
 ## 2026-10-21
 
