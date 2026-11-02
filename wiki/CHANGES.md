@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-02
+
+- [2.41.0] Add some language
+
 ## 2026-10-29
 
 - [2.40.2] Bug fix in `checkAggregateParams()`

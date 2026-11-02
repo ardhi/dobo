@@ -151,6 +151,17 @@
   "sanitizeBodyError": "Kesalahan saat sanitasi body",
   "virtualFieldIn%s%s%s": "Kolom virtual '%s' tidak bisa digunakan di '%s' pada %s",
   "noFunctionAllowed%s%s": "Gunakan nama handler, bukan fungsi di '%s.%s'",
+  "statistic": "Statistik",
+  "stat": {
+    "count": "Jumlah",
+    "min": "Minimum",
+    "avg": "Rata-rata",
+    "max": "Maksimum",
+    "sum": "Nilai Total",
+    "daily": "Harian",
+    "monthly": "Bulanan",
+    "yearly": "Tahunan"
+  },
   "field": {
     "id": "ID",
     "code": "Kode",

@@ -152,6 +152,17 @@
   "sanitizeBodyError": "Error sanitizing body",
   "virtualFieldIn%s%s%s": "Virtual field '%s' can't be used in '%s' on %s",
   "noFunctionAllowed%s%s": "Use name handler instead of function in '%s.%s'",
+  "statistic": "Statistic",
+  "stat": {
+    "count": "Count",
+    "min": "Minimum",
+    "avg": "Average",
+    "max": "Maximum",
+    "sum": "Sum",
+    "daily": "Daily",
+    "monthly": "Monthly",
+    "yearly": "Yearly"
+  },
   "field": {
     "id": "ID",
     "code": "Kode",
