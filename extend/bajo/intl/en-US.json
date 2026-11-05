@@ -159,9 +159,16 @@
     "avg": "Average",
     "max": "Maximum",
     "sum": "Sum",
+    "secondly": "Secondly",
+    "minutely": "Minutely",
+    "hourly": "Hourly",
     "daily": "Daily",
     "monthly": "Monthly",
-    "yearly": "Yearly"
+    "yearly": "Yearly",
+    "bar": "Bar",
+    "line": "Line",
+    "lineSmooth": "Smooth Line",
+    "pie": "Pie"
   },
   "field": {
     "id": "ID",

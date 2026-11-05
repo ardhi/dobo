@@ -158,9 +158,16 @@
     "avg": "Rata-rata",
     "max": "Maksimum",
     "sum": "Nilai Total",
+    "secondly": "Per Detik",
+    "minutely": "Per Menit",
+    "hourly": "Per Jam",
     "daily": "Harian",
     "monthly": "Bulanan",
-    "yearly": "Tahunan"
+    "yearly": "Tahunan",
+    "bar": "Batang",
+    "line": "Garis",
+    "lineSmooth": "Garis Halus",
+    "pie": "Lingkaran"
   },
   "field": {
     "id": "ID",

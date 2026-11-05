@@ -1,8 +1,12 @@
 # Changes
 
+## 2026-11-05
+
+- [2.42.0] Add some languages
+
 ## 2026-11-02
 
-- [2.41.0] Add some language
+- [2.41.0] Add some languages
 
 ## 2026-10-29
 
