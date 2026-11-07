@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-07
+
+- [2.43.0] Add `strict` to the `propertyTypes`
+- [2.43.0] Array property only checked of its item validities when `strict` is true (default)
+
 ## 2026-11-05
 
 - [2.42.0] Add some languages
