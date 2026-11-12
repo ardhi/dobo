@@ -3,6 +3,7 @@
 ## 2026-11-12
 
 - [2.43.1] Bug fix in `helper.getRefs()`
+- [2.43.2] Bug fix in `helper.buildFilterQuery()`
 
 ## 2026-11-07
 
