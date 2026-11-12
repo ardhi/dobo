@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-12
+
+- [2.43.1] Bug fix in `helper.getRefs()`
+
 ## 2026-11-07
 
 - [2.43.0] Add `strict` to the `propertyTypes`
