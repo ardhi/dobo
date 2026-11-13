@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-13
+
+- [2.43.3] Bug fix in `helper.collectModels()`
+
 ## 2026-11-12
 
 - [2.43.1] Bug fix in `helper.getRefs()`
