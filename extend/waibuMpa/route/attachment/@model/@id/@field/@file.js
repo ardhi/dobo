@@ -15,8 +15,8 @@ async function attachment (req, reply) {
   const { createThumbnail } = this.app.bajoExtra ?? {}
   const { fs } = this.app.lib
   const mdl = this.app.dobo.getModel(req.params.model)
-  const type = req.query.type
-  const items = (await mdl.listAttachments({ id: req.params.id, field: req.params.field, file: '*', type })) ?? []
+  const types = req.query.type
+  const items = (await mdl.listAttachments({ id: req.params.id, field: req.params.field, file: '*', types })) ?? []
   let item
   if (req.params.file === '_first') item = items[0]
   else if (req.params.file === '_last') item = last(items)

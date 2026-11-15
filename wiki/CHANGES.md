@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-15
+
+- [2.44.0] Add feature on `model.listAttachment()`
+- [2.44.0] Bug fix in `@field/@file.js` route
+
 ## 2026-11-13
 
 - [2.43.3] Bug fix in `helper.collectModels()`
