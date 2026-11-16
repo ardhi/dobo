@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-16
+
+- [2.45.0] Add support for online video (*.olv) for attachment
+
 ## 2026-11-15
 
 - [2.44.0] Add feature on `model.listAttachment()`
