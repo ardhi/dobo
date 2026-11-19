@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-20
+
+- [2.46.0] Add new helper `formatAttachment()`
+- [2.46.0] Apply `listAttachment()` & `findAttachment()` with this new helper
+
 ## 2026-11-16
 
 - [2.45.0] Add support for online video (*.olv) for attachment
