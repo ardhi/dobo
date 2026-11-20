@@ -34,13 +34,13 @@ async function attachment (req, reply) {
     const dir = path.dirname(item.file)
     const ext = path.extname(item.file)
     const base = path.basename(item.file, ext)
-    const dest = `${dir}/_tn/${base}-${req.query.thumbnail}.png`
+    const dest = `${dir}/_tn/${req.query.thumbnail}-${base}.png`
     if (createThumbnail && !fs.existsSync(dest)) {
       const opts = {
         dir: `${dir}/_tn`,
-        size: req.query.thumbnail,
+        sizes: req.query.thumbnail,
         silent: true,
-        format: '.png'
+        formats: ['png']
       }
       await createThumbnail(item.file, opts)
     }
