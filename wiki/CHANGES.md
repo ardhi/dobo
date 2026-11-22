@@ -6,6 +6,7 @@
 - [2.46.0] Apply `listAttachment()` & `findAttachment()` with this new helper
 - [2.47.0] Update attachment handling to support the new `options.attachment` structure
 - [2.47.0] Remove `getAttachment()` because it is redundant
+- [2.47.1] Bug fix in `model.listAttachment()`
 
 ## 2026-11-16
 
