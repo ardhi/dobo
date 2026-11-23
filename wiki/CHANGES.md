@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-23
+
+- [2.47.2] Bug fix in `model.sanitizeProp()`
+
 ## 2026-11-20
 
 - [2.46.0] Add new helper `formatAttachment()`
