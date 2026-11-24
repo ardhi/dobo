@@ -1,5 +1,9 @@
 # Changes
 
+## 2026-11-25
+
+- [2.47.3] Bug fix in `parseNql()`
+
 ## 2026-11-23
 
 - [2.47.2] Bug fix in `model.sanitizeProp()`

@@ -83,6 +83,7 @@ const propertyType = {
 }
 
 const commonPropertyTypes = ['name', 'type', 'required', 'rules', 'validator', 'ref', 'default', 'values', 'rulesMsg', 'immutable', 'feature', 'format', 'getValue', 'virtual', 'strict']
+const nqlTokens = ['[', '~', '^', '$', '-']
 
 /**
  * Plugin factory
@@ -542,17 +543,34 @@ async function factory (pkgName) {
       }
     }
 
-    parseNql = (text) => {
+    parseNql = (text, model) => {
       const sanitized = text.split('+').map(item => {
         const [key, ...rest] = item.split(':').map(i => i.trim())
         let value = rest.join(':')
+        const isStr = model && model.properties.find(p => p.name === key && ['string', 'text'].includes(p.type))
         const neg = value[1] === '-' ? '-' : ''
-        if ((value[0] === '{' || value[1] === '{') && value[value.length - 1] === '}') {
-          if (value[0] === '-') value = value.slice(1)
-          const items = value.slice(1, -1).split(',')
-          value = `${neg}>=${items[0]}+${key}:${neg}<=${items[1]}`
+        if (neg === '-') value = value.slice(1)
+        let op = ''
+        while (nqlTokens.includes(value[0])) {
+          op += value[0]
+          value = value.slice(1)
         }
-        return `${key}:${value}`
+        if (value[0] === '{' && value[value.length - 1] === '}') {
+          const items = value.slice(1, -1).split(',').map(i => {
+            if (!isStr) return i
+            if (i[0] === "'") i = i.slice(1)
+            if (i[i.length - 1] === "'") i = i.slice(0, -1)
+            return `'${i}'`
+          })
+          const between = `${neg}>=${items[0]}+${key}:${neg}<=${items[1]}`
+          return `${key}:${between}`
+        }
+        if (isStr) {
+          if (value[0] === "'") value = value.slice(1)
+          if (value[value.length - 1] === "'") value = value.slice(0, -1)
+          return `${key}:${neg}${op}'${value}'`
+        }
+        return `${key}:${neg}${value}`
       }).join('+')
       return nql(sanitized).parse()
     }
@@ -572,8 +590,8 @@ async function factory (pkgName) {
         if (query[query.length - 1] === '*') return `${f}:~^'${query.replaceAll('*', '')}'`
         return `${f}:~'${query.replaceAll('*', '')}'`
       })
-      if (parts.length === 1) q = this.parseNql(parts[0])
-      else if (parts.length > 1) q = this.parseNql(parts.join(','))
+      if (parts.length === 1) q = this.parseNql(parts[0], model)
+      else if (parts.length > 1) q = this.parseNql(parts.join(','), model)
       if (isEmpty(q)) throw this.error('invalidQuery')
       return q
     }
@@ -587,7 +605,7 @@ async function factory (pkgName) {
         if (isEmpty(query)) return result
         try {
           if (query.startsWith('{')) result = JSON.parse(query)
-          else if (query.includes(':')) result = this.parseNql(query)
+          else if (query.includes(':')) result = this.parseNql(query, model)
           else result = this.parseAny(query, model)
         } catch (err) {
           if (silent) return {}
