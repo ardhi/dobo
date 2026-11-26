@@ -1,5 +1,10 @@
 # Changes
 
+## 2026-11-26
+
+- [2.47.4] Bug fix in `model.sanitizeRecord()`
+- [2.47.3] Bug fix in `parseNql()`
+
 ## 2026-11-25
 
 - [2.47.3] Bug fix in `parseNql()`
